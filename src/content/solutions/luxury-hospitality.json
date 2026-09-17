@@ -2,7 +2,7 @@
   "label": "Boutique Spas & Hospitality",
   "order": 4,
   "heroHeading": "Elevate your guest experience with premium wellness amenities",
-  "heroImage": "/images/solutions/luxury-hospitality.webp",
+  "heroImage": "/images/solutions/luxury-hospitality.jpg",
   "seoTitle": "Luxury Hotel & Spa Wellness Integration",
   "seoDescription": "Premium wellness amenities for boutique hotels & luxury spas. HBOT, red light, infrared sauna & cold therapy with proven guest satisfaction ROI.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "Create unforgettable wellness experiences",
       "body": "OneBase lets you offer world-class recovery modalities, from HBOT chambers to infrared saunas and red light therapy, that create lasting impressions, drive repeat bookings and generate word-of-mouth.",
-      "image": "/images/solutions/luxury-hospitality-1.webp"
+      "image": "/images/solutions/luxury-hospitality.jpg"
     },
     {
       "title": "Turn under-utilised space into recurring revenue",
       "body": "Transform under-used spaces into high-revenue wellness areas. Our products need minimal maintenance while commanding premium pricing for spa services and wellness packages.",
-      "image": "/images/solutions/luxury-hospitality-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [

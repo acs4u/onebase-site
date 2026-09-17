@@ -2,7 +2,7 @@
   "label": "High-end Real Estate",
   "order": 6,
   "heroHeading": "Elevate properties with premium wellness amenities that sell",
-  "heroImage": "/images/solutions/high-end-real-estate.webp",
+  "heroImage": "/images/solutions/high-end-real-estate.jpg",
   "seoTitle": "High-End Real Estate Wellness Amenities",
   "seoDescription": "Premium wellness installations for luxury developments. Differentiate properties with commercial-grade HBOT, sauna & cold therapy amenities.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "The amenity luxury buyers demand",
       "body": "Modern luxury buyers expect wellness-integrated living. OneBase lets developers offer cold therapy, infrared saunas, red light and hyperbaric oxygen therapy: the amenities that move units faster and command higher prices.",
-      "image": "/images/solutions/high-end-real-estate-1.webp"
+      "image": "/images/solutions/high-end-real-estate.jpg"
     },
     {
       "title": "Seamless integration into any design vision",
       "body": "Whether it's a penthouse spa, a community wellness centre or private villa amenities, OneBase products are designed with architectural flexibility in mind.",
-      "image": "/images/solutions/high-end-real-estate-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [

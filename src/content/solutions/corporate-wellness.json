@@ -2,7 +2,7 @@
   "label": "Corporate Wellness",
   "order": 5,
   "heroHeading": "Empower your employees with advanced recovery and wellness tools",
-  "heroImage": "/images/solutions/corporate-wellness.webp",
+  "heroImage": "/images/solutions/corporate-wellness.jpg",
   "seoTitle": "Corporate Wellness & Employee Performance",
   "seoDescription": "Executive wellness rooms & employee recovery programs. Commercial-grade HBOT, sauna & cold therapy with measurable ROI.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "A wellness perk that actually moves the needle",
       "body": "Attract and retain top talent with amenities that go beyond the standard gym membership. OneBase recovery solutions are the premium perk employees talk about.",
-      "image": "/images/solutions/corporate-wellness-1.webp"
+      "image": "/images/solutions/corporate-wellness.jpg"
     },
     {
       "title": "Measurable ROI for your wellness investment",
       "body": "Track usage, engagement and outcomes with the OneBase platform and demonstrate clear ROI to leadership.",
-      "image": "/images/solutions/corporate-wellness-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [

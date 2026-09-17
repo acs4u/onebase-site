@@ -2,7 +2,7 @@
   "label": "Fitness Centers & Gyms",
   "order": 2,
   "heroHeading": "Add recovery technology that keeps members coming back",
-  "heroImage": "/images/solutions/fitness-centers.webp",
+  "heroImage": "/images/solutions/fitness-centers.jpg",
   "seoTitle": "Gym & Fitness Club Recovery Systems",
   "seoDescription": "Member retention recovery zones for gyms & fitness clubs. Commercial IceVault, sauna and red light systems that drive recurring revenue.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "Turn your gym into a recovery destination",
       "body": "Members today expect more than weights and cardio. OneBase saunas, IceVaults and red light beds let you offer the premium recovery experience boutique studios charge a fortune for, right on your gym floor.",
-      "image": "/images/solutions/fitness-centers-1.webp"
+      "image": "/images/solutions/fitness-centers.jpg"
     },
     {
       "title": "A new revenue stream with built-in demand",
       "body": "Offer recovery as a premium add-on or tiered membership upgrade. Facilities using OneBase report higher average revenue per member and reduced churn within the first 90 days of launch.",
-      "image": "/images/solutions/fitness-centers-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [

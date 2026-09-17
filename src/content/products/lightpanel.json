@@ -6,37 +6,102 @@
   "tagline": "Modular red and near-infrared panels. One, two or four.",
   "description": "The OneBase LightPanel is targeted red light therapy that scales. High-density 660 nm red and 850 nm near-infrared LEDs in a heat-managed chassis, with a touch interface for intensity and timer. Start with a Solo, stack to a Duo or Quad on a stand that runs horizontal or vertical for whole-body sessions.",
   "sizes": [
-    { "id": "solo", "label": "Solo", "note": "Single panel · 220 × 65 × 920 mm" },
-    { "id": "duo", "label": "Duo", "note": "Two-panel set on stand · 800 × 65 × 1840 mm" },
-    { "id": "quad", "label": "Quad", "note": "Four-panel system on stand · 800 × 700 × 1840 mm" }
+    {
+      "id": "solo",
+      "label": "Solo",
+      "note": "Single panel · 220 × 65 × 920 mm"
+    },
+    {
+      "id": "duo",
+      "label": "Duo",
+      "note": "Two-panel set on stand · 800 × 65 × 1840 mm"
+    },
+    {
+      "id": "quad",
+      "label": "Quad",
+      "note": "Four-panel system on stand · 800 × 700 × 1840 mm"
+    }
   ],
-  "colours": ["Black", "White"],
+  "colours": [
+    "Black",
+    "White"
+  ],
   "pressures": [],
   "highlights": [
-    { "title": "Dual-spectrum coverage", "body": "Precision-calibrated 660 nm red and 850 nm near-infrared for topical skin rejuvenation and deep-tissue recovery." },
-    { "title": "High irradiance, managed heat", "body": "Robust chassis with integrated cooling sinks prevents overheating across extended sessions." },
-    { "title": "Touch control", "body": "Granular control over intensity and session duration; control from the panel or the OneBase app." },
-    { "title": "Low EMF, energy efficient", "body": "Safe for frequent use with a low operating cost." },
-    { "title": "Modular and portable", "body": "Compact panels with mounting options and adjustable stands for multi-panel sets." }
+    {
+      "title": "Dual-spectrum coverage",
+      "body": "Precision-calibrated 660 nm red and 850 nm near-infrared for topical skin rejuvenation and deep-tissue recovery."
+    },
+    {
+      "title": "High irradiance, managed heat",
+      "body": "Robust chassis with integrated cooling sinks prevents overheating across extended sessions."
+    },
+    {
+      "title": "Touch control",
+      "body": "Granular control over intensity and session duration; control from the panel or the OneBase app."
+    },
+    {
+      "title": "Low EMF, energy efficient",
+      "body": "Safe for frequent use with a low operating cost."
+    },
+    {
+      "title": "Modular and portable",
+      "body": "Compact panels with mounting options and adjustable stands for multi-panel sets."
+    }
   ],
   "specs": [
-    { "label": "LightPanel Solo", "value": "220 × 65 × 920 mm (8.7\" × 2.6\" × 36\") · 9.8 kg (22 lb)" },
-    { "label": "LightPanel Duo", "value": "800 × 65 × 1840 mm (31.5\" × 2.6\" × 72.4\") · 20 kg" },
-    { "label": "LightPanel Quad", "value": "800 × 700 × 1840 mm (31.5\" × 27.6\" × 72.4\") · 61.2 kg (135 lb)" },
-    { "label": "Wavelengths", "value": "630–660 nm red · 810–850 nm near-infrared" },
-    { "label": "Eye protection", "value": "Included; dedicated eye-protection protocols" }
+    {
+      "label": "LightPanel Solo",
+      "value": "220 × 65 × 920 mm (8.7\" × 2.6\" × 36\") · 9.8 kg (22 lb)"
+    },
+    {
+      "label": "LightPanel Duo",
+      "value": "800 × 65 × 1840 mm (31.5\" × 2.6\" × 72.4\") · 20 kg"
+    },
+    {
+      "label": "LightPanel Quad",
+      "value": "800 × 700 × 1840 mm (31.5\" × 27.6\" × 72.4\") · 61.2 kg (135 lb)"
+    },
+    {
+      "label": "Wavelengths",
+      "value": "630–660 nm red · 810–850 nm near-infrared"
+    },
+    {
+      "label": "Eye protection",
+      "value": "Included; dedicated eye-protection protocols"
+    }
   ],
   "electrical": [
-    { "label": "Solo", "value": "100–240 V · 380 W" },
-    { "label": "Duo", "value": "100–240 V · 404 W" },
-    { "label": "Quad", "value": "100–240 V · 1520 W" }
+    {
+      "label": "Solo",
+      "value": "100–240 V · 380 W"
+    },
+    {
+      "label": "Duo",
+      "value": "100–240 V · 404 W"
+    },
+    {
+      "label": "Quad",
+      "value": "100–240 V · 1520 W"
+    }
   ],
   "certifications": [],
   "faqs": [
-    { "q": "Can the panels be mounted?", "a": "Yes. Solo panels have mounting options; Duo and Quad sets ship with an adjustable stand that can be configured horizontally or vertically." }
+    {
+      "q": "Can the panels be mounted?",
+      "a": "Yes. Solo panels have mounting options; Duo and Quad sets ship with an adjustable stand that can be configured horizontally or vertically."
+    }
   ],
-  "images": [{ "src": "/images/products/lightpanel-quad.png", "alt": "OneBase LightPanel Quad" }],
-  "channels": { "direct": true, "precor": true },
+  "images": [
+    {
+      "src": "/images/products/lightpanel-quad.jpg",
+      "alt": "OneBase LightPanel Quad"
+    }
+  ],
+  "channels": {
+    "direct": true,
+    "precor": true
+  },
   "seoTitle": "OneBase LightPanel — Modular Red Light Therapy Panels",
   "seoDescription": "High-density 660/850 nm red and near-infrared panels. Solo, Duo and Quad configurations with touch control and app connectivity."
 }

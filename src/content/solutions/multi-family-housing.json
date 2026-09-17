@@ -2,7 +2,7 @@
   "label": "Multi-Family Housing",
   "order": 7,
   "heroHeading": "Premium amenities and therapies that elevate multi-family living",
-  "heroImage": "/images/solutions/multi-family-housing.webp",
+  "heroImage": "/images/solutions/multi-family-housing.jpg",
   "seoTitle": "Multi-Family Housing Wellness Amenities",
   "seoDescription": "Resident wellness amenities for multi-family developments. Boost occupancy & retention with commercial recovery equipment & smart software.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "The amenity that sets your property apart",
       "body": "In a crowded rental market, a premium sauna lounge drives tours, accelerates lease-ups and keeps residents renewing.",
-      "image": "/images/solutions/multi-family-housing-1.webp"
+      "image": "/images/solutions/multi-family-housing.jpg"
     },
     {
       "title": "Low maintenance, high impact for property managers",
       "body": "Smart monitoring, self-cleaning technology and durable construction mean fewer service calls and more resident satisfaction.",
-      "image": "/images/solutions/multi-family-housing-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [

@@ -2,7 +2,7 @@
   "label": "Military & First Responders",
   "order": 8,
   "heroHeading": "Equip your teams with elite recovery solutions for peak readiness",
-  "heroImage": "/images/solutions/military-first-responders.webp",
+  "heroImage": "/images/solutions/military-first-responders.jpg",
   "seoTitle": "Military & First Responder Recovery",
   "seoDescription": "Tactical recovery equipment for military installations & first responder facilities. Commercial-grade HBOT, cold therapy & red light built for durability.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "Support resilience and readiness",
       "body": "Military personnel and first responders face extreme physical and mental demands. OneBase recovery solutions help reduce injury rates, accelerate recovery from training and support overall resilience.",
-      "image": "/images/solutions/military-first-responders-1.webp"
+      "image": "/images/solutions/military-first-responders.jpg"
     },
     {
       "title": "Proven in high-demand environments",
       "body": "Our products are deployed across military installations and fire stations. Smart monitoring and minimal maintenance fit existing wellness programs.",
-      "image": "/images/solutions/military-first-responders-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [

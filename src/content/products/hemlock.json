@@ -5,35 +5,96 @@
   "order": 2,
   "tagline": "Four-person full-spectrum infrared sauna in sustainable Hemlock.",
   "description": "The OneBase Hemlock Quad is the light-filled sauna. Smooth-grained, hypoallergenic Hemlock gives a clean contemporary look that suits a modern spa or high-end residence, while the same low-EMF full-spectrum infrared system delivers restorative 135–149°F sessions for four people.",
-  "sizes": [{ "id": "quad", "label": "Quad", "note": "4 people · 83\" × 52\"" }],
-  "colours": ["Hemlock"],
+  "sizes": [
+    {
+      "id": "quad",
+      "label": "Quad",
+      "note": "4 people · 83\" × 52\""
+    }
+  ],
+  "colours": [
+    "Hemlock"
+  ],
   "pressures": [],
   "highlights": [
-    { "title": "Premium Hemlock craftsmanship", "body": "Selected for durability and resistance to warping. A clean, contemporary aesthetic that keeps its integrity under frequent multi-user sessions." },
-    { "title": "Capacity-optimised layout", "body": "Designed for four, with internal volume maximised for group sessions in social wellness settings." },
-    { "title": "Full-spectrum emission", "body": "Six full-spectrum heaters and four mica heaters deliver near, mid and far infrared for muscle repair and systemic relaxation." },
-    { "title": "Commercial-grade resilience", "body": "Heavy-duty tempered glass and reinforced hardware for longevity and easy sanitation." },
-    { "title": "Simple control", "body": "Intuitive interface and an energy-efficient design for commercial facilities and private residences alike." }
+    {
+      "title": "Premium Hemlock craftsmanship",
+      "body": "Selected for durability and resistance to warping. A clean, contemporary aesthetic that keeps its integrity under frequent multi-user sessions."
+    },
+    {
+      "title": "Capacity-optimised layout",
+      "body": "Designed for four, with internal volume maximised for group sessions in social wellness settings."
+    },
+    {
+      "title": "Full-spectrum emission",
+      "body": "Six full-spectrum heaters and four mica heaters deliver near, mid and far infrared for muscle repair and systemic relaxation."
+    },
+    {
+      "title": "Commercial-grade resilience",
+      "body": "Heavy-duty tempered glass and reinforced hardware for longevity and easy sanitation."
+    },
+    {
+      "title": "Simple control",
+      "body": "Intuitive interface and an energy-efficient design for commercial facilities and private residences alike."
+    }
   ],
   "specs": [
-    { "label": "Hemlock Quad (4-person)", "value": "W 83\" × D 52\" × H 75\" (2100 × 1300 × 1900 mm)" },
-    { "label": "Heaters", "value": "6 × full-spectrum · 4 × mica" },
-    { "label": "Operating temperature", "value": "135–149°F (57–65°C)" },
-    { "label": "Exterior", "value": "Sustainable Hemlock" }
+    {
+      "label": "Hemlock Quad (4-person)",
+      "value": "W 83\" × D 52\" × H 75\" (2100 × 1300 × 1900 mm)"
+    },
+    {
+      "label": "Heaters",
+      "value": "6 × full-spectrum · 4 × mica"
+    },
+    {
+      "label": "Operating temperature",
+      "value": "135–149°F (57–65°C)"
+    },
+    {
+      "label": "Exterior",
+      "value": "Sustainable Hemlock"
+    }
   ],
   "electrical": [
-    { "label": "Power", "value": "3000 W total" },
-    { "label": "Supply", "value": "220/240 V single-phase · min. 15 A breaker (>15 A recommended to avoid nuisance tripping)" },
-    { "label": "110/120 V regions", "value": "Ask an electrician about wiring to 208 V · min. 15 A (>18 A recommended)" }
+    {
+      "label": "Power",
+      "value": "3000 W total"
+    },
+    {
+      "label": "Supply",
+      "value": "220/240 V single-phase · min. 15 A breaker (>15 A recommended to avoid nuisance tripping)"
+    },
+    {
+      "label": "110/120 V regions",
+      "value": "Ask an electrician about wiring to 208 V · min. 15 A (>18 A recommended)"
+    }
   ],
   "certifications": [],
   "faqs": [
-    { "q": "What is an infrared sauna?", "a": "Infrared panels heat your body directly rather than the surrounding air, giving a sauna experience at a more comfortable air temperature." },
-    { "q": "What makes the OneBase Hemlock different?", "a": "Commercial-grade build, durable Hemlock, smart controls and a plug-and-play design that handles high-traffic spa use yet suits a home." },
-    { "q": "Do infrared saunas require special installation?", "a": "No. The sauna is modular and easy to install for commercial upgrades or home wellness rooms." }
+    {
+      "q": "What is an infrared sauna?",
+      "a": "Infrared panels heat your body directly rather than the surrounding air, giving a sauna experience at a more comfortable air temperature."
+    },
+    {
+      "q": "What makes the OneBase Hemlock different?",
+      "a": "Commercial-grade build, durable Hemlock, smart controls and a plug-and-play design that handles high-traffic spa use yet suits a home."
+    },
+    {
+      "q": "Do infrared saunas require special installation?",
+      "a": "No. The sauna is modular and easy to install for commercial upgrades or home wellness rooms."
+    }
   ],
-  "images": [{ "src": "/images/products/hemlock-quad.png", "alt": "OneBase Hemlock Quad infrared sauna" }],
-  "channels": { "direct": true, "precor": true },
+  "images": [
+    {
+      "src": "/images/products/hemlock.jpg",
+      "alt": "OneBase Hemlock Quad infrared sauna"
+    }
+  ],
+  "channels": {
+    "direct": true,
+    "precor": true
+  },
   "fromPriceUSD": 7899,
   "seoTitle": "OneBase Hemlock Quad — Commercial Infrared Sauna",
   "seoDescription": "Sustainable Hemlock four-person full-spectrum infrared sauna, 135–149°F, 3000 W. For health clubs, spas and residences."

@@ -6,39 +6,101 @@
   "tagline": "Sit-up soft-shell hyperbaric chamber, up to 1.5 ATA.",
   "description": "The OneBase AirFit is the most flexible chamber in the range: sit up to read or work, or lie back and recover. Adjustable pressure up to 1.5 ATA, a compact footprint, and an internal frame that keeps the chamber's shape between sessions.",
   "sizes": [
-    { "id": "mini", "label": "Mini", "note": "Compact — for apartments and smaller rooms. 170 cm long." },
-    { "id": "plus", "label": "Plus", "note": "Room to sit up or lie flat. 220 cm long." }
+    {
+      "id": "mini",
+      "label": "Mini",
+      "note": "Compact — for apartments and smaller rooms. 170 cm long."
+    },
+    {
+      "id": "plus",
+      "label": "Plus",
+      "note": "Room to sit up or lie flat. 220 cm long."
+    }
   ],
-  "colours": ["Matte Black", "Matte White"],
-  "pressures": ["1.3 ATA", "1.4 ATA", "1.5 ATA"],
+  "colours": [
+    "Matte Black",
+    "Matte White"
+  ],
+  "pressures": [
+    "1.3 ATA",
+    "1.4 ATA",
+    "1.5 ATA"
+  ],
   "highlights": [
-    { "title": "Built to last", "body": "Triple-zip closure and a protective outer cover, with an internal metal frame that holds the chamber's structure even when deflated." },
-    { "title": "See out, breathe easy", "body": "Four transparent viewing windows, a recline seat and mattress, and an internal pressure gauge so you always know where you are in the session." },
-    { "title": "Clean air, fast exit", "body": "Oil-free compressor filters air to 0.001 microns. A rapid-response emergency depressurisation valve is always within reach." },
-    { "title": "Oxygen on demand", "body": "Optional oxygen delivery under pressure via face mask or nasal cannula." }
+    {
+      "title": "Built to last",
+      "body": "Triple-zip closure and a protective outer cover, with an internal metal frame that holds the chamber's structure even when deflated."
+    },
+    {
+      "title": "See out, breathe easy",
+      "body": "Four transparent viewing windows, a recline seat and mattress, and an internal pressure gauge so you always know where you are in the session."
+    },
+    {
+      "title": "Clean air, fast exit",
+      "body": "Oil-free compressor filters air to 0.001 microns. A rapid-response emergency depressurisation valve is always within reach."
+    },
+    {
+      "title": "Oxygen on demand",
+      "body": "Optional oxygen delivery under pressure via face mask or nasal cannula."
+    }
   ],
   "specs": [
-    { "label": "AirFit Mini", "value": "Height 43\" (110 cm) · Width 27.5\" (70 cm) · Length 67\" (170 cm)" },
-    { "label": "AirFit Plus", "value": "Height 43\" (110 cm) · Width 27.5\" (70 cm) · Length 86.5\" (220 cm)" },
-    { "label": "SUB (O₂ concentrator + compressor)", "value": "23\" × 17\" × 22\" (58 × 42 × 56 cm) · 176 lb (80 kg)" },
-    { "label": "Air conditioner", "value": "16.5\" × 16.5\" × 24\" (42 × 42 × 61 cm) · 57.5 lb (26.1 kg)" },
-    { "label": "Colours", "value": "Matte Black, Matte White" }
+    {
+      "label": "AirFit Mini",
+      "value": "Height 43\" (110 cm) · Width 27.5\" (70 cm) · Length 67\" (170 cm)"
+    },
+    {
+      "label": "AirFit Plus",
+      "value": "Height 43\" (110 cm) · Width 27.5\" (70 cm) · Length 86.5\" (220 cm)"
+    },
+    {
+      "label": "SUB (O₂ concentrator + compressor)",
+      "value": "23\" × 17\" × 22\" (58 × 42 × 56 cm) · 176 lb (80 kg)"
+    },
+    {
+      "label": "Air conditioner",
+      "value": "16.5\" × 16.5\" × 24\" (42 × 42 × 61 cm) · 57.5 lb (26.1 kg)"
+    },
+    {
+      "label": "Colours",
+      "value": "Matte Black, Matte White"
+    }
   ],
   "electrical": [
-    { "label": "SUB unit", "value": "1400 W · 110–120 V (13 A) or 220–240 V (6.5 A) · 1 standard wall plug" },
-    { "label": "AC unit", "value": "300 W · 110–120 V (3 A) or 220–240 V (1.5 A) · 1 standard wall plug" },
-    { "label": "Note", "value": "Check that circuits have sufficient capacity to avoid overloading." }
+    {
+      "label": "SUB unit",
+      "value": "1400 W · 110–120 V (13 A) or 220–240 V (6.5 A) · 1 standard wall plug"
+    },
+    {
+      "label": "AC unit",
+      "value": "300 W · 110–120 V (3 A) or 220–240 V (1.5 A) · 1 standard wall plug"
+    },
+    {
+      "label": "Note",
+      "value": "Check that circuits have sufficient capacity to avoid overloading."
+    }
   ],
   "certifications": [],
   "faqs": [
-    { "q": "Are all hyperbaric chambers the same?", "a": "No. The main differences are pressure, size and construction material. Soft-shell chambers typically run 1.3–1.5 ATA; hard-shell chambers reach around 2.0 ATA." },
-    { "q": "How often should I do HBOT?", "a": "Most clients see the best results on a protocol of five sessions per week. For maintenance or targeted goals such as recovery or mental clarity, the OneBase app tells you when and for how long." }
+    {
+      "q": "Are all hyperbaric chambers the same?",
+      "a": "No. The main differences are pressure, size and construction material. Soft-shell chambers typically run 1.3–1.5 ATA; hard-shell chambers reach around 2.0 ATA."
+    },
+    {
+      "q": "How often should I do HBOT?",
+      "a": "Most clients see the best results on a protocol of five sessions per week. For maintenance or targeted goals such as recovery or mental clarity, the OneBase app tells you when and for how long."
+    }
   ],
   "images": [
-    { "src": "/images/products/airfit-mini-black.png", "alt": "OneBase AirFit Mini in Matte Black" },
-    { "src": "/images/products/airfit-plus-white.png", "alt": "OneBase AirFit Plus in Matte White" }
+    {
+      "src": "/images/products/airfit.jpg",
+      "alt": "OneBase AirFit Mini in Matte Black"
+    }
   ],
-  "channels": { "direct": true, "precor": false },
+  "channels": {
+    "direct": true,
+    "precor": false
+  },
   "fromPriceUSD": 18499,
   "seoTitle": "OneBase AirFit — Sit-up Soft-shell HBOT Chamber",
   "seoDescription": "Compact sit-up hyperbaric chamber up to 1.5 ATA. Mini and Plus sizes, black or white. Oil-free compressor, optional oxygen, US-based support."

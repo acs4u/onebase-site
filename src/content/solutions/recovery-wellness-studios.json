@@ -2,7 +2,7 @@
   "label": "Recovery & Wellness Studios",
   "order": 1,
   "heroHeading": "The recovery system your members have been waiting for",
-  "heroImage": "/images/solutions/recovery-wellness-studios.webp",
+  "heroImage": "/images/solutions/recovery-wellness-studios.jpg",
   "seoTitle": "Recovery & Wellness Studio Solutions",
   "seoDescription": "Recovery equipment & intelligent software for wellness studios. Boost retention with HBOT, red light, infrared sauna & cold therapy.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "Give your facility a genuine edge",
       "body": "OneBase commercial-grade HBOT chambers, infrared saunas, cold therapy and red light devices are among the most sought-after recovery modalities in the industry. With the OneBase app, your members don't just use the equipment; they follow doctor-approved protocols that deliver measurable results. The kind of member experience that earns loyalty.",
-      "image": "/images/solutions/recovery-wellness-studios-1.webp"
+      "image": "/images/solutions/recovery-wellness-studios.jpg"
     },
     {
       "title": "Build a community around outcomes that speak for themselves",
       "body": "OneBase gives you the tools: clinically-backed modalities, a protocol app developed by Dr Scott Sherr, and cutting-edge therapies that signal you're serious about wellness.",
-      "image": "/images/solutions/recovery-wellness-studios-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [

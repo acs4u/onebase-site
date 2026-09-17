@@ -2,7 +2,7 @@
   "label": "Pro Sports Teams & Performance",
   "order": 3,
   "heroHeading": "Empower your athletes with elite-level recovery solutions",
-  "heroImage": "/images/solutions/pro-sports-performance.webp",
+  "heroImage": "/images/solutions/pro-sports-performance.jpg",
   "seoTitle": "Performance Recovery for Pro Sports",
   "seoDescription": "Professional athlete recovery systems — HBOT, contrast therapy & red light. Data-driven protocols for team performance centers.",
   "valueProps": [
@@ -27,12 +27,12 @@
     {
       "title": "Give your athletes the competitive edge",
       "body": "Professional sports teams demand the best recovery tools. OneBase provides hyperbaric oxygen therapy, contrast therapy and red light therapy designed for high-performance environments. Help your athletes recover faster, train harder and perform at their peak.",
-      "image": "/images/solutions/pro-sports-performance-1.webp"
+      "image": "/images/solutions/pro-sports-performance.jpg"
     },
     {
       "title": "Data-driven recovery protocols",
       "body": "Coming late 2026, OneBase's monitoring platform tracks usage patterns and session metrics across your entire team, so you can make informed decisions about recovery protocols with real-time insights.",
-      "image": "/images/solutions/pro-sports-performance-2.webp"
+      "image": "/images/hero/full-stack.jpg"
     }
   ],
   "modalities": [
