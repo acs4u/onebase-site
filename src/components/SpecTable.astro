@@ -1,0 +1,12 @@
+---
+interface Props { rows: { label: string; value: string }[]; title?: string; }
+const { rows, title } = Astro.props;
+---
+{rows.length > 0 && (
+  <div>
+    {title && <h3 class="mb-4">{title}</h3>}
+    <table class="spec-table">
+      <tbody>{rows.map(r => <tr><th scope="row">{r.label}</th><td>{r.value}</td></tr>)}</tbody>
+    </table>
+  </div>
+)}

@@ -1,0 +1,45 @@
+{
+  "label": "Pro Sports Teams & Performance",
+  "order": 3,
+  "heroHeading": "Empower your athletes with elite-level recovery solutions",
+  "heroImage": "/images/solutions/pro-sports-performance.webp",
+  "seoTitle": "Performance Recovery for Pro Sports",
+  "seoDescription": "Professional athlete recovery systems — HBOT, contrast therapy & red light. Data-driven protocols for team performance centers.",
+  "valueProps": [
+    {
+      "title": "Peak performance",
+      "body": "Join the elite teams using cutting-edge recovery technology to get more out of their most valuable athletes, accelerating recovery and reducing injury downtime."
+    },
+    {
+      "title": "Integrated systems",
+      "body": "Our products integrate into existing training facilities, backed by a team that helps your staff build protocols and workflows that drive consistent athlete use."
+    },
+    {
+      "title": "Built for intensity",
+      "body": "Engineered for high-frequency, heavy-duty use. Our products withstand the demands of professional sports environments."
+    },
+    {
+      "title": "Dedicated team support",
+      "body": "A dedicated technical support team keeps your facility operating without interruption."
+    }
+  ],
+  "features": [
+    {
+      "title": "Give your athletes the competitive edge",
+      "body": "Professional sports teams demand the best recovery tools. OneBase provides hyperbaric oxygen therapy, contrast therapy and red light therapy designed for high-performance environments. Help your athletes recover faster, train harder and perform at their peak.",
+      "image": "/images/solutions/pro-sports-performance-1.webp"
+    },
+    {
+      "title": "Data-driven recovery protocols",
+      "body": "Coming late 2026, OneBase's monitoring platform tracks usage patterns and session metrics across your entire team, so you can make informed decisions about recovery protocols with real-time insights.",
+      "image": "/images/solutions/pro-sports-performance-2.webp"
+    }
+  ],
+  "modalities": [
+    "air",
+    "ice",
+    "heat",
+    "light"
+  ],
+  "precorChannel": false
+}

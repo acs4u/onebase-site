@@ -1,0 +1,73 @@
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import Img from '@/components/Img.astro';
+import CtaBand from '@/components/CtaBand.astro';
+const team = (await getCollection('team'))[0].data.people;
+const groups: Record<string, string> = { founders: 'Founders', medical: 'Medical', engineering: 'Engineering', commercial: 'Sales & customer', operations: 'Operations' };
+const pillars = [
+  { t: 'Innovation with results', b: 'We push the boundaries of what recovery equipment can do, then prove it in commercial environments before we ship.' },
+  { t: 'Clean design, advanced technology', b: 'Every session should be effective and enjoyable. Products are designed to elevate a space, and interfaces to be understood at a glance.' },
+  { t: 'The most efficient treatments', b: 'Ongoing support, doctor-built protocols and staff training, so facilities get results from day one.' },
+];
+---
+<Base title="About OneBase Health" description="OneBase Health is built by engineers, medical experts and designers making advanced recovery technology reliable, beautiful and simple enough for the world's most demanding facilities." dark>
+  <section class="relative isolate min-h-[70vh] flex items-end bg-ob-ink text-white">
+    <div class="absolute inset-0 -z-10">
+      <Img src="/images/about/engineers-working.webp" alt="OneBase engineers at work" class="h-full w-full object-cover" loading="eager" hideLabel />
+      <div class="absolute inset-0 hero-overlay"></div>
+    </div>
+    <div class="container-wide pb-16 pt-40">
+      <p class="eyebrow text-white/70">About</p>
+      <h1 class="mt-3 max-w-3xl text-white">Recovery technology engineered for outcomes.</h1>
+      <p class="key-message mt-6 max-w-2xl text-white/85">Founded by an engineer, a hyperbaric physician and a Scandinavian designer.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide grid gap-12 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow">Why we built OneBase</p>
+        <h2 class="mt-3">Built for demanding wellness environments.</h2>
+      </div>
+      <div class="prose-ob text-ob-grey-700">
+        <p>OneBase Health was founded with a single goal: to make advanced recovery technology accessible, reliable and beautiful enough for the world's most demanding wellness environments. From professional sports facilities and luxury hospitality to corporate wellness programs and recovery studios, our equipment is engineered to perform at scale.</p>
+        <p>We believe recovery and longevity technology should be as rigorous in its engineering as it is in its outcomes. OneBase gives operators access to high-quality hyperbaric, contrast therapy, infrared sauna and light therapy equipment, backed by medical expertise, built to last, and designed to elevate any facility.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ob-black text-white">
+    <div class="container-wide grid gap-10 md:grid-cols-3">
+      {pillars.map(p => <div class="border-t border-white/15 pt-5"><h3 class="text-white">{p.t}</h3><p class="mt-3 text-sm text-white/70">{p.b}</p></div>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide">
+      <p class="eyebrow">Credentials, standards and support</p>
+      <div class="mt-6 grid gap-8 md:grid-cols-3">
+        <div><h3>In-house engineering</h3><p class="mt-2 text-sm text-ob-grey-700">Mechanical, electrical, embedded, software and security disciplines. Products validated for commercial duty before release.</p></div>
+        <div><h3>Medical leadership</h3><p class="mt-2 text-sm text-ob-grey-700">Our medical advisory and leadership team includes practising hyperbaric specialists who inform product decisions, protocols and operator education.</p></div>
+        <div><h3>Quality systems</h3><p class="mt-2 text-sm text-ob-grey-700">Supplier audits, certified components (CE, ISO 9001/13485 on applicable lines) and a 2-year standard warranty.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ob-grey-50">
+    <div class="container-wide">
+      <p class="eyebrow">The people behind OneBase</p>
+      <h2 class="mt-3 max-w-2xl">A team spanning health, engineering, design and commercial operations.</h2>
+      {Object.entries(groups).map(([key, label]) => (
+        <div class="mt-10">
+          <h3 class="text-sm font-display uppercase tracking-widest text-ob-grey-500">{label}</h3>
+          <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {team.filter(t => t.group === key).map(t => <li><p class="font-display font-medium">{t.name}</p><p class="text-sm text-ob-grey-700">{t.role}</p></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand heading="Bring commercial recovery technology into your organisation." body="Whether you run a studio, performance centre, hotel, workplace program or residential amenity, we can design a recovery experience built for measurable business value." />
+</Base>

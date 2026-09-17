@@ -1,0 +1,121 @@
+{
+  "items": [
+    {
+      "sku": "hbot-masks",
+      "name": "HBOT Mask (single)",
+      "fits": "All chambers",
+      "priceUSD": 2.99,
+      "image": "/images/parts/hbot-masks.png"
+    },
+    {
+      "sku": "hbot-masks-5-pack",
+      "name": "HBOT Masks (5 pack)",
+      "fits": "All chambers",
+      "priceUSD": 14.99
+    },
+    {
+      "sku": "hbot-masks-25-pack",
+      "name": "HBOT Masks (25 pack)",
+      "fits": "All chambers",
+      "priceUSD": 74.99
+    },
+    {
+      "sku": "hbot-masks-50-pack",
+      "name": "HBOT Masks (50 pack)",
+      "fits": "All chambers",
+      "priceUSD": 149.99
+    },
+    {
+      "sku": "hbot-masks-100-pack",
+      "name": "HBOT Masks (100 pack)",
+      "fits": "All chambers",
+      "priceUSD": 299.99
+    },
+    {
+      "sku": "sub-charcoal-filter",
+      "name": "SUB charcoal filter set (5 pack)",
+      "fits": "SUB unit",
+      "priceUSD": 22.99
+    },
+    {
+      "sku": "hbot-muffler",
+      "name": "HBOT muffler core set (2 pack)",
+      "fits": "SUB unit",
+      "priceUSD": 7.99
+    },
+    {
+      "sku": "set-of-replacement-filters-airfit-airflex",
+      "name": "Replacement filter set — AirFit / AirFlex",
+      "fits": "AirFit, AirFlex",
+      "priceUSD": 31.99,
+      "description": "3 × muffler core, 1 × charcoal filter set (5 filters)"
+    },
+    {
+      "sku": "set-of-replacement-filters-airform",
+      "name": "Replacement filter set — AirForm",
+      "fits": "AirForm",
+      "priceUSD": 38.99,
+      "description": "5 × muffler core, 1 × charcoal filter set (5 filters)"
+    },
+    {
+      "sku": "pressure-gauge-external-blue",
+      "name": "Pressure gauge — external (blue)",
+      "fits": "Soft-shell chambers",
+      "priceUSD": 159.99
+    },
+    {
+      "sku": "pressure-gauge-internal-black",
+      "name": "Pressure gauge — internal (black)",
+      "fits": "Soft-shell chambers",
+      "priceUSD": 159.99
+    },
+    {
+      "sku": "automatic-pressure-relief-valve-1-3-ata",
+      "name": "Automatic pressure relief valve 1.3 ATA",
+      "fits": "AirFit, AirFlex",
+      "priceUSD": 129.99
+    },
+    {
+      "sku": "automatic-pressure-relief-valve-1-4-ata",
+      "name": "Automatic pressure relief valve 1.4 ATA",
+      "fits": "AirFit, AirFlex",
+      "priceUSD": 129.99
+    },
+    {
+      "sku": "emergency-pressure-release-valve-2-2-ata",
+      "name": "AirForm emergency pressure release valve 2.2 ATA",
+      "fits": "AirForm",
+      "priceUSD": 129.99
+    },
+    {
+      "sku": "airform-door-seal",
+      "name": "AirForm door seal",
+      "fits": "AirForm",
+      "priceUSD": 179.99
+    },
+    {
+      "sku": "ac-water-pump",
+      "name": "Condensation container — external AC unit",
+      "fits": "AC unit",
+      "priceUSD": 64.99
+    },
+    {
+      "sku": "ac-condensation-trap",
+      "name": "Condensation container — internal AC unit",
+      "fits": "AC unit",
+      "priceUSD": 22.99
+    },
+    {
+      "sku": "condensation-container",
+      "name": "Condensation container — compressed air",
+      "fits": "SUB unit",
+      "priceUSD": 22.99
+    },
+    {
+      "sku": "frame-connector",
+      "name": "Frame connector",
+      "fits": "AirFit, AirFlex",
+      "priceUSD": 6.99
+    }
+  ]
+}

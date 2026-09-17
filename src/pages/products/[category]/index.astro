@@ -1,0 +1,42 @@
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { modalities, categoryToModality } from '@/lib/site';
+import ProductCard from '@/components/ProductCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Img from '@/components/Img.astro';
+
+export function getStaticPaths() {
+  return Object.values(modalities).map(m => ({ params: { category: m.category } }));
+}
+const { category } = Astro.params;
+const mod = modalities[categoryToModality[category!]];
+const products = (await getCollection('products', p => p.data.category === category)).sort((a, b) => a.data.order - b.data.order);
+
+const intros: Record<string, { h: string; p: string }> = {
+  hbot: { h: 'Hyperbaric oxygen, from a soft-shell you can move to a room you walk into.', p: 'Four chambers from 1.3 to 2.0 ATA. Soft-shell AirFit and AirFlex for flexibility and accessibility, steel AirForm for clinic pressures, and the modular AirSuite room with medical-grade BIBS.' },
+  'cold-therapy': { h: 'Cold therapy without the water, the ice or the gas.', p: 'The IceVault is a dry, electric cold room for two to eight people. Longer, more tolerable sessions, no wet floors, no cryogenic risk, and a self-cleaning cycle that keeps staff time low.' },
+  sauna: { h: 'Full-spectrum infrared, built to run all day.', p: 'Low-EMF near, mid and far infrared at a restorative 135–149°F. Choose Yakisugi-charred cedar for the statement piece, or light Hemlock for a clean, contemporary suite.' },
+  'red-light': { h: 'Red and near-infrared light, sized to your floor.', p: 'Start with a single LightPanel, stack to a Quad, or step up to the 41,600-LED LightBed for full-body sessions with minimal operator time.' },
+};
+const intro = intros[category!];
+---
+<Base title={mod.name} description={mod.blurb} dark>
+  <section class="relative isolate min-h-[70vh] flex items-end text-white accent-gradient" data-modality={mod.key}>
+    <div class="absolute inset-0 -z-10">
+      <Img src={`/images/categories/${category}.jpg`} alt={mod.name} class="h-full w-full object-cover" loading="eager" hideLabel />
+      <div class="absolute inset-0 hero-overlay"></div>
+    </div>
+    <div class="container-wide pb-16 pt-40">
+      <p class="eyebrow text-white/70">{mod.label}</p>
+      <h1 class="mt-3 max-w-3xl text-white">{intro.h}</h1>
+      <p class="mt-6 max-w-2xl text-white/85">{intro.p}</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container-wide grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {products.map(p => <ProductCard product={p} />)}
+    </div>
+  </section>
+  <CtaBand modality={mod.key} heading={`Planning a ${mod.name.toLowerCase()} install?`} body="We'll help with sizing, electrical requirements, floor plans and pricing." />
+</Base>

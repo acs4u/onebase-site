@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    { "source": "/blogs/:category/:slug", "destination": "/blog/:slug", "permanent": true },
+    { "source": "/en-:locale/:path*", "destination": "/:path*", "permanent": true },
+    { "source": "/collections/:handle", "destination": "/products", "permanent": true }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Content-Type-Options", "value": "nosniff" },
+      { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" } ] }
+  ]
+}

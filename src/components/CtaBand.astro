@@ -1,0 +1,16 @@
+---
+import { site } from '@/lib/site';
+const { heading = 'Ready to build your recovery space?', body = 'Speak with our team about products, facility planning and pricing for your business.', modality } = Astro.props;
+---
+<section class="accent-gradient text-white" data-modality={modality}>
+  <div class="container-wide py-16 md:py-20 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+    <div>
+      <h2 class="text-white">{heading}</h2>
+      <p class="mt-3 text-white/80 max-w-xl">{body}</p>
+    </div>
+    <div class="flex flex-wrap gap-3 shrink-0">
+      <a href="/contact" class="btn-on-dark">Talk to sales</a>
+      <a href={site.bookingUrl} rel="noopener" class="btn-ghost-on-dark">Schedule a call</a>
+    </div>
+  </div>
+</section>

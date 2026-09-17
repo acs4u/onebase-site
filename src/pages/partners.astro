@@ -1,0 +1,44 @@
+---
+import Base from '@/layouts/Base.astro';
+import { site, trustedBy } from '@/lib/site';
+import CtaBand from '@/components/CtaBand.astro';
+---
+<Base title="Partners and Distribution" description="How to buy OneBase: direct from our team worldwide, or through our distribution partners. Dealer and partner programme details.">
+  <section class="pt-36 pb-12">
+    <div class="container-wide max-w-3xl">
+      <p class="eyebrow">Partners</p>
+      <h1 class="mt-3">Buy direct, or through a partner you already trust.</h1>
+      <p class="mt-5 text-ob-grey-700">OneBase sells and supports direct across North America, Australia and Asia-Pacific. In selected markets our equipment is also available through distribution partners, with the same engineering, warranty and support behind it.</p>
+    </div>
+  </section>
+
+  {site.precorAnnounced && (
+    <section class="container-wide pb-16">
+      <div class="rounded-ob bg-ob-black text-white p-8 md:p-12 grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+          <p class="eyebrow text-white/60">US commercial fitness</p>
+          <h2 class="mt-3 text-white text-3xl md:text-4xl">OneBase, available through Precor.</h2>
+          <p class="mt-4 text-white/75 max-w-xl">IceVault cold rooms, Yakisugi and Hemlock saunas, and LightPanel and LightBed red light are available to US fitness facilities through Precor. Your Precor rep can spec, quote and deliver OneBase equipment alongside your cardio and strength floor.</p>
+        </div>
+        <a href="/contact" class="btn-on-dark">Ask about Precor</a>
+      </div>
+    </section>
+  )}
+
+  <section class="section bg-ob-grey-50">
+    <div class="container-wide grid gap-12 lg:grid-cols-3">
+      <div><h3>Direct sales</h3><p class="mt-3 text-sm text-ob-grey-700">HBOT chambers, hospitality, real estate, sports, corporate and clinical projects are handled by the OneBase team. Facility planning, electrical guidance, installation and training included.</p></div>
+      <div><h3>Dealers and integrators</h3><p class="mt-3 text-sm text-ob-grey-700">Architects, wellness consultants and fit-out contractors can specify OneBase for their projects. Ask us for CAD, spec sheets and a partner price list.</p></div>
+      <div><h3>Service partners</h3><p class="mt-3 text-sm text-ob-grey-700">Trained technicians and local parts in North America and Australia. Remote diagnostics through OneBase OS for everything else.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide">
+      <p class="eyebrow">Trusted by</p>
+      <div class="mt-6 flex flex-wrap gap-x-10 gap-y-4 font-display text-lg text-ob-grey-700">{trustedBy.map(n => <span>{n}</span>)}</div>
+    </div>
+  </section>
+
+  <CtaBand heading="Interested in partnering with OneBase?" body="Tell us about your market and we'll come back with a partner pack." />
+</Base>

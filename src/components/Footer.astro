@@ -1,0 +1,53 @@
+---
+import { site, modalities } from '@/lib/site';
+import Logo from '@/components/Logo.astro';
+const year = new Date().getFullYear();
+const cols = [
+  { title: 'Products', links: Object.values(modalities).map(m => ({ label: m.name, href: m.path })).concat([{ label: 'Parts & consumables', href: '/parts' }]) },
+  { title: 'Solutions', links: [
+    { label: 'Recovery & wellness studios', href: '/solutions/recovery-wellness-studios' },
+    { label: 'Fitness centers & gyms', href: '/solutions/fitness-centers' },
+    { label: 'Pro sports & performance', href: '/solutions/pro-sports-performance' },
+    { label: 'Boutique spas & hospitality', href: '/solutions/luxury-hospitality' },
+    { label: 'Corporate wellness', href: '/solutions/corporate-wellness' },
+    { label: 'Real estate & multi-family', href: '/solutions/high-end-real-estate' },
+    { label: 'Military & first responders', href: '/solutions/military-first-responders' },
+  ]},
+  { title: 'Company', links: [
+    { label: 'About OneBase', href: '/about' }, { label: 'Software', href: '/software' }, { label: 'Partners', href: '/partners' },
+    { label: 'Blog', href: '/blog' }, { label: 'Contact', href: '/contact' },
+  ]},
+  { title: 'Support', links: [
+    { label: 'Warranty policy', href: '/policies/warranty' }, { label: 'Refunds & returns', href: '/policies/returns' },
+    { label: 'Privacy policy', href: '/policies/privacy' }, { label: 'Cookie policy', href: '/policies/cookies' }, { label: 'Terms of use', href: '/policies/terms' },
+  ]},
+];
+---
+<footer class="bg-ob-black text-white">
+  <div class="container-wide py-16 md:py-20">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_repeat(4,1fr)]">
+      <div>
+        <Logo class="h-7 text-white" />
+        <p class="key-message mt-6 text-white/80 text-xl md:text-2xl">{site.tagline}</p>
+        <p class="mt-6 text-sm text-white/60 max-w-xs">Sales: <a href={site.phoneUSHref} class="text-white hover:underline">{site.phoneUS}</a><br/>or <a href={site.bookingUrl} class="text-white hover:underline" rel="noopener">schedule a call</a></p>
+        <div class="mt-6 flex gap-4 text-sm text-white/60">
+          <a href={site.social.instagram} rel="noopener" class="hover:text-white">Instagram</a>
+          <a href={site.social.linkedin} rel="noopener" class="hover:text-white">LinkedIn</a>
+          <a href={site.social.youtube} rel="noopener" class="hover:text-white">YouTube</a>
+        </div>
+      </div>
+      {cols.map(col => (
+        <div>
+          <h4 class="font-display text-xs font-medium uppercase tracking-[0.2em] text-white/50">{col.title}</h4>
+          <ul class="mt-4 space-y-2 text-sm">
+            {col.links.map(l => <li><a href={l.href} class="text-white/80 hover:text-white">{l.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="mt-16 border-t border-white/10 pt-8 text-xs text-white/50 space-y-4">
+      <p class="max-w-4xl">The recommendations made by {site.legalEntity} do not constitute a medical recommendation and are intended for information and educational purposes only; no claims (real or implied) are being made. While studies support the effectiveness of hyperbaric oxygen therapy for various conditions, individual results vary. Always ask your doctor about all treatment options, including risks and benefits; only a doctor can assess whether hyperbaric oxygen therapy is appropriate for your situation. In the United States, hyperbaric chambers are a Class II medical device and require a medical prescription for use.</p>
+      <p>© {year} OneBase Health · {site.legalEntity}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

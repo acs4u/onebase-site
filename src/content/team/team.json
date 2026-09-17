@@ -1,0 +1,79 @@
+{
+  "people": [
+    {
+      "name": "Andrew Stead",
+      "role": "Co-Founder, CEO",
+      "group": "founders"
+    },
+    {
+      "name": "Dr. Scott Sherr",
+      "role": "Co-Founder, Chief Medical Officer",
+      "group": "founders"
+    },
+    {
+      "name": "Faye Westlund",
+      "role": "Co-Founder, Chief Design Officer",
+      "group": "founders"
+    },
+    {
+      "name": "Dr. Simon Benson",
+      "role": "Medical & Research",
+      "group": "medical"
+    },
+    {
+      "name": "Dr. Jason Han",
+      "role": "North America Sales & Development",
+      "group": "commercial"
+    },
+    {
+      "name": "Dan Rozsa",
+      "role": "Chief Operating Officer",
+      "group": "operations"
+    },
+    {
+      "name": "Jett Moody",
+      "role": "Business Development & Sales",
+      "group": "commercial"
+    },
+    {
+      "name": "Jesus Amaral",
+      "role": "North America Sales",
+      "group": "commercial"
+    },
+    {
+      "name": "Peter Frost",
+      "role": "Australian Sales & Marketing",
+      "group": "commercial"
+    },
+    {
+      "name": "Charlie Gallagher",
+      "role": "Customer Experience & Marketing",
+      "group": "commercial"
+    },
+    {
+      "name": "Cameron Horsburgh",
+      "role": "Mechanical Engineering",
+      "group": "engineering"
+    },
+    {
+      "name": "Umer Aqueel",
+      "role": "Senior Software Engineer",
+      "group": "engineering"
+    },
+    {
+      "name": "Badar Nawaz",
+      "role": "Security Engineer",
+      "group": "engineering"
+    },
+    {
+      "name": "Kevin Wong",
+      "role": "Accounting Manager",
+      "group": "operations"
+    },
+    {
+      "name": "Cathy Qiao",
+      "role": "Supplier Management",
+      "group": "operations"
+    }
+  ]
+}

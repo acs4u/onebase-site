@@ -1,0 +1,13 @@
+---
+import Base from '@/layouts/Base.astro';
+const html = "At Waylen Allen Limited, which operates the OneBase brand, we hold product quality and craftsmanship in the highest regard. While we strive for a high level of satisfaction, occasional issues may arise. The following policy addresses refunds and returns with transparency and fairness.\n\n## No returns or refunds\nWe maintain a strict policy of no returns or refunds for our products.\n\n## Exception criteria\nExceptions are considered under specific circumstances and at our ultimate discretion, including incorrect items received due to our error.\n\n## Defective or damaged items\nIf your product arrives defective or damaged through no fault of your own, we will repair or replace the defective items.\n\n## Resolution process\nContact customerservice@onebasehealth.com within **7 days** of receiving your goods. Issues submitted after 7 days are considered at our discretion. We require proof of purchase (the invoice issued by our company) and supporting documentation such as photos or videos that clearly illustrate the issue.\n\n## Shipping costs\nWhere we agree to replace an item under the exception criteria or for defects/damage, we cover the shipping costs of the replacement.\n\n## Final sale items\nWe do not specifically mark items as final sale; all exceptions are handled at our ultimate discretion and we reserve the right to make final decisions on all requests.\n\n## International orders\nThis policy applies uniformly to all orders, without additional considerations for international shipments.\n\n## Second-hand or third-party purchases\nThis policy does not apply to products purchased second-hand or through third parties or distributors. Only products purchased directly from Waylen Allen Limited or its brands via our official websites are eligible.";
+---
+<Base title="Refunds and Returns" description="Refunds and Returns for OneBase Health (Waylen Allen Limited).">
+  <section class="pt-36 pb-24">
+    <div class="container-wide max-w-3xl">
+      <p class="eyebrow">Policies</p>
+      <h1 class="mt-3">Refunds and Returns</h1>
+      <div class="prose-ob mt-10 text-ob-grey-700" set:html={html.split(/\n\n/).map(b=>b.startsWith("## ")?"<h2>"+b.slice(3)+"</h2>":b.startsWith("_")?"<p><em>"+b.replace(/_/g,"")+"</em></p>":"<p>"+b.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")+"</p>").join("")} />
+    </div>
+  </section>
+</Base>

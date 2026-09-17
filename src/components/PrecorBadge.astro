@@ -1,0 +1,10 @@
+---
+// Shown only once site.precorAnnounced is true. Copy to be agreed with Precor before launch.
+import { site } from '@/lib/site';
+const { small = false } = Astro.props;
+---
+{site.precorAnnounced && (
+  <span class:list={['inline-flex items-center gap-1.5 rounded-full border border-ob-grey px-2.5 font-display uppercase tracking-widest text-ob-grey-700', small ? 'py-0.5 text-[10px]' : 'py-1 text-xs']}>
+    <span class="h-1.5 w-1.5 rounded-full bg-ob-black"></span> Available through Precor · US
+  </span>
+)}

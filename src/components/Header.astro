@@ -1,0 +1,60 @@
+---
+import { nav, site } from '@/lib/site';
+import Logo from '@/components/Logo.astro';
+const { dark = false } = Astro.props;
+const path = Astro.url.pathname;
+---
+<header class:list={['absolute inset-x-0 top-0 z-40', dark ? 'text-white' : 'text-ob-black']} data-header>
+  <div class="container-wide flex h-20 items-center justify-between">
+    <a href="/" aria-label="OneBase Health home" class="flex items-center"><Logo class="h-7 w-auto" /></a>
+
+    <nav class="hidden lg:flex items-center gap-8 font-display text-sm font-medium" aria-label="Primary">
+      {nav.map((item) => (
+        <div class="relative group">
+          <a href={item.href} class:list={['py-2 hover:opacity-70', path.startsWith(item.href) && 'underline underline-offset-8']}>{item.label}</a>
+          {item.children && (
+            <div class="invisible absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+              <div class="w-64 rounded-ob bg-white p-2 text-ob-black shadow-xl ring-1 ring-ob-grey">
+                {item.children.map((c) => <a href={c.href} class="block rounded-ob px-3 py-2 hover:bg-ob-grey-50">{c.label}</a>)}
+                <a href={item.href} class="mt-1 block border-t border-ob-grey px-3 py-2 text-xs uppercase tracking-widest text-ob-grey-500 hover:text-ob-black">All products</a>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="hidden lg:flex items-center gap-3">
+      <a href={site.phoneUSHref} class="font-display text-sm font-medium hover:opacity-70">{site.phoneUS}</a>
+      <a href="/contact" class={dark ? 'btn-on-dark' : 'btn-primary'}>Talk to sales</a>
+    </div>
+
+    <button class="lg:hidden inline-flex h-10 w-10 items-center justify-center" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+
+  <div class="hidden lg:hidden bg-ob-black text-white" data-menu>
+    <div class="container-wide flex flex-col py-6 font-display text-lg">
+      {nav.map((item) => (
+        <>
+          <a href={item.href} class="py-3 border-b border-white/10">{item.label}</a>
+          {item.children && item.children.map((c) => <a href={c.href} class="py-2 pl-4 text-base text-white/70">{c.label}</a>)}
+        </>
+      ))}
+      <a href="/contact" class="btn-on-dark mt-6 self-start">Talk to sales</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const menu = document.querySelector('[data-menu]');
+  const header = document.querySelector('[data-header]');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+    header?.classList.toggle('bg-ob-black', open);
+    header?.classList.toggle('text-white', open);
+  });
+</script>

@@ -1,0 +1,63 @@
+---
+import Base from '@/layouts/Base.astro';
+import Img from '@/components/Img.astro';
+import CtaBand from '@/components/CtaBand.astro';
+const os = [
+  { t: 'Real-time monitoring', b: 'Temperature, pressure, session state and faults for every device, every site.' },
+  { t: 'Usage analytics', b: 'Sessions per day, peak hours, utilisation by modality. The numbers that justify the next unit.' },
+  { t: 'Automated alerts', b: 'Maintenance due, out-of-range readings and consumables running low, before staff notice.' },
+  { t: 'Multi-location management', b: 'One login for the whole estate. Roles for owners, managers and technicians.' },
+];
+const app = [
+  { t: 'All devices, one app', b: 'HBOT, sauna, red light and cold therapy, with OneBase and other devices inside a single protocol.' },
+  { t: 'Doctor-built protocols', b: 'Created by physicians and researchers for recovery, performance and longevity, and tuned to goals, equipment and session preferences.' },
+  { t: 'Progress you can see', b: 'Sessions logged and history in one place, so patterns and improvements are obvious.' },
+];
+---
+<Base title="OneBase OS and App — Software for Connected Recovery" description="OneBase OS gives operators remote monitoring, usage analytics and multi-site management. The OneBase app gives clients doctor-built protocols across every device.">
+  <section class="pt-36 pb-16 bg-ob-black text-white">
+    <div class="container-wide grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div>
+        <p class="eyebrow text-white/60">Software</p>
+        <h1 class="mt-3 text-white">The engine behind smart recovery.</h1>
+        <p class="key-message mt-6 text-white/75">Hardware you can see. Software that makes it work together.</p>
+        <p class="mt-6 text-white/70 max-w-lg">Two layers. OneBase OS for the operator: fleet monitoring, analytics and maintenance. The OneBase app for the client: protocols, scheduling and progress. Both talk to the same devices.</p>
+      </div>
+      <div class="rounded-ob overflow-hidden bg-white/5 aspect-[4/3]">
+        <Img src="/images/software/app-interface.webp" alt="OneBase OS dashboard" class="h-full w-full object-cover" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide">
+      <p class="eyebrow">OneBase OS · for operators · coming late 2026</p>
+      <h2 class="mt-3 max-w-2xl">Manage your fleet from anywhere.</h2>
+      <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {os.map(x => <div class="border-t border-ob-grey pt-4"><h3 class="text-lg">{x.t}</h3><p class="mt-2 text-sm text-ob-grey-700">{x.b}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ob-grey-50">
+    <div class="container-wide grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+      <div class="rounded-ob overflow-hidden bg-white aspect-[3/4] max-w-sm">
+        <Img src="/images/software/app-protocol.png" alt="OneBase app showing a protocol" class="h-full w-full object-cover" />
+      </div>
+      <div>
+        <p class="eyebrow">OneBase app · for members and clients</p>
+        <h2 class="mt-3">Your wellness. Connected. Personalised.</h2>
+        <div class="mt-8 space-y-6">
+          {app.map(x => <div><h3 class="text-lg">{x.t}</h3><p class="mt-1 text-sm text-ob-grey-700">{x.b}</p></div>)}
+        </div>
+        <div class="mt-8 flex gap-3">
+          <a href="#" class="btn-primary" data-store="ios">Download for iOS</a>
+          <a href="#" class="btn-ghost" data-store="android">Download for Android</a>
+        </div>
+        <p class="mt-4 text-xs text-ob-grey-500">Coming soon: wearable sync, protocols that adapt to your biometrics, and daily recommendations.</p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand heading="Want to see the software on your equipment?" body="Book a demo and we'll walk through OS monitoring and app protocols for your facility." />
+</Base>

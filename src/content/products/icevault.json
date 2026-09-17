@@ -1,0 +1,51 @@
+{
+  "name": "IceVault",
+  "modality": "ice",
+  "category": "cold-therapy",
+  "order": 1,
+  "tagline": "Dry, electric cold therapy room. No water, no ice, no nitrogen.",
+  "description": "The OneBase IceVault is a walk-in cold room that holds 34–40°F (adjustable from 32°F) with electric refrigeration. Up to eight people at once, sessions of 3–15 minutes, no wet floors, no cryogenic gas, and a self-cleaning cycle that keeps it sanitary with minimal staff time. Plug-and-play: one 240 V connection, no plumbing, no drainage.",
+  "sizes": [
+    { "id": "duo", "label": "Duo", "note": "2 people · 47.2\" × 51.8\" footprint" },
+    { "id": "quad", "label": "Quad", "note": "4 people · 74.8\" × 70.9\" footprint" },
+    { "id": "octo", "label": "Octo", "note": "8 people · 106.3\" × 110.2\" footprint · ADA-compliant design" }
+  ],
+  "colours": ["Matte Black", "Arctic White"],
+  "pressures": [],
+  "highlights": [
+    { "title": "Dry cold immersion", "body": "Electric refrigeration holds a consistent 35°F (adjustable 32–40°F) without water or ice. No mess, fewer slip risks, no gas exposure." },
+    { "title": "Commercial-grade build", "body": "Smooth insulated panels, anti-slip flooring and LED lighting for a safe, comfortable and immersive space." },
+    { "title": "Throughput", "body": "Walk-in access for up to 8 users per session, from athletes to first-timers. Longer, more tolerable sessions than a plunge." },
+    { "title": "Plug and play", "body": "Self-contained. One power connection. No plumbing or drainage required." },
+    { "title": "Self-cleaning", "body": "Automated cleaning cycles keep the room sanitary with minimal upkeep; remote diagnostics and support included." },
+    { "title": "Low running cost", "body": "Runs on electricity with low ongoing costs compared with ice baths or cryotherapy chambers." }
+  ],
+  "specs": [
+    { "label": "IceVault Duo (2-person)", "value": "47.24\" × 51.8\" × 95\" (115\" with monoblock)" },
+    { "label": "IceVault Quad (4-person)", "value": "74.8\" × 70.87\" × 95\" (115\" with monoblock)" },
+    { "label": "IceVault Octo (8-person)", "value": "106.3\" × 110.24\" × 95\" (115\" with monoblock) · ADA-compliant design" },
+    { "label": "Temperature range", "value": "32–40°F (0–4.4°C), factory default 35°F" },
+    { "label": "Session length", "value": "3–15 minutes" },
+    { "label": "Colours", "value": "Matte Black, Arctic White" }
+  ],
+  "electrical": [
+    { "label": "Supply", "value": "240 V single phase" },
+    { "label": "Plumbing", "value": "None required" }
+  ],
+  "certifications": [],
+  "faqs": [
+    { "q": "What is the OneBase IceVault?", "a": "A self-contained, dry cold-immersion room that uses electric refrigeration to hold 34–40°F, delivering the benefits of cold exposure without water, ice or nitrogen." },
+    { "q": "How is it different from a cold plunge or cryotherapy chamber?", "a": "No water or ice. No setup, cleanup or wet floors. Longer sessions (3–15 minutes) at tolerable temperatures. Multiple users at once. Less maintenance." },
+    { "q": "Is it safe?", "a": "Yes. It removes the gas-exposure risk of cryotherapy and the slippery wet floors of ice baths. Breathable air and controlled temperatures keep the experience comfortable." },
+    { "q": "Does it need special installation?", "a": "No. The IceVault is plug-and-play: a power connection, no plumbing or drainage." },
+    { "q": "How many people can use it at once?", "a": "Depending on configuration, 1–8 users simultaneously." },
+    { "q": "How is it maintained?", "a": "An automated self-cleaning system keeps the environment sanitary with minimal effort. Remote support handles diagnostics and troubleshooting." }
+  ],
+  "images": [
+    { "src": "/images/products/icevault-quad-black.png", "alt": "OneBase IceVault Quad in Matte Black" },
+    { "src": "/images/products/icevault-octo-black.png", "alt": "OneBase IceVault Octo in Matte Black" }
+  ],
+  "channels": { "direct": true, "precor": true },
+  "seoTitle": "OneBase IceVault — Commercial Dry Cold Therapy Room",
+  "seoDescription": "Walk-in electric cold therapy room, 32–40°F, up to 8 users, no water or ice, plug-and-play. Duo, Quad and Octo."
+}

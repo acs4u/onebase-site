@@ -1,0 +1,44 @@
+{
+  "label": "Multi-Family Housing",
+  "order": 7,
+  "heroHeading": "Premium amenities and therapies that elevate multi-family living",
+  "heroImage": "/images/solutions/multi-family-housing.webp",
+  "seoTitle": "Multi-Family Housing Wellness Amenities",
+  "seoDescription": "Resident wellness amenities for multi-family developments. Boost occupancy & retention with commercial recovery equipment & smart software.",
+  "valueProps": [
+    {
+      "title": "Resident attraction",
+      "body": "Saunas are the lifestyle amenity today's renters actively seek, setting your property apart and driving lease-ups."
+    },
+    {
+      "title": "Turnkey integration",
+      "body": "Sauna, cold, red light and HBOT are becoming expected wellness amenities, influencing where renters choose to live."
+    },
+    {
+      "title": "Commercial durability",
+      "body": "Engineered for high-traffic shared use with self-cleaning cycles, reinforced builds and smart diagnostics."
+    },
+    {
+      "title": "Ongoing support",
+      "body": "From design consultation to post-install maintenance, our North American service team keeps your amenity running."
+    }
+  ],
+  "features": [
+    {
+      "title": "The amenity that sets your property apart",
+      "body": "In a crowded rental market, a premium sauna lounge drives tours, accelerates lease-ups and keeps residents renewing.",
+      "image": "/images/solutions/multi-family-housing-1.webp"
+    },
+    {
+      "title": "Low maintenance, high impact for property managers",
+      "body": "Smart monitoring, self-cleaning technology and durable construction mean fewer service calls and more resident satisfaction.",
+      "image": "/images/solutions/multi-family-housing-2.webp"
+    }
+  ],
+  "modalities": [
+    "ice",
+    "heat",
+    "light"
+  ],
+  "precorChannel": false
+}

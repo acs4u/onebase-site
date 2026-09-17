@@ -1,0 +1,44 @@
+{
+  "name": "AirForm",
+  "modality": "air",
+  "category": "hbot",
+  "order": 3,
+  "tagline": "Steel hard-shell monoplace chamber, 1.5 to 2.0 ATA.",
+  "description": "The OneBase AirForm is the clinic-grade chamber. A robust steel shell delivers 1.5, 1.6 or 2.0 ATA with noiseless pressure-relief valves, an integrated air conditioner, a slide door that seals itself under pressure, and a two-way intercom so staff and client stay connected.",
+  "sizes": [
+    { "id": "mini", "label": "Mini", "note": "Narrower one-person chamber for smaller rooms. 75 cm wide." },
+    { "id": "plus", "label": "Plus", "note": "Spacious monoplace chamber for the premium experience. 90 cm wide." }
+  ],
+  "colours": ["Matte Black", "Matte White"],
+  "pressures": ["1.5 ATA", "1.6 ATA", "2.0 ATA"],
+  "highlights": [
+    { "title": "Clinic pressures", "body": "Operating pressures of 1.5, 1.6 or 2.0 ATA for precise, customised treatments, with specialised equipment rated for higher pressure." },
+    { "title": "Comfortable, not claustrophobic", "body": "Seamless slide-door entry that auto-seals under pressure, a wide viewing window, integrated reading light and climate control inside the chamber." },
+    { "title": "Always in contact", "body": "Two-way intercom phone system and automatic air-pressure control keep sessions safe and simple to run." },
+    { "title": "One integrated control unit", "body": "Compressor, oxygen concentrator and dehumidifier/cooler in a single housing, delivering purified oxygen via mask or nasal cannula." }
+  ],
+  "specs": [
+    { "label": "AirForm Mini", "value": "Width 29.5\" (75 cm) · Length 87\" (220 cm) · 331 lb (150 kg)" },
+    { "label": "AirForm Plus", "value": "Width 35.5\" (90 cm) · Length 87\" (220 cm) · 375 lb (170 kg)" },
+    { "label": "SUB (O₂ concentrator + compressor)", "value": "23\" × 17\" × 22\" (58 × 42 × 56 cm) · 176 lb (80 kg)" },
+    { "label": "Air conditioner", "value": "16.5\" × 16.5\" × 24\" (42 × 42 × 61 cm) · 57.5 lb (26.1 kg)" },
+    { "label": "Colours", "value": "Matte Black, Matte White" }
+  ],
+  "electrical": [
+    { "label": "SUB unit", "value": "1400 W · 110–120 V (13 A) or 220–240 V (6.5 A) · 1 standard wall plug" },
+    { "label": "AC unit", "value": "300 W · 110–120 V (3 A) or 220–240 V (1.5 A) · 1 standard wall plug" }
+  ],
+  "certifications": [],
+  "faqs": [
+    { "q": "Are all hyperbaric chambers the same?", "a": "No. The main differences are pressure, size and construction material. Soft-shell chambers typically run 1.3–1.5 ATA; hard-shell chambers such as the AirForm reach 2.0 ATA." },
+    { "q": "How often should I do HBOT?", "a": "Most clients see the best results on a protocol of five sessions per week. The OneBase app guides frequency and duration for your goal." }
+  ],
+  "images": [
+    { "src": "/images/products/airform-plus-black.png", "alt": "OneBase AirForm Plus in Matte Black" },
+    { "src": "/images/products/airform-mini-white.png", "alt": "OneBase AirForm Mini in Matte White" }
+  ],
+  "channels": { "direct": true, "precor": false },
+  "fromPriceUSD": 32399,
+  "seoTitle": "OneBase AirForm — 2.0 ATA Hard-shell HBOT Chamber",
+  "seoDescription": "Steel monoplace hyperbaric chamber for clinics and wellness centres. 1.5–2.0 ATA, slide door, intercom, integrated AC. Mini and Plus."
+}

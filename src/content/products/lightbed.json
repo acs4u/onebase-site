@@ -1,0 +1,41 @@
+{
+  "name": "LightBed",
+  "modality": "light",
+  "category": "red-light",
+  "order": 2,
+  "tagline": "Full-body red and near-infrared bed. 41,600 LEDs.",
+  "description": "The OneBase LightBed is full-body light therapy with minimal operational demand. 41,600 LEDs across five wavelengths from 633 to 940 nm, adjustable intensity, a built-in timer, multiple cooling systems, Bluetooth audio and an ergonomic padded bed. Short sessions, high throughput.",
+  "sizes": [],
+  "colours": ["Black", "White"],
+  "pressures": [],
+  "highlights": [
+    { "title": "Five wavelengths", "body": "633 and 660 nm red for collagen, skin health and inflammation; 810, 850 and 940 nm near-infrared for deeper cellular repair, circulation and muscle recovery." },
+    { "title": "Full-body coverage", "body": "Red and near-infrared delivered simultaneously across the whole body in one enclosed session." },
+    { "title": "Adjustable intensity and timer", "body": "Sessions tuned to each user's sensitivity and goal, with consistent exposure every time." },
+    { "title": "Built for comfort and safety", "body": "Ergonomic padded bed, multiple cooling systems, eye protection, intuitive controls." },
+    { "title": "Bluetooth audio", "body": "Clients play their own music or audio during the session." }
+  ],
+  "specs": [
+    { "label": "Dimensions", "value": "Length 89.5\" (227.3 cm) · Depth 51\" (129.5 cm) · Height 44\" (111.8 cm)" },
+    { "label": "Weight", "value": "882 lb (400 kg)" },
+    { "label": "LEDs", "value": "41,600" },
+    { "label": "Wavelengths", "value": "633 nm · 660 nm · 810 nm · 850 nm · 940 nm" },
+    { "label": "Colours", "value": "Black, White" }
+  ],
+  "electrical": [
+    { "label": "Supply", "value": "240 V" },
+    { "label": "Power", "value": "6500 W" }
+  ],
+  "certifications": [],
+  "faqs": [
+    { "q": "How does red light therapy work in a bed?", "a": "Exposure to red and near-infrared wavelengths stimulates cellular metabolism, supports collagen production, improves circulation and reduces inflammation." },
+    { "q": "Is red light therapy safe?", "a": "Generally, yes, when used as directed. The wavelengths are non-ionising and carry none of the risks of UV. Follow the guidelines and consult a healthcare professional for underlying conditions." },
+    { "q": "How often should clients use it?", "a": "Frequency varies with goals. Many start with a few sessions per week and adjust based on response." },
+    { "q": "Can anyone use it?", "a": "Pregnant women, people with photosensitivity conditions or on photosensitising medication, and those with certain skin conditions should consult a healthcare professional first." },
+    { "q": "Is the LightBed suitable for home use?", "a": "Full-body beds suit professional settings such as spas, wellness centres and fitness facilities. Panels are the home option." }
+  ],
+  "images": [{ "src": "/images/products/lightbed-black.png", "alt": "OneBase LightBed in Black" }],
+  "channels": { "direct": true, "precor": true },
+  "seoTitle": "OneBase LightBed — Full-body Red Light Therapy Bed",
+  "seoDescription": "41,600-LED full-body red and near-infrared bed, 633–940 nm, adjustable intensity, Bluetooth audio. Short sessions, strong throughput for commercial facilities."
+}

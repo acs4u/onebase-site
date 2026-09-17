@@ -1,0 +1,45 @@
+{
+  "name": "AirSuite",
+  "modality": "air",
+  "category": "hbot",
+  "order": 4,
+  "tagline": "Modular 2.0 ATA hyperbaric room with medical-grade BIBS.",
+  "description": "The OneBase AirSuite is a walk-in hyperbaric room. A modular fibreglass-composite cube that fits through standard doorways and assembles on site, with leather seating, ambient LED lighting, a 4K Android interface, and a medical-grade Built-In Breathing System that delivers oxygen precisely while exhausting CO₂.",
+  "sizes": [
+    { "id": "solo", "label": "Solo", "note": "One-person room." },
+    { "id": "duo", "label": "Duo", "note": "Two-person room with individual seating, headsets and O₂ concentrators." }
+  ],
+  "colours": ["Midnight Black"],
+  "pressures": ["2.0 ATA"],
+  "highlights": [
+    { "title": "BIBS oxygen delivery", "body": "Synchronised Built-In Breathing System for precision oxygen delivery with active CO₂ exhaustion, keeping the internal environment fresh and sterile." },
+    { "title": "Dual-control automation", "body": "Automated pressure regulation and custom decompression speeds, managed from an Android interface with full app connectivity and 4K entertainment." },
+    { "title": "Fits through a door", "body": "Four segments, each 1100 × 800 × 2000 mm, assemble into a 2.2 × 1.6 × 2.0 m room. No structural works." },
+    { "title": "Triple-redundant safety", "body": "Manual emergency valves, constant pressure monitoring and redundant controls for total operator confidence." },
+    { "title": "AirBreaks technology", "body": "Modulate oxygen and ambient airflow within a session for hyperoxic–hypoxic protocols." },
+    { "title": "Sensing built in", "body": "Air pressure, O₂, CO₂, temperature, humidity, particulates, TVOC and sound pressure, streamed to the OneBase software ecosystem." }
+  ],
+  "specs": [
+    { "label": "Total chamber", "value": "L 86.6\" × W 63\" × H 78.7\" (2200 × 1600 × 2000 mm)" },
+    { "label": "Segments (×4)", "value": "L 43.3\" × W 31.5\" × H 78.7\" (1100 × 800 × 2000 mm)" },
+    { "label": "Weight", "value": "900 kg" },
+    { "label": "Material", "value": "Fibreglass composite" },
+    { "label": "Door", "value": "Swing-style opening" },
+    { "label": "Air conditioning", "value": "Water-based air-conditioning system" },
+    { "label": "Air compressor", "value": "420 L/min" },
+    { "label": "Oxygen concentrator", "value": "958 × 1327 × 480 mm · 118 kg · one per person · PSA 20 L/min @ 4 bar · 93% ± 3% purity" },
+    { "label": "Interior", "value": "Adjustable lay-down chairs, entertainment with individual headsets, RGBW DALI high-density LED for circadian lighting" },
+    { "label": "Warranty", "value": "2 years" }
+  ],
+  "electrical": [],
+  "certifications": ["CE", "ISO 9001", "ISO 14001", "ISO 13485"],
+  "faqs": [
+    { "q": "Does the AirSuite need building work?", "a": "No. It ships as four segments that pass through a standard doorway and assemble on site." },
+    { "q": "What pressure does it run?", "a": "The AirSuite is a 2.0 ATA system with automated pressure regulation and custom decompression profiles." }
+  ],
+  "images": [{ "src": "/images/products/airsuite-solo-black.png", "alt": "OneBase AirSuite Solo in Midnight Black" }],
+  "channels": { "direct": true, "precor": false },
+  "status": "coming-soon",
+  "seoTitle": "OneBase AirSuite — 2.0 ATA Hyperbaric Room",
+  "seoDescription": "Modular walk-in 2.0 ATA hyperbaric room with medical-grade BIBS, 4K interface and triple-redundant safety. Solo and Duo. CE, ISO 13485."
+}

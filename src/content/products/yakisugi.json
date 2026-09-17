@@ -1,0 +1,46 @@
+{
+  "name": "Yakisugi",
+  "modality": "heat",
+  "category": "sauna",
+  "order": 1,
+  "tagline": "Full-spectrum infrared sauna in charred Western Red Cedar.",
+  "description": "The OneBase Yakisugi is the centrepiece sauna. Western Red Cedar finished with the Japanese Yakisugi charring technique gives a matte-black exterior that is naturally resistant to moisture, bacteria and wear. Inside, low-EMF full-spectrum infrared runs at a restorative 135–149°F, and the whole unit plugs into a standard outlet with no plumbing.",
+  "sizes": [
+    { "id": "duo", "label": "Duo", "note": "2 people · 68.9\" × 68.9\"" },
+    { "id": "quad", "label": "Quad", "note": "4 people · 79\" × 79\"" },
+    { "id": "octo", "label": "Octo", "note": "8 people · 108.5\" × 108.5\"" }
+  ],
+  "colours": ["Yakisugi Black"],
+  "pressures": [],
+  "highlights": [
+    { "title": "Architectural Yakisugi finish", "body": "Charred cedar is a visual differentiator and a carbonised layer that resists moisture, bacteria and wear. Essential for high-traffic hygiene." },
+    { "title": "Full-spectrum depth", "body": "Low-EMF panels deliver near, mid and far infrared to penetrate deeper into muscle tissue for recovery and metabolic detox." },
+    { "title": "Plug-and-play integration", "body": "Modular, no-plumbing architecture drops a premium thermal suite into any room with a standard electrical outlet." },
+    { "title": "High-traffic durability", "body": "Heavy-duty tempered glass and reinforced commercial-grade components, built to run 12+ hours a day." },
+    { "title": "The comfort advantage", "body": "A tolerable 135–149°F range lowers the heat-shock barrier for new users, increasing accessibility and frequency of use." }
+  ],
+  "specs": [
+    { "label": "Yakisugi Duo (2-person)", "value": "68.9\" × 68.9\" × 82.72\"" },
+    { "label": "Yakisugi Quad (4-person)", "value": "79\" × 79\" × 82.72\"" },
+    { "label": "Yakisugi Octo (8-person)", "value": "108.5\" × 108.5\" × 82.72\"" },
+    { "label": "Operating temperature", "value": "135–149°F (57–65°C)" },
+    { "label": "Exterior", "value": "Yakisugi-charred Western Red Cedar" },
+    { "label": "Glazing", "value": "Heavy-duty tempered glass" }
+  ],
+  "electrical": [
+    { "label": "Supply", "value": "Standard electrical outlet; confirm circuit rating by size at quotation" },
+    { "label": "Plumbing", "value": "None required" }
+  ],
+  "certifications": [],
+  "faqs": [
+    { "q": "What is an infrared sauna?", "a": "Infrared panels heat your body directly rather than the surrounding air, giving a sauna experience at a more comfortable air temperature." },
+    { "q": "How does infrared differ from a traditional sauna?", "a": "Traditional saunas heat the air to 150–195°F. Infrared uses radiant heat that penetrates muscles, joints and tissues in a gentler environment while still improving circulation, recovery and relaxation." },
+    { "q": "Is the Yakisugi finish just aesthetic?", "a": "No. Charring creates a richly textured matte surface that is highly resistant to moisture and wear, which is exactly what busy wellness environments need." },
+    { "q": "Can I combine sauna with other treatments?", "a": "Yes. Infrared saunas pair with cold therapy such as the IceVault, massage, red light, HBOT or meditation. Hydrate and cool down between treatments." },
+    { "q": "Are infrared saunas energy efficient?", "a": "Yes. They typically use less energy than traditional saunas or steam rooms while delivering the full therapeutic benefits." }
+  ],
+  "images": [{ "src": "/images/products/yakisugi-quad.png", "alt": "OneBase Yakisugi Quad infrared sauna" }],
+  "channels": { "direct": true, "precor": true },
+  "seoTitle": "OneBase Yakisugi — Commercial Infrared Sauna",
+  "seoDescription": "Full-spectrum low-EMF infrared sauna in Yakisugi-charred cedar, 135–149°F, plug-and-play. Duo, Quad and Octo for spas, gyms and clinics."
+}

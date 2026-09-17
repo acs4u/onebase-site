@@ -1,0 +1,141 @@
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { site, modalities, trustedBy, productName } from '@/lib/site';
+import Img from '@/components/Img.astro';
+import ProductCard from '@/components/ProductCard.astro';
+import EnquiryForm from '@/components/EnquiryForm.astro';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+const featured = ['icevault', 'yakisugi', 'airform', 'lightbed'].map(id => products.find(p => p.id === id)!).filter(Boolean);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'MedicalOrganization'],
+  '@id': `${site.url}/#organization`,
+  name: site.name, url: site.url, legalName: site.legalEntity,
+  logo: `${site.url}/images/logo.png`,
+  sameAs: Object.values(site.social),
+  contactPoint: [{ '@type': 'ContactPoint', telephone: '+1-208-408-1801', contactType: 'sales', areaServed: ['US', 'CA', 'AU'] }],
+};
+
+const promises = [
+  { title: 'Engineered in-house', body: 'Mechanical, electrical, embedded, software and security under one roof. Products are designed, tested and validated by our own engineers for commercial duty cycles.' },
+  { title: 'Medically led', body: 'Protocols built with Dr Scott Sherr and delivered in the OneBase app, so every session is consistent across staff, sites and shifts.' },
+  { title: 'Clean design, easy operation', body: 'Equipment that improves a space instead of cluttering it. Plug-and-play installs, self-cleaning cycles, and interfaces anyone can run.' },
+  { title: 'Support that stays', body: 'North America and Australia-based support, local parts, trained technicians and remote diagnostics. We’re with you after the sale.' },
+];
+---
+<Base title="OneBase Health — Connected Commercial Recovery Equipment" dark jsonLd={jsonLd}>
+  <!-- Hero: one thing in focus, 30% black overlay, white text (brand guide v.2) -->
+  <section class="relative isolate min-h-[92vh] flex items-end bg-ob-ink text-white">
+    <div class="absolute inset-0 -z-10">
+      <Img src="/images/hero/full-stack.jpg" alt="OneBase full stack installed: IceVault, Yakisugi sauna, LightBed and AirForm in one recovery suite" class="h-full w-full object-cover" loading="eager" hideLabel />
+      <div class="absolute inset-0 hero-overlay"></div>
+    </div>
+    <div class="container-wide pb-20 pt-40">
+      <p class="eyebrow text-white/70">Air · Ice · Heat · Light</p>
+      <h1 class="mt-4 max-w-4xl text-white">Recovery equipment engineered for the facilities people come back to.</h1>
+      <p class="key-message mt-6 max-w-2xl text-white/85">Hyperbaric, cold, heat and light. Built in-house, medically led, connected by one platform.</p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="/contact" class="btn-on-dark">Talk to sales</a>
+        <a href="/products" class="btn-ghost-on-dark">See the products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted by -->
+  <section class="border-b border-ob-grey">
+    <div class="container-wide py-8 flex flex-wrap items-center gap-x-10 gap-y-3">
+      <span class="eyebrow">Trusted by</span>
+      {trustedBy.map(n => <span class="font-display text-sm text-ob-grey-500">{n}</span>)}
+    </div>
+  </section>
+
+  <!-- Modalities -->
+  <section class="section">
+    <div class="container-wide">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Four modalities, one system</p>
+        <h2 class="mt-3">Air, Ice, Heat and Light. Each one commercial-grade. All of them connected.</h2>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {Object.values(modalities).map(m => (
+          <a href={m.path} class="group rounded-ob ring-1 ring-ob-grey p-6 hover:ring-ob-black transition" data-modality={m.key}>
+            <div class="accent-bar w-12 rounded-full"></div>
+            <p class="eyebrow mt-6 accent-text">{m.label}</p>
+            <h3 class="mt-2">{m.name}</h3>
+            <p class="mt-3 text-sm text-ob-grey-700">{m.blurb}</p>
+            <span class="mt-6 inline-block font-display text-sm font-medium group-hover:underline underline-offset-4">Explore →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured products -->
+  <section class="section bg-ob-grey-50">
+    <div class="container-wide">
+      <div class="flex items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <p class="eyebrow">Built for business</p>
+          <h2 class="mt-3">The equipment operators ask for by name.</h2>
+        </div>
+        <a href="/products" class="btn-ghost hidden md:inline-flex">All products</a>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {featured.map(p => <ProductCard product={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why OneBase (brand promises) -->
+  <section class="section bg-ob-black text-white">
+    <div class="container-wide grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <p class="eyebrow text-white/60">Why OneBase</p>
+        <h2 class="mt-3 text-white">We push the boundaries of what recovery equipment can do, then make it easy to run.</h2>
+        <p class="key-message mt-6 text-white/75">Clean design and advanced technology, so every session is effective and enjoyable.</p>
+      </div>
+      <div class="grid gap-8 sm:grid-cols-2">
+        {promises.map(p => (
+          <div class="border-t border-white/15 pt-5">
+            <h3 class="text-white">{p.title}</h3>
+            <p class="mt-3 text-sm text-white/70">{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Software -->
+  <section class="section">
+    <div class="container-wide grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div class="order-2 lg:order-1">
+        <p class="eyebrow">OneBase OS · coming late 2026</p>
+        <h2 class="mt-3">Every device on one screen. Every protocol in one app.</h2>
+        <p class="mt-5 text-ob-grey-700 max-w-lg">Track usage, monitor temperature and pressure, schedule maintenance and manage every location from one place. Members follow doctor-built protocols in the OneBase app, so results are consistent and easy to sell.</p>
+        <ul class="mt-6 space-y-2 text-sm">
+          <li>✓ Real-time monitoring and alerts</li>
+          <li>✓ Usage analytics and reporting</li>
+          <li>✓ Multi-location fleet management</li>
+          <li>✓ Doctor-built protocols by Dr Scott Sherr</li>
+        </ul>
+        <a href="/software" class="btn-primary mt-8">See the software</a>
+      </div>
+      <div class="order-1 lg:order-2 rounded-ob overflow-hidden bg-ob-grey-50 aspect-[4/3]">
+        <Img src="/images/software/app-interface.webp" alt="OneBase OS dashboard and app interface" class="h-full w-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="section bg-ob-grey-50">
+    <div class="container-wide max-w-4xl">
+      <p class="key-message">“What stood out wasn’t just the technology, which is excellent, but the pride they take in doing things the right way, from product quality to support after the sale.”</p>
+      <p class="mt-6 font-display text-sm font-medium">Dr Jason Han <span class="font-light text-ob-grey-500">· Owner, HealthFit</span></p>
+    </div>
+  </section>
+
+  <EnquiryForm />
+</Base>

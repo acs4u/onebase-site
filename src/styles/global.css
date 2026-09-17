@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap");
+
+/*
+  OneBase design tokens — from "OneBase brand guide v.2" (Nov 2025).
+  Base: OneBase Black / White / Grey. Accents: one family per modality (Air, Ice, Heat, Light).
+  Typography: Poppins Medium (headers), Poppins Light (body), Lato Light Italic (key messages).
+*/
+@theme {
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-key: "Lato", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ob-black: #1f1f1f;
+  --color-ob-ink: #121212;
+  --color-ob-white: #ffffff;
+  --color-ob-grey: #e7e9eb;
+  --color-ob-grey-50: #f6f7f8;
+  --color-ob-grey-300: #c9cdd2;
+  --color-ob-grey-500: #8b8893;
+  --color-ob-grey-700: #4a4a4f;
+  --color-ob-green: #2a4843;
+
+  /* Air (HBOT) */
+  --color-air-900: #122232;
+  --color-air-400: #9aacbe;
+  --color-air-100: #e7f6fd;
+  /* Ice (cold therapy) */
+  --color-ice-900: #063944;
+  --color-ice-500: #5c94ab;
+  --color-ice-100: #c8e2e8;
+  /* Heat (sauna) */
+  --color-heat-700: #c4522e;
+  --color-heat-400: #e6886a;
+  --color-heat-300: #eac488;
+  --color-heat-100: #f0d48e;
+  /* Light (red light) */
+  --color-light-800: #8b2232;
+  --color-light-500: #ea7c8c;
+  --color-light-300: #e99999;
+  --color-light-100: #f7bfbf;
+
+  --radius-ob: 0.375rem;
+  --tracking-display: -0.025em;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-ob-white text-ob-black font-sans font-light antialiased;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4 { @apply font-display font-medium tracking-display text-ob-black; line-height: 1.1; }
+  h1 { @apply text-4xl md:text-6xl; }
+  h2 { @apply text-3xl md:text-5xl; }
+  h3 { @apply text-xl md:text-2xl; }
+  a { @apply transition-colors; }
+  ::selection { background: var(--color-air-400); color: #fff; }
+}
+
+@layer components {
+  .container-wide { @apply mx-auto w-full max-w-7xl px-5 md:px-8; }
+  .section { @apply py-16 md:py-28; }
+  .eyebrow { @apply font-display text-xs font-medium uppercase tracking-[0.2em] text-ob-grey-500; }
+  .key-message { @apply font-key italic font-light text-2xl md:text-3xl leading-snug; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-ob px-6 py-3 font-display text-sm font-medium transition-colors; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-ob px-6 py-3 font-display text-sm font-medium transition-colors bg-ob-black text-white hover:bg-ob-grey-700; }
+  .btn-on-dark { @apply inline-flex items-center justify-center gap-2 rounded-ob px-6 py-3 font-display text-sm font-medium transition-colors bg-white text-ob-black hover:bg-ob-grey; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-ob px-6 py-3 font-display text-sm font-medium transition-colors border border-ob-black text-ob-black hover:bg-ob-black hover:text-white; }
+  .btn-ghost-on-dark { @apply inline-flex items-center justify-center gap-2 rounded-ob px-6 py-3 font-display text-sm font-medium transition-colors border border-white/40 text-white hover:bg-white hover:text-ob-black; }
+  .spec-table { @apply w-full text-sm; }
+  .spec-table th { @apply text-left font-display font-medium py-3 pr-4 border-b border-ob-grey align-top w-1/3 text-ob-grey-700; }
+  .spec-table td { @apply py-3 border-b border-ob-grey align-top whitespace-pre-line; }
+  .hero-overlay { background: linear-gradient(180deg, rgba(0,0,0,.30) 0%, rgba(0,0,0,.30) 60%, rgba(0,0,0,.55) 100%); }
+  .prose-ob { @apply max-w-3xl; }
+  .prose-ob p { @apply mb-5; }
+  .prose-ob h2 { @apply text-2xl md:text-3xl mt-10 mb-4; }
+  .prose-ob h3 { @apply text-lg md:text-xl mt-8 mb-3; }
+  .prose-ob ul { @apply list-disc pl-6 mb-5; }
+  .prose-ob a { @apply underline underline-offset-4; }
+}
+
+/* Modality accent utilities: set on a section via data-modality */
+[data-modality="air"]   { --accent: var(--color-air-400);   --accent-deep: var(--color-air-900);   --accent-soft: var(--color-air-100); }
+[data-modality="ice"]   { --accent: var(--color-ice-500);   --accent-deep: var(--color-ice-900);   --accent-soft: var(--color-ice-100); }
+[data-modality="heat"]  { --accent: var(--color-heat-400);  --accent-deep: var(--color-heat-700);  --accent-soft: var(--color-heat-100); }
+[data-modality="light"] { --accent: var(--color-light-500); --accent-deep: var(--color-light-800); --accent-soft: var(--color-light-100); }
+.accent-bar { height: 3px; background: var(--accent, var(--color-ob-grey)); }
+.accent-text { color: var(--accent-deep, var(--color-ob-black)); }
+.accent-soft-bg { background: var(--accent-soft, var(--color-ob-grey-50)); }
+.accent-gradient { background: linear-gradient(135deg, var(--accent-deep, #1f1f1f) 0%, var(--accent, #4a4a4f) 100%); }

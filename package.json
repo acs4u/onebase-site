@@ -1,0 +1,25 @@
+{
+  "name": "onebase-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "import:blog": "node scripts/import-shopify-blog.mjs",
+    "import:images": "node scripts/import-images.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.13.0",
+    "@astrojs/sitemap": "^3.4.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.6.0",
+    "turndown": "^7.2.0"
+  }
+}

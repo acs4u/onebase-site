@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { productName } from '@/lib/site';
+import Img from '@/components/Img.astro';
+import PrecorBadge from '@/components/PrecorBadge.astro';
+interface Props { product: CollectionEntry<'products'>; }
+const { product } = Astro.props;
+const p = product.data;
+const href = `/products/${p.category}/${product.id}`;
+const sizes = p.sizes.map(s => s.label).join(' · ');
+---
+<a href={href} class="group block rounded-ob bg-white ring-1 ring-ob-grey hover:ring-ob-black transition" data-modality={p.modality}>
+  <div class="accent-bar rounded-t-ob"></div>
+  <div class="aspect-[4/3] overflow-hidden bg-ob-grey-50">
+    <Img src={p.images[0]?.src} alt={p.images[0]?.alt ?? productName(p.name)} class="h-full w-full object-contain p-6 transition-transform group-hover:scale-[1.03]" />
+  </div>
+  <div class="p-5">
+    <div class="flex items-start justify-between gap-3">
+      <h3 class="text-lg">{productName(p.name)}</h3>
+      {p.status === 'coming-soon' && <span class="shrink-0 rounded-full bg-ob-grey px-2 py-0.5 text-[10px] font-display uppercase tracking-widest">Coming soon</span>}
+    </div>
+    <p class="mt-1 text-sm text-ob-grey-700">{p.tagline}</p>
+    {sizes && <p class="mt-3 text-xs font-display text-ob-grey-500">{sizes}</p>}
+    <div class="mt-4 flex items-center justify-between">
+      <span class="font-display text-sm font-medium underline-offset-4 group-hover:underline">View product</span>
+      {p.channels.precor && <PrecorBadge small />}
+    </div>
+  </div>
+</a>
