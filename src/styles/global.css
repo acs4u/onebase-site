@@ -81,6 +81,8 @@
   .prose-ob a { @apply underline underline-offset-4; }
 }
 
+.logo-white{display:none}.header-dark header:not(.bg-ob-black) .logo-white,.header-dark header.text-white .logo-white{display:block}.header-dark header .logo-black{display:none}header.text-white .logo-black{display:none}header.text-white .logo-white{display:block}
+
 /* Modality accent utilities: set on a section via data-modality */
 [data-modality="air"]   { --accent: var(--color-air-400);   --accent-deep: var(--color-air-900);   --accent-soft: var(--color-air-100); }
 [data-modality="ice"]   { --accent: var(--color-ice-500);   --accent-deep: var(--color-ice-900);   --accent-soft: var(--color-ice-100); }

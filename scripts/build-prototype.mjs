@@ -33,7 +33,7 @@ const posts = [
 ];
 
 const imgDir = 'public/images/src';
-const img = Object.fromEntries(fs.readdirSync(imgDir).filter(f => f.endsWith('.jpg')).map(f => [f.replace('.jpg',''), 'data:image/jpeg;base64,' + fs.readFileSync(path.join(imgDir, f)).toString('base64')]));
+const img = Object.fromEntries(fs.readdirSync(imgDir).filter(f => /\.(jpg|png)$/.test(f)).map(f => [f.replace(/\.(jpg|png)$/,''), 'data:image/' + (f.endsWith('.png') ? 'png' : 'jpeg') + ';base64,' + fs.readFileSync(path.join(imgDir, f)).toString('base64')]));
 const prodImg = { airfit:'airfit', airflex:'airflex', airform:'airform-plus-black', airsuite:null, icevault:'icevault-quad', yakisugi:'yakisugi', hemlock:'hemlock', lightpanel:'lightpanel-quad', lightbed:'lightbed-black' };
 const solImg = { 'fitness-centers':'sol-fitness','luxury-hospitality':'sol-spas','pro-sports-performance':'sol-sports','multi-family-housing':'sol-multifamily','military-first-responders':'sol-military','high-end-real-estate':'sol-realestate','recovery-wellness-studios':'hero-bg','corporate-wellness':'engineers' };
 const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg };
@@ -71,7 +71,7 @@ p{margin:0}a{color:inherit;text-decoration:none}img{max-width:100%}
 .ph{display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint);background:var(--surf);padding:16px;border-radius:var(--r)}
 .hero{position:relative;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;min-height:min(78vh,720px)}
 .hero .ph{position:absolute;inset:0;border-radius:0;background:var(--ink);color:rgba(255,255,255,.28);align-items:flex-start;padding-top:48px}.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0!important}.hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.65) 100%)}
-.logos{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center}.logos img{height:34px;width:auto;mix-blend-mode:multiply;opacity:.85}
+.logos{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center}.logos img{height:34px;width:auto;mix-blend-mode:multiply;opacity:.85}.logos img.crest{height:44px}
 .cmp{width:100%;border-collapse:collapse;font-size:14px}.cmp th,.cmp td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.cmp th{font-weight:500}.cmp thead th{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}.cmp td.y{color:var(--ice-900);font-weight:500}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logos img{mix-blend-mode:normal;background:#fff;padding:4px 8px;border-radius:4px}:root:not([data-theme="light"]) .cmp td.y{color:var(--ice-100)}}:root[data-theme="dark"] .logos img{mix-blend-mode:normal;background:#fff;padding:4px 8px;border-radius:4px}:root[data-theme="dark"] .cmp td.y{color:var(--ice-100)}
 .hero .inner{position:relative;padding-block:120px 48px}
@@ -88,7 +88,8 @@ p{margin:0}a{color:inherit;text-decoration:none}img{max-width:100%}
 details{border-bottom:1px solid var(--g300);padding:12px 0}summary{cursor:pointer;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px}summary::after{content:"+";color:var(--faint)}details[open] summary::after{content:"–"}
 header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
 header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
-.logo{font-weight:500;font-size:20px;letter-spacing:-.02em}
+.logo{font-weight:500;font-size:20px;letter-spacing:-.02em;display:inline-flex;align-items:center}.logo img.lg{height:30px;width:auto;display:block}.lg-light{display:none!important}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .lg-dark{display:none!important}:root:not([data-theme="light"]) .lg-light{display:block!important}}:root[data-theme="dark"] .lg-dark{display:none!important}:root[data-theme="dark"] .lg-light{display:block!important}
 nav.main{display:none;gap:26px;font-size:14px;font-weight:500}nav.main a.on{text-decoration:underline;text-underline-offset:8px}
 @media(min-width:900px){nav.main{display:flex}.menu-btn{display:none}}
 .menu-btn{background:none;border:0;color:inherit;padding:8px;cursor:pointer}
@@ -112,7 +113,7 @@ main{padding-bottom:56px}
 </style>
 
 <header class="site"><div class="wrap">
-  <a href="#/" class="logo" aria-label="OneBase home">OneBase</a>
+  <a href="#/" class="logo" aria-label="OneBase home" id="hdrLogo">OneBase</a>
   <nav class="main" id="nav"></nav>
   <div class="row" style="gap:10px">
     <a href="tel:+12084081801" class="small" style="font-weight:500;display:none" id="phone">(208) 408-1801</a>
@@ -174,7 +175,7 @@ const pages = {
  \${eyebrow('Air · Ice · Heat · Light')}<h1>Recovery equipment engineered for the facilities people come back to.</h1>
  <p class="key">Hyperbaric, cold, heat and light. Built in-house, medically led, connected by one platform.</p>
  <div class="row"><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f">Talk to sales</a><a href="#/products" class="btn" style="border-color:rgba(255,255,255,.45);color:#fff">See the products</a></div></div></section>
-<section style="border-bottom:1px solid var(--line)"><div class="wrap logos" style="padding-block:22px"><span class="eyebrow" style="margin-right:8px">Installed at</span>\${['healthfit','10x','hype','covery','hume','infinity','lafc','revital'].map(l=>D.img['logo-'+l]?\`<img src="\${D.img['logo-'+l]}" alt="\${l}">\`:'').join('')}</div></section>
+<section style="border-bottom:1px solid var(--line)"><div class="wrap logos" style="padding-block:22px"><span class="eyebrow" style="margin-right:8px">Installed at</span>\${['usolympic','ussoccer','pga','nerevolution','lafc','healthfit','10x','covery','hype','hume','infinity','revital'].map(l=>D.img['logo-'+l]?\`<img src="\${D.img['logo-'+l]}" alt="\${l}" class="\${['usolympic','ussoccer','pga','nerevolution'].includes(l)?'crest':''}">\`:'').join('')}</div></section>
 <section class="sec"><div class="wrap stack" style="gap:32px"><div class="stack" style="max-width:680px">\${eyebrow('Four modalities, one system')}<h2>Air, Ice, Heat and Light. Each one commercial-grade. All of them connected.</h2></div>
  <div class="grid g4">\${Object.values(D.modalities).map(m=>\`<a href="#/products/\${m.category}" class="card mod-\${m.key}" style="padding:22px;gap:8px"><div class="bar" style="width:44px;border-radius:2px"></div><p class="eyebrow acc" style="margin-top:8px">\${m.label}</p><h3>\${m.name}</h3><p class="small muted">\${m.blurb}</p><span class="small" style="font-weight:500;margin-top:8px">Explore →</span></a>\`).join('')}</div></div></section>
 <section class="sec" style="background:var(--surf)"><div class="wrap stack" style="gap:32px"><div class="row" style="justify-content:space-between"><div class="stack" style="max-width:680px">\${eyebrow('Built for business')}<h2>The equipment operators ask for by name.</h2></div><a href="#/products" class="btn btn-g">All products</a></div>
@@ -250,7 +251,7 @@ const pages = {
 <section class="wrap stack" style="padding-block:56px 32px;max-width:760px">\${eyebrow('Partners')}<h1>Buy direct, or through a partner you already trust.</h1><p class="muted">OneBase sells and supports direct across North America, Australia and Asia-Pacific. In selected markets our equipment is also available through distribution partners, with the same engineering, warranty and support behind it.</p></section>
 \${S.precor?\`<section class="wrap" style="padding-bottom:40px"><div class="dark" style="border-radius:var(--r);padding:32px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px"><div class="stack" style="max-width:640px">\${eyebrow('US commercial fitness')}<h2>OneBase, available through Precor.</h2><p class="muted">IceVault cold rooms, Yakisugi and Hemlock saunas, and LightPanel and LightBed red light are available to US fitness facilities through Precor. Your Precor rep can spec, quote and deliver OneBase equipment alongside your cardio and strength floor.</p></div><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f">Ask about Precor</a></div></section>\`:''}
 <section class="sec" style="background:var(--surf)"><div class="wrap grid g3" style="gap:36px">\${[['Direct sales','HBOT chambers, hospitality, real estate, sports, corporate and clinical projects are handled by the OneBase team. Facility planning, electrical guidance, installation and training included.'],['Dealers and integrators','Architects, wellness consultants and fit-out contractors can specify OneBase for their projects. Ask us for CAD, spec sheets and a partner price list.'],['Service partners','Trained technicians and local parts in North America and Australia. Remote diagnostics through OneBase OS for everything else.']].map(([t,b])=>\`<div><h3>\${t}</h3><p class="small muted" style="margin-top:8px">\${b}</p></div>\`).join('')}</div></section>
-<section class="sec"><div class="wrap">\${eyebrow('Trusted by')}<div class="logos" style="margin-top:16px">\${['healthfit','10x','hype','covery','hume','infinity','lafc','revital'].map(l=>D.img['logo-'+l]?\`<img src="\${D.img['logo-'+l]}" alt="\${l}">\`:'').join('')}</div></div></section>
+<section class="sec"><div class="wrap">\${eyebrow('Trusted by')}<div class="logos" style="margin-top:16px">\${['usolympic','ussoccer','pga','nerevolution','lafc','healthfit','10x','covery','hype','hume','infinity','revital'].map(l=>D.img['logo-'+l]?\`<img src="\${D.img['logo-'+l]}" alt="\${l}" class="\${['usolympic','ussoccer','pga','nerevolution'].includes(l)?'crest':''}">\`:'').join('')}</div></div></section>
 \${cta('Interested in partnering with OneBase?','Tell us about your market and we’ll come back with a partner pack.')}\`,
 
  about: () => { const groups = { founders:'Founders', medical:'Medical', engineering:'Engineering', commercial:'Sales & customer', operations:'Operations' }; return \`
@@ -286,8 +287,9 @@ const NAV = [['Products','#/products',Object.values(D.modalities).map(m=>[m.name
 function renderChrome(){
   const h = location.hash || '#/';
   document.getElementById('nav').innerHTML = NAV.map(([l,href])=>\`<a href="\${href}" class="\${h.startsWith(href)?'on':''}">\${l}</a>\`).join('');
-  document.getElementById('drawer').innerHTML = NAV.map(([l,href,sub])=>\`<a href="\${href}">\${l}</a>\${(sub||[]).map(([sl,sh])=>\`<a href="\${sh}" class="sub">\${sl}</a>\`).join('')}\`).join('') + '<a href="#/parts" class="sub">Parts &amp; consumables</a><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f;align-self:flex-start;margin-top:16px;border:0">Talk to sales</a>';
-  document.getElementById('foot').innerHTML = \`<div class="cols"><div class="stack"><span class="logo">OneBase</span><p class="key" style="color:rgba(255,255,255,.8);font-size:20px">The world’s easiest therapy system.</p><p style="color:rgba(255,255,255,.6)">Sales: (208) 408-1801<br>or <a href="#/contact" style="text-decoration:underline">schedule a call</a></p></div>
+  document.getElementById('drawer').innerHTML = NAV.map(([l,href,sub])=>\`<a href="\${href}">\${l}</a>\${(sub||[]).map(([sl,sh])=>\`<a href="\${sh}" class="sub">\${sl}</a>\`).join('')}\`).join('') + '<a href="#/parts" class="sub">Parts &amp; consumables</a>' + \`<img src="\${D.img['onebase-logo-white']}" alt="OneBase" style="height:22px;width:auto;margin-top:22px;align-self:flex-start">\` + '<a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f;align-self:flex-start;margin-top:16px;border:0">Talk to sales</a>';
+  document.getElementById('hdrLogo').innerHTML = D.img['onebase-logo-black'] ? \`<img src="\${D.img['onebase-logo-black']}" alt="OneBase" class="lg lg-dark"><img src="\${D.img['onebase-logo-white']}" alt="" class="lg lg-light">\` : 'OneBase';
+  document.getElementById('foot').innerHTML = \`<div class="cols"><div class="stack"><span class="logo"><img src="\${D.img['onebase-logo-white']}" alt="OneBase" style="height:26px;width:auto"></span><p class="key" style="color:rgba(255,255,255,.8);font-size:20px">The world’s easiest therapy system.</p><p style="color:rgba(255,255,255,.6)">Sales: (208) 408-1801<br>or <a href="#/contact" style="text-decoration:underline">schedule a call</a></p></div>
   <div><p class="eyebrow">Products</p>\${Object.values(D.modalities).map(m=>\`<a href="#/products/\${m.category}">\${m.name}</a>\`).join('')}<a href="#/parts">Parts &amp; consumables</a></div>
   <div><p class="eyebrow">Solutions</p>\${D.solutions.map(s=>\`<a href="#/solutions/\${s.id}">\${s.label}</a>\`).join('')}</div>
   <div><p class="eyebrow">Company</p><a href="#/about">About OneBase</a><a href="#/software">Software</a><a href="#/partners">Partners</a><a href="#/blog">Blog</a><a href="#/contact">Contact</a></div>

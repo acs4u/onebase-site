@@ -1,6 +1,8 @@
 ---
-// Wordmark placeholder in Poppins Medium. Replace with the official SVG wordmark from the brand guide
-// (Canva "OneBase brand guide v.2" → Main logo). Never split "One" and "Base"; never shorten.
-const { class: className = '' } = Astro.props;
+// Official OneBase wordmark (secondary logo v2, from Drive "2 - ONEBASE LOGOS 2025"). Never split One/Base, never shorten.
+interface Props { class?: string; variant?: 'auto' | 'black' | 'white'; }
+const { class: className = '', variant = 'auto' } = Astro.props;
 ---
-<span class:list={['font-display font-medium tracking-tight text-[1.35rem] leading-none select-none', className]} aria-hidden="true">OneBase</span>
+{variant === 'white' ? <img src="/images/logo-white.png" alt="OneBase" class={className} width="800" height="267" /> :
+ variant === 'black' ? <img src="/images/logo-black.png" alt="OneBase" class={className} width="800" height="267" /> :
+ <span class="inline-flex"><img src="/images/logo-black.png" alt="OneBase" class:list={[className, 'logo-black']} width="800" height="267" /><img src="/images/logo-white.png" alt="" class:list={[className, 'logo-white']} width="800" height="267" /></span>}
