@@ -45,10 +45,10 @@ const customers = [
   { seg: 'Brands & creators', names: ['Jake Paul', 'Kayla Barnes', 'The Fox Tan', 'FuzzYard', 'Pretty Farm Girl'] },
 ];
 const EXTRA_CSS = fs.readFileSync('scripts/proto/extra.css','utf8');
-const EXTRA_JS = fs.readFileSync('scripts/proto/extra.js','utf8') + '\n' + fs.readFileSync('scripts/proto/software.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tablet.js','utf8') + '\n' + fs.readFileSync('scripts/proto/capture.js','utf8') + '\n' + fs.readFileSync('scripts/proto/products.js','utf8');
+const EXTRA_JS = fs.readFileSync('scripts/proto/extra.js','utf8') + '\n' + fs.readFileSync('scripts/proto/software.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tablet.js','utf8') + '\n' + fs.readFileSync('scripts/proto/capture.js','utf8') + '\n' + fs.readFileSync('scripts/proto/products.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tesla.js','utf8');
 const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg, customers };
 
-const html = `<title>OneBase Site Prototype</title>
+const html = `<meta charset="utf-8"><title>OneBase Site Prototype</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap">
 <style>
 :root{

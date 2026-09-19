@@ -175,7 +175,7 @@ const DIMS = {
   lightbed:{_one:[89.5,51,44,1],_p:'6500 W · 240 V'},
 };
 const SWC = {'Matte Black':'#1f1f1f','Black':'#1f1f1f','Midnight Black':'#15161a','Yakisugi Black':'#2b2622','Matte White':'#f4f4f4','Arctic White':'#eef3f5','White':'#f4f4f4','Hemlock':'#d9b98c'};
-const VIMG = { icevault:{octo:'icevault-octo',quad:'icevault-quad',duo:'icevault-quad'}, lightbed:{White:'lightbed-white',Black:'lightbed-black'} };
+const VIMG = { icevault:{octo:'cut-icevault-octo',quad:'cut-icevault-quad',duo:'cut-icevault-quad'}, lightbed:{White:'lightbed-white',Black:'cut-lightbed-black'} };
 const CF = {};
 const inch = (v) => v==null?'—':`${Math.round(v*10)/10}″`;
 const cm = (v) => v==null?'':`${Math.round(v*2.54)} cm`;
@@ -206,7 +206,7 @@ function cfgRender(p){
     const w=document.getElementById('fpw'), dd=document.getElementById('fpd'); w.textContent = inch(d[0]); w.style.left='50%'; w.style.transform='translateX(-50%)'; w.style.top=`calc(${50-H/2}% - 20px)`;
     dd.textContent = inch(d[1]); dd.style.top='50%'; dd.style.transform='translateY(-50%)'; dd.style.left=`calc(${50+W/2}% + 8px)`; fp.style.display=''; }
   else fp.style.display='none';
-  const vk = VIMG[p.id] && (VIMG[p.id][st.size] || VIMG[p.id][st.col]); const hero = document.querySelector('#app .softbg img'); if (vk && hero && D.img[vk] && hero.getAttribute('src')!==D.img[vk]) hero.src = D.img[vk];
+  const vk = VIMG[p.id] && (VIMG[p.id][st.size] || VIMG[p.id][st.col]); const hero = document.querySelector('#app .ts-img, #app .softbg img'); if (vk && hero && D.img[vk] && hero.getAttribute('src')!==D.img[vk]) hero.src = D.img[vk];
   const rows = [];
   if (d) { rows.push(['Footprint', `${inch(d[0])} × ${inch(d[1])}<small>${cm(d[0])} × ${cm(d[1])}</small>`]); rows.push(['Height', d[2]?`${inch(d[2])}<small>${cm(d[2])}</small>`:'Confirmed at quote']); rows.push(['Capacity', `${d[3]} ${d[3]>1?'people':'person'}`]); rows.push(['Room from', `~${fmt(Math.ceil((d[0]/12+3)*(d[1]/12+4)/5)*5)} sq ft<small>incl. access space</small>`]); }
   rows.push(['Finish', esc(st.col||'—')]); rows.push(['Power', esc((d&&d[4]?d[4]+' · ':'')+(dm?dm._p:'Confirmed at quote'))]);
