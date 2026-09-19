@@ -316,6 +316,54 @@ input[type=range].rng::-moz-range-thumb{width:18px;height:18px;border-radius:50%
 @media(min-width:701px){.tb-frame:not(.full) .tb-full{display:none}}
 .tb-frame.full .tb-full{z-index:101}
 
+/* Booking modal */
+.bk-modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:16px}
+.bk-modal.open{display:flex}
+.bk-back{position:absolute;inset:0;background:rgba(15,15,17,.55);backdrop-filter:blur(4px)}
+.bk-card{position:relative;width:min(620px,100%);max-height:calc(100svh - 32px);overflow:auto;background:var(--bg);color:var(--fg);border-radius:14px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.35);animation:rise .35s cubic-bezier(.2,.7,.2,1)}
+.bk-card h3{font-size:24px;margin-bottom:4px}
+.bk-x{position:absolute;right:14px;top:12px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:22px;cursor:pointer}
+.bk-steps{display:flex;gap:6px;list-style:none;padding:0;margin:0 0 18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.bk-steps li{flex:1;padding-top:8px;border-top:2px solid var(--line)}.bk-steps li.on{color:var(--fg);border-color:var(--fg)}.bk-steps li.done{border-color:var(--muted)}
+.bk-q{font-size:13px;font-weight:500;margin:18px 0 8px}
+.bk-ctx{display:inline-block;font-size:12px;background:var(--surf);border-radius:999px;padding:5px 12px;margin-top:10px}
+.bk-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.bk-days{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px}
+.bk-days button{font:inherit;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.bk-days button b{font-size:20px;font-weight:500}.bk-days small{font-size:11px;color:var(--faint)}
+.bk-days button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}.bk-days button[aria-pressed="true"] small{color:inherit;opacity:.7}
+.bk-times{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.bk-times button{font:inherit;font-weight:500;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.bk-times button[disabled]{color:var(--faint);text-decoration:line-through;cursor:not-allowed;background:var(--surf)}
+.bk-times button[aria-pressed="true"]{border-color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg)}
+.bk-sum{font-size:14px;font-weight:500;background:var(--surf);border-radius:8px;padding:10px 12px;margin:8px 0 16px}
+.bk-done{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 0}
+.bk-tick{width:64px;height:64px;border-radius:50%;background:var(--fg);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px}
+@media(max-width:520px){.bk-card{padding:22px 18px}.bk-days{grid-template-columns:repeat(3,1fr)}}
+/* Two-step enquiry */
+.enq-prog{display:flex;gap:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.enq-prog span{flex:1;padding-top:8px;border-top:2px solid var(--line)}.enq-prog span.on{color:var(--fg);border-color:var(--fg)}
+.enq-row,.enq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.enq2 input,.enq2 select,.enq2 textarea{width:100%;box-sizing:border-box}.enq-grid .full{grid-column:1/-1}
+.enq2 label{display:flex;flex-direction:column;gap:5px;font-size:13px}
+@media(max-width:560px){.enq-row,.enq-grid{grid-template-columns:1fr}}
+/* Spec sheet */
+.spec-cta{border-top:1px solid var(--line)}
+.spec-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}@media(max-width:860px){.spec-grid{grid-template-columns:1fr}}
+.ss-card{position:relative;width:min(820px,100%);max-height:calc(100svh - 32px);overflow:auto;background:#fff;color:#1f1f1f;border-radius:12px;box-shadow:0 30px 90px rgba(0,0,0,.35)}
+.ss-bar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f6f7f8;border-bottom:1px solid #e7e9eb;z-index:2}
+.ss-bar .bk-x{background:#fff;color:#1f1f1f}
+.ss-sheet{padding:36px 40px;font-size:13px;color:#1f1f1f}
+.ss-sheet header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #1f1f1f;padding-bottom:12px;margin-bottom:22px}.ss-sheet header img{height:24px}.ss-sheet header span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6b6873}
+.ss-top{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center}.ss-top img{width:100%;max-height:240px;object-fit:contain}
+.ss-sheet h2{font-size:28px;color:#1f1f1f}.ss-sheet .muted{color:#4a4a4f}.ss-sheet .eyebrow{color:#6b6873}
+.ss-sheet dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.ss-sheet dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6b6873}.ss-sheet dd{margin:2px 0 0;font-weight:500}
+.ss-sheet h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin:24px 0 8px;color:#1f1f1f}
+.ss-sheet table{width:100%;border-collapse:collapse}.ss-sheet th{text-align:left;font-weight:500;width:38%;padding:8px 12px 8px 0;border-bottom:1px solid #e7e9eb;vertical-align:top}.ss-sheet td{padding:8px 0;border-bottom:1px solid #e7e9eb}
+.ss-sheet footer{margin-top:28px;padding-top:12px;border-top:1px solid #e7e9eb;font-size:10.5px;color:#6b6873;line-height:1.6}
+@media(max-width:600px){.ss-sheet{padding:22px 18px}.ss-top{grid-template-columns:1fr}}
+@media print{body>*:not(#ss-modal){display:none!important}#ss-modal{position:static;display:block;padding:0}#ss-modal .bk-back,#ss-modal .ss-bar{display:none}#ss-modal .ss-card{box-shadow:none;max-height:none;overflow:visible;width:auto}}
+
 </style>
 
 <header class="site"><div class="wrap">
@@ -981,6 +1029,120 @@ const _swSetMod = swSetMod;
 swSetMod = function(m, name, pressures){ _swSetMod(m, name, pressures); if (m==='air') SW.view='tablet'; else if (SW.view==='tablet') SW.view='app'; };
 const _afterRender2 = afterRender;
 afterRender = function(){ tbStop(); document.body.style.overflow=''; _afterRender2(); };
+
+/* ===== Contact capture: book-a-call, two-step enquiry, spec-sheet download =====
+   Production: every submit posts to HubSpot Forms API (portal 20568937) with hidden fields:
+   source_page, capture_type (booking | enquiry | spec_sheet | planner | configurator), venue_type, sites, timeline, country, product, configuration.
+   Booking step uses HubSpot Meetings (round-robin by region) in place of the mock calendar below. */
+const VENUE_TYPES = ['Gym or fitness club','Recovery studio','Sports team','Hotel or spa','Clinic','Residential / real estate','Corporate wellness','Other'];
+const TIMELINES = ['Ready now','1–3 months','3–6 months','6+ months','Just researching'];
+const BK = { step:1, venue:'', sites:'', timeline:'', day:null, slot:null, context:'' };
+function bkSlots(){ const out=[]; const d=new Date(); d.setHours(0,0,0,0); while(out.length<6){ d.setDate(d.getDate()+1); const wd=d.getDay(); if (wd===0||wd===6) continue; out.push(new Date(d)); } return out; }
+const BK_TIMES = ['9:00','10:00','11:30','13:00','14:30','16:00'];
+const bkTaken = (di, ti) => ((di*7 + ti*3) % 5) === 0;
+function bkBody(){
+  const chips = (k, list) => `<div class="chips" data-bk="${k}">${list.map(v=>`<button type="button" class="chip" aria-pressed="${BK[k]===v}" data-v="${esc(v)}">${esc(v)}</button>`).join('')}</div>`;
+  const steps = `<ol class="bk-steps">${['Venue','Time','Details'].map((s,i)=>`<li class="${BK.step===i+1?'on':BK.step>i+1?'done':''}">${s}</li>`).join('')}</ol>`;
+  if (BK.step===1) return steps + `<h3>Book a call with our team</h3><p class="muted small">30 minutes with a OneBase specialist. We’ll cover your space, the right equipment and pricing.</p>${BK.context?`<p class="bk-ctx">Re: ${esc(BK.context)}</p>`:''}
+    <p class="bk-q">What kind of venue?</p>${chips('venue',VENUE_TYPES)}<p class="bk-q">How many sites?</p>${chips('sites',['1','2–5','6+'])}<p class="bk-q">When are you looking to install?</p>${chips('timeline',TIMELINES)}
+    <div class="bk-foot"><button class="btn btn-p" data-bk-go="2" ${BK.venue&&BK.sites&&BK.timeline?'':'disabled'}>Choose a time</button></div>`;
+  if (BK.step===2) { const days=bkSlots(); if (BK.day===null) BK.day=0; const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g,' ');
+    return steps + `<h3>Pick a time</h3><p class="muted small">Times shown in your time zone (${esc(tz)}).</p>
+    <div class="bk-days">${days.map((d,i)=>`<button type="button" data-bk-day="${i}" aria-pressed="${BK.day===i}"><small>${d.toLocaleDateString('en-US',{weekday:'short'})}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></button>`).join('')}</div>
+    <div class="bk-times">${BK_TIMES.map((t,i)=>{ const tk=bkTaken(BK.day,i); return `<button type="button" data-bk-slot="${t}" ${tk?'disabled':''} aria-pressed="${BK.slot===t}">${tk?'Taken':t}</button>`; }).join('')}</div>
+    <div class="bk-foot"><button class="btn btn-g" data-bk-go="1">Back</button><button class="btn btn-p" data-bk-go="3" ${BK.slot?'':'disabled'}>Continue</button></div>`; }
+  if (BK.step===3) { const d=bkSlots()[BK.day];
+    return steps + `<h3>Your details</h3><p class="bk-sum">${d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} · ${BK.slot} · 30 min · ${esc(BK.venue)}</p>
+    <form class="enq" id="bkForm" style="padding:0;border:0;background:none"><label>Name *<input required></label><label>Work email *<input type="email" required></label><label>Company *<input required></label><label>Phone<input type="tel"></label><label class="full">Anything we should know?<textarea rows="3">${BK.context?esc('Interested in '+BK.context):''}</textarea></label>
+    <div class="full bk-foot" style="margin:0"><button type="button" class="btn btn-g" data-bk-go="2">Back</button><button class="btn btn-p" type="submit">Confirm booking</button></div></form>`; }
+  const d=bkSlots()[BK.day];
+  return `<div class="bk-done"><div class="bk-tick">✓</div><h3>You’re booked</h3><p>${d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${BK.slot}. A calendar invite is on its way.</p><p class="muted small">Want to get ahead? Try the <a href="#/planner" style="text-decoration:underline">room planner</a> and we’ll bring your layout to the call.</p><button class="btn btn-p" data-bk-close>Done</button></div>`;
+}
+function bkRender(){ const m=document.getElementById('bk-body'); if (m) m.innerHTML=bkBody(); }
+function bkOpen(context){
+  let m = document.getElementById('bk-modal');
+  if (!m) { m=document.createElement('div'); m.id='bk-modal'; m.className='bk-modal'; m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true'); m.setAttribute('aria-label','Book a call');
+    m.innerHTML='<div class="bk-back" data-bk-close></div><div class="bk-card"><button class="bk-x" data-bk-close aria-label="Close">×</button><div id="bk-body"></div></div>'; document.body.appendChild(m);
+    m.addEventListener('click', e => {
+      if (e.target.closest('[data-bk-close]')) { m.classList.remove('open'); document.body.style.overflow=''; return; }
+      const c=e.target.closest('[data-bk] .chip'); if (c) { BK[c.parentElement.dataset.bk]=c.dataset.v; bkRender(); return; }
+      const g=e.target.closest('[data-bk-go]'); if (g && !g.disabled) { e.preventDefault(); BK.step=+g.dataset.bkGo; bkRender(); return; }
+      const dy=e.target.closest('[data-bk-day]'); if (dy) { BK.day=+dy.dataset.bkDay; BK.slot=null; bkRender(); return; }
+      const sl=e.target.closest('[data-bk-slot]'); if (sl && !sl.disabled) { BK.slot=sl.dataset.bkSlot; bkRender(); return; }
+    });
+    m.addEventListener('submit', e => { e.preventDefault(); BK.step=4; bkRender(); });
+    addEventListener('keydown', e => { if (e.key==='Escape' && m.classList.contains('open')) { m.classList.remove('open'); document.body.style.overflow=''; } });
+  }
+  Object.assign(BK, { step:1, day:null, slot:null, context: context||'' }); bkRender(); m.classList.add('open'); document.body.style.overflow='hidden';
+  setTimeout(()=>m.querySelector('.bk-card button, .bk-card .chip')?.focus(), 50);
+}
+/* intercept every sales CTA button (not plain nav links) */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a.btn[href="#/contact"]'); if (!a) return;
+  e.preventDefault(); const p = currentProduct(); bkOpen(p ? 'OneBase '+p.name : '');
+}, true);
+function currentProduct(){ const parts=(location.hash||'').slice(2).split('/'); return parts[0]==='products' && parts[2] ? D.products.find(x=>x.id===parts[2]) : null; }
+
+/* ---------- Two-step enquiry (replaces the long form inside #enquiry) ---------- */
+function enqHTML(p){
+  return `<form class="enq enq2" id="enq2" novalidate>
+   <div class="full enq-prog"><span class="on">1 · About you</span><span>2 · Your project</span></div>
+   <div class="full enq-s1"><div class="enq-row"><label>Work email *<input type="email" name="email" required></label><label>Venue type *<select name="venue" required><option value="">Select</option>${VENUE_TYPES.map(v=>`<option>${esc(v)}</option>`).join('')}</select></label></div>
+    <div class="row" style="margin-top:14px"><button class="btn btn-p" type="button" data-enq="next">Continue</button><span class="faint" style="font-size:12px">Takes under a minute.</span></div></div>
+   <div class="full enq-s2" hidden><div class="enq-grid"><label>Name *<input name="name" required></label><label>Company *<input name="company" required></label><label>Phone<input name="phone" type="tel"></label><label>Country *<select name="country" required><option value="">Select</option>${['United States','Canada','Australia','New Zealand','United Kingdom','Hong Kong','Singapore','Other'].map(c=>`<option>${c}</option>`).join('')}</select></label>
+    <label>Timeline<select name="timeline"><option value="">Select</option>${TIMELINES.map(t=>`<option>${t}</option>`).join('')}</select></label><label>Sites<select name="sites"><option value="">Select</option><option>1</option><option>2–5</option><option>6+</option></select></label>
+    <label class="full">Message<textarea id="msg" name="message" rows="3">${p?esc('Interested in OneBase '+p.name):''}</textarea></label></div>
+    <div class="row" style="margin-top:14px"><button class="btn btn-g" type="button" data-enq="back">Back</button><button class="btn btn-p" type="submit">Send enquiry</button><span class="faint" style="font-size:12px">By submitting, you agree to receive communications from OneBase. Unsubscribe anytime.</span></div></div>
+   <input type="hidden" name="source_page" value="${esc(location.hash||'#/')}"><input type="hidden" name="product" value="${p?esc(p.id):''}">
+  </form>`;
+}
+function enqInit(){
+  const sec=document.getElementById('enquiry'); if (!sec) return; const old=sec.querySelector('form.enq'); if (!old || old.id==='enq2') return;
+  const p=currentProduct(); old.outerHTML=enqHTML(p); const f=document.getElementById('enq2');
+  const sched = sec.querySelector('a.btn-g[href="#/contact"]'); if (sched) sched.textContent='Book a call';
+  f.addEventListener('click', e => { const b=e.target.closest('[data-enq]'); if (!b) return;
+    if (b.dataset.enq==='next') { const em=f.elements.email, vn=f.elements.venue; if (!em.checkValidity()||!vn.value) { (!em.checkValidity()?em:vn).reportValidity(); return; } f.querySelector('.enq-s1').hidden=true; f.querySelector('.enq-s2').hidden=false; f.querySelectorAll('.enq-prog span')[1].classList.add('on'); f.elements.name.focus(); }
+    else { f.querySelector('.enq-s1').hidden=false; f.querySelector('.enq-s2').hidden=true; f.querySelectorAll('.enq-prog span')[1].classList.remove('on'); } });
+  f.addEventListener('submit', e => { e.preventDefault(); if (!f.checkValidity()) { f.reportValidity(); return; }
+    const venue=f.elements.venue.value, tl=f.elements.timeline.value; const hot = tl==='Ready now'||tl==='1–3 months';
+    f.innerHTML = `<div class="full stack" style="gap:10px"><p style="font-weight:500;font-size:20px">Thanks, we’ve got it.</p><p class="muted">A specialist will reply within one business day.${hot?' Since you’re moving soon, you can lock in a call now instead of waiting.':''}</p><div><button type="button" class="btn btn-p" data-book>Book a call now</button></div></div>`;
+    f.querySelector('[data-book]').onclick = () => { BK.venue=venue; BK.timeline=tl; bkOpen(p?'OneBase '+p.name:''); };
+  });
+}
+
+/* ---------- Spec-sheet download (product pages) ---------- */
+function specHTML(p){
+  return `<section class="sec spec-cta"><div class="wrap spec-grid"><div class="stack" style="gap:12px">${eyebrow('For architects, designers and procurement')}<h2>Get the ${esc(p.name)} spec sheet.</h2><p class="muted">Dimensions, electrical, certifications and install requirements on one page. Ready to drop into a fit-out pack.</p></div>
+   <form class="enq spec-form" id="specForm"><label class="full">Work email *<input type="email" name="email" required></label><label class="full">I’m a…<select name="role"><option>Operator / owner</option><option>Architect or designer</option><option>Procurement</option><option>Contractor</option><option>Other</option></select></label><div class="full"><button class="btn btn-p" type="submit">Get the spec sheet</button></div></form></div></section>`;
+}
+function specSheet(p){
+  const img = D.img[D.prodImg[p.id]];
+  const rows = (arr) => arr.map(r=>`<tr><th>${esc(r.label)}</th><td>${esc(r.value)}</td></tr>`).join('');
+  return `<div class="ss-sheet" id="ss-sheet"><header><img src="${D.img['onebase-logo-black']}" alt="OneBase"><span>Spec sheet · ${new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'})}</span></header>
+   <div class="ss-top"><div><p class="eyebrow">${esc(mod(p.modality).name)}</p><h2>OneBase ${esc(p.name)}</h2><p class="muted">${esc(p.tagline)}</p>
+    <dl>${p.sizes.length?`<div><dt>Sizes</dt><dd>${p.sizes.map(s=>s.label).join(' · ')}</dd></div>`:''}${p.colours.length?`<div><dt>Finishes</dt><dd>${p.colours.join(' · ')}</dd></div>`:''}${p.pressures.length?`<div><dt>Pressure</dt><dd>${p.pressures.join(' · ')}</dd></div>`:''}${p.certifications.length?`<div><dt>Certifications</dt><dd>${p.certifications.join(' · ')}</dd></div>`:''}</dl></div>${img?`<img src="${img}" alt="">`:''}</div>
+   <h3>Specifications</h3><table>${rows(p.specs)}</table>${p.electrical.length?`<h3>Electrical &amp; services</h3><table>${rows(p.electrical)}</table>`:''}
+   <footer>OneBase Health · Waylen Allen Limited · Sales (208) 408-1801 · onebasehealth.com<br>Specifications subject to change. Confirm final dimensions and electrical requirements with OneBase before construction.</footer></div>`;
+}
+function specInit(){
+  const f=document.getElementById('specForm'); if (!f) return; const p=currentProduct();
+  f.addEventListener('submit', e => { e.preventDefault(); if (!f.checkValidity()) { f.reportValidity(); return; }
+    f.innerHTML = `<p class="full" style="font-weight:500">Sent to ${esc(f.elements.email.value)}.</p><p class="full muted small">Here’s your copy now:</p><div class="full"><button type="button" class="btn btn-p" id="ssOpen">Open spec sheet</button></div>`;
+    document.getElementById('ssOpen').onclick = () => ssOpen(p); ssOpen(p); });
+}
+function ssOpen(p){
+  let m=document.getElementById('ss-modal'); if (!m) { m=document.createElement('div'); m.id='ss-modal'; m.className='bk-modal ss-modal'; document.body.appendChild(m);
+    m.addEventListener('click', e => { if (e.target.closest('[data-ss-close]')) { m.classList.remove('open'); document.body.style.overflow=''; } if (e.target.closest('[data-ss-print]')) print(); }); }
+  m.innerHTML = `<div class="bk-back" data-ss-close></div><div class="ss-card"><div class="ss-bar"><button class="btn btn-p" data-ss-print>Print or save as PDF</button><button class="bk-x" style="position:static" data-ss-close aria-label="Close">×</button></div>${specSheet(p)}</div>`;
+  m.classList.add('open'); document.body.style.overflow='hidden';
+}
+
+/* ---------- Wire ---------- */
+const _product3 = pages.product;
+pages.product = (cat, id) => { const h=_product3(cat,id); const p=D.products.find(x=>x.id===id&&x.category===cat); if (!p) return h;
+  const anchor='<section class="sec" style="background:var(--surf)" id="enquiry">'; return h.includes(anchor) ? h.replace(anchor, specHTML(p)+anchor) : h + specHTML(p); };
+const _afterRender3 = afterRender;
+afterRender = function(){ _afterRender3(); enqInit(); specInit(); const m=document.getElementById('bk-modal'); if (m) { m.classList.remove('open'); } document.body.style.overflow=''; };
 
 window.addEventListener('hashchange', route); route();
 </script>

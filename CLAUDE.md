@@ -44,6 +44,11 @@ Single marketing + lead-gen site for OneBase Health (Waylen Allen Limited), repl
 7. Hosting: Vercel (recommended) or Cloudflare Pages. Point onebasehealth.com at the new site, redirect business.onebasehealth.com → onebasehealth.com, then close the Shopify store.
 8. Regional: Shopify served en-au/en-ca/en-gb; decide whether AU pricing/contacts need a dedicated page.
 
+## Contact capture (see scripts/proto/capture.js for the agreed UX)
+- Four intent-matched entry points, all into HubSpot (portal 20568937): (1) Book a call — every sales CTA opens a 3-step modal (venue/sites/timeline → HubSpot Meetings slot → details); (2) planner "Send me this plan" and configurator "Get pricing for this build" carry the plan/config; (3) two-step enquiry (email + venue type, then details); (4) spec-sheet download on product pages (email + role → printable sheet generated from product JSON).
+- Submit via HubSpot Forms API (not the iframe embed) with hidden fields: source_page, capture_type, venue_type, sites, timeline, country, product, configuration. Needs custom contact properties for venue_type, sites, timeline, capture_type, configuration.
+- HubSpot workflow: score on venue_type + timeline + sites; route by region; when `precorAnnounced`, route US commercial-gym leads for IceVault/sauna/red light to Precor.
+
 ## Conventions
 - Prefer editing content JSON/MD over templates. Templates should stay generic.
 - Components take data from collections; no hard-coded product copy in pages except the home/category intros.
