@@ -33,17 +33,19 @@ const posts = [
 ];
 
 const imgDir = 'public/images/src';
-const img = Object.fromEntries(fs.readdirSync(imgDir).filter(f => /\.(jpg|png)$/.test(f)).map(f => [f.replace(/\.(jpg|png)$/,''), 'data:image/' + (f.endsWith('.png') ? 'png' : 'jpeg') + ';base64,' + fs.readFileSync(path.join(imgDir, f)).toString('base64')]));
+const img = Object.fromEntries(fs.readdirSync(imgDir).filter(f => /\.(jpg|png|webp)$/.test(f)).map(f => [f.replace(/\.(jpg|png|webp)$/,''), 'data:image/' + (f.endsWith('.png') ? 'png' : f.endsWith('.webp') ? 'webp' : 'jpeg') + ';base64,' + fs.readFileSync(path.join(imgDir, f)).toString('base64')]));
 const prodImg = { airfit:'airfit', airflex:'airflex', airform:'airform-plus-black', airsuite:null, icevault:'icevault-quad', yakisugi:'yakisugi', hemlock:'hemlock', lightpanel:'lightpanel-quad', lightbed:'lightbed-black' };
 const solImg = { 'fitness-centers':'sol-fitness','luxury-hospitality':'sol-spas','pro-sports-performance':'sol-sports','multi-family-housing':'sol-multifamily','military-first-responders':'sol-military','high-end-real-estate':'sol-realestate','recovery-wellness-studios':'hero-bg','corporate-wellness':'engineers' };
 // Customer wall — companies with closed-won deals in HubSpot (lifecycle = customer), grouped by segment. For review: remove any without permission.
 const customers = [
-  { seg: 'Pro sports & performance', names: ['Las Vegas Raiders', 'Los Angeles FC', 'Portland Timbers', 'TB12', 'EXOS', 'SPORTFIVE', 'Hong Kong Sports Institute', 'Judo Association of Hong Kong', 'Flow Research Collective', 'Sports Performance Physical Therapy', 'Novum Performance & Longevity', 'Variant Training Lab', 'High Octane'] },
+  { seg: 'Pro sports & performance', names: ['Las Vegas Raiders', 'Los Angeles FC', 'New England Revolution', 'Portland Timbers', 'TB12', 'EXOS', 'SPORTFIVE', 'Hong Kong Sports Institute', 'Judo Association of Hong Kong', 'Flow Research Collective', 'Sports Performance Physical Therapy', 'Novum Performance & Longevity', 'Variant Training Lab', 'High Octane'] },
   { seg: 'Fitness clubs', names: ['The Edge Fitness Clubs', 'VIDA Fitness', 'PURE Family Fitness', 'Harbor Square Athletic Club', 'Razor Sharp Fitness', 'Balance Gym', 'Soluna Fitness', 'The Rising Zone', 'Wellness Solutions Inc.'] },
   { seg: 'Recovery & wellness studios', names: ['The Covery', '10X Longevity', 'Hume', 'Hype Wellness Studio', 'Collagen Lab', 'V2 Wellness Group', 'Patient Zero', 'Prairie Health & Wellness', 'Alive and Well', 'SB Wellness Group', 'Hopson Health Wellness Center', 'Northport Wellness Center', 'Wellness NOLA', 'Sola Wellness Aesthetics', 'Viridian Experience', 'Evolve Health Labs', 'Elixir', 'Time to Bloom', 'The Center for Connection and Wellness', 'Bang Salon'] },
   { seg: 'Clinics & medical', names: ['HealthFit', 'Hyperbaric Associates of America', 'Infinity IV & Wellness', 'Revital Health', 'Belo Medical Group', 'Makena Health Maui', 'Life Clinics', 'Genesis Surgery', 'IHASA', 'North Shore Hyperbarics', 'Inspire Chiropractic & Wellness', 'Horst Chiropractic', 'Restore Sports Medicine', 'Doylestown Sports Medicine Center', 'Penrose Physical Therapy', 'Fick PT & Performance', 'Morgain Physical Therapy', 'Warrior Restoration', 'de Musculatuur', 'Dr. Michael Ruscio, DC', 'Jason Alexander Med Spa'] },
   { seg: 'Brands & creators', names: ['Jake Paul', 'Kayla Barnes', 'The Fox Tan', 'FuzzYard', 'Pretty Farm Girl'] },
 ];
+const EXTRA_CSS = fs.readFileSync('scripts/proto/extra.css','utf8');
+const EXTRA_JS = fs.readFileSync('scripts/proto/extra.js','utf8') + '\n' + fs.readFileSync('scripts/proto/software.js','utf8');
 const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg, customers };
 
 const html = `<title>OneBase Site Prototype</title>
@@ -126,6 +128,7 @@ main{padding-bottom:56px}
 :focus-visible{outline:2px solid var(--ice-500);outline-offset:2px}
 @media(prefers-reduced-motion:no-preference){main{animation:fade .25s ease}}@keyframes fade{from{opacity:.6}to{opacity:1}}
 .prose p{margin-bottom:16px;max-width:68ch;color:var(--muted)}.prose h2{font-size:22px;margin:26px 0 8px}
+${EXTRA_CSS}
 </style>
 
 <header class="site"><div class="wrap">
@@ -158,9 +161,9 @@ const mod = (k) => D.modalities[k];
 const catMod = { 'hbot':'air','cold-therapy':'ice','sauna':'heat','red-light':'light' };
 const pic = (key, label, h, extra='', fit='cover') => D.img[key] ? \`<img src="\${D.img[key]}" alt="\${esc(label)}" style="display:block;width:100%;height:\${h?h+'px':'100%'};object-fit:\${fit};border-radius:var(--r);\${extra}" loading="lazy">\` : ph(label, h, extra);
 const ph = (label, h, extra='') => \`<div class="ph" style="min-height:\${h}px;\${extra}">\${esc(label)}</div>\`;
-const LOGO = {'Los Angeles FC':'lafc','HealthFit':'healthfit','10X Longevity':'10x','The Covery':'covery','Hype Wellness Studio':'hype','Hume':'hume','Infinity IV & Wellness':'infinity','Revital Health':'revital'};
-const CREST = ['lafc'];
-const FEATURED = ['Los Angeles FC','Las Vegas Raiders','Portland Timbers','TB12','EXOS','Jake Paul','Kayla Barnes','The Covery','10X Longevity','Hume','HealthFit','Hong Kong Sports Institute'];
+const LOGO = {'Los Angeles FC':'lafc','New England Revolution':'nerevolution','HealthFit':'healthfit','10X Longevity':'10x','The Covery':'covery','Hype Wellness Studio':'hype','Hume':'hume','Infinity IV & Wellness':'infinity','Revital Health':'revital'};
+const CREST = ['lafc','nerevolution'];
+const FEATURED = ['Los Angeles FC','New England Revolution','Las Vegas Raiders','Portland Timbers','TB12','EXOS','Jake Paul','Kayla Barnes','The Covery','10X Longevity','Hume','HealthFit','Hong Kong Sports Institute'];
 const custCount = () => D.customers.reduce((a,c)=>a+c.names.length,0);
 function allCust(){ const a=[]; D.customers.forEach(c=>c.names.forEach(n=>a.push({n,seg:c.seg}))); return FEATURED.map(n=>a.find(x=>x.n===n)).filter(Boolean).concat(a.filter(x=>!FEATURED.includes(x.n))); }
 function ctile(n, hid){ const k=LOGO[n]; const h=hid?' aria-hidden="true"':''; return k&&D.img['logo-'+k]?\`<span class="ct lg"\${h}><img src="\${D.img['logo-'+k]}" alt="\${esc(n)}" class="\${CREST.includes(k)?'crest':''}"></span>\`:\`<span class="ct wm"\${h}>\${esc(n)}</span>\`; }
@@ -334,7 +337,7 @@ function route(){
   else out = pages.notfound();
   document.getElementById('app').innerHTML = out;
   document.getElementById('drawer').classList.remove('open'); document.getElementById('menuBtn').setAttribute('aria-expanded','false');
-  renderChrome(); window.scrollTo({ top: 0 });
+  renderChrome(); window.scrollTo({ top: 0 }); if (typeof afterRender === 'function') afterRender();
 }
 document.getElementById('menuBtn').addEventListener('click', () => { const d = document.getElementById('drawer'); const o = d.classList.toggle('open'); document.getElementById('menuBtn').setAttribute('aria-expanded', String(o)); });
 const tg = document.getElementById('precorToggle'); tg.checked = S.precor;
@@ -342,6 +345,7 @@ tg.addEventListener('change', () => { S.precor = tg.checked; try { localStorage.
 document.getElementById('closeReview').addEventListener('click', () => { document.getElementById('review').hidden = true; });
 if (matchMedia('(min-width:900px)').matches) document.getElementById('phone').style.display = 'inline';
 document.addEventListener('click', e => { const b = e.target.closest('#cf .chip'); if (!b) return; const sg = b.dataset.seg; document.querySelectorAll('#cf .chip').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.querySelectorAll('#cg .cg').forEach(t => { t.hidden = !(sg === 'All' || t.dataset.seg === sg); }); });
+${EXTRA_JS}
 window.addEventListener('hashchange', route); route();
 </script>
 `;
