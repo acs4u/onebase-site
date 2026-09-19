@@ -43,7 +43,7 @@ const customers = [
   { seg: 'Recovery & wellness studios', names: ['The Covery', '10X Longevity', 'Hume', 'Hype Wellness Studio', 'Collagen Lab', 'V2 Wellness Group', 'Patient Zero', 'Prairie Health & Wellness', 'Alive and Well', 'SB Wellness Group', 'Hopson Health Wellness Center', 'Northport Wellness Center', 'Wellness NOLA', 'Sola Wellness Aesthetics', 'Viridian Experience', 'Evolve Health Labs', 'Elixir', 'Time to Bloom', 'The Center for Connection and Wellness'] },
   { seg: 'Clinics & medical', names: ['HealthFit', 'Hyperbaric Associates of America', 'Infinity IV & Wellness', 'Revital Health', 'Belo Medical Group', 'Makena Health Maui', 'Life Clinics', 'Genesis Surgery', 'IHASA', 'North Shore Hyperbarics', 'Inspire Chiropractic & Wellness', 'Horst Chiropractic', 'Restore Sports Medicine', 'Doylestown Sports Medicine Center', 'Penrose Physical Therapy', 'Fick PT & Performance', 'Morgain Physical Therapy', 'Warrior Restoration', 'de Musculatuur', 'Dr. Michael Ruscio, DC', 'Jason Alexander Med Spa'] },
   { seg: 'Real estate, hospitality & corporate', names: ['Centurion American', 'Joe Kain Homes', 'ReNUE Properties', 'Crescent Estates', 'Standard Architects', 'Loftco', 'Bang Salon', 'Perfect Storm Entertainment', 'UPSTACK', 'Estampro', 'OneWater Marine', 'Palmetto', 'Lanvera', 'Advanced Green Technologies', 'Guardian Manufacturing', 'Transco MFG Australia', 'Australia Wide First Aid', 'Galway Holdings', 'Bright Spenders'] },
-  { seg: 'Brands & creators', names: ['Jake Paul', 'Kayla Barnes', 'The Fox Tan', 'FuzzYard', 'Pretty Farm Girl'] },
+  { seg: 'Brands', names: ['The Fox Tan', 'FuzzYard', 'Pretty Farm Girl'] },
 ];
 const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg, customers };
 
