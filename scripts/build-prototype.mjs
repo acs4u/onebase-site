@@ -51,7 +51,7 @@ const glb = fs.existsSync(glbDir) ? Object.fromEntries(fs.readdirSync(glbDir).fi
 const MV = fs.readFileSync('scripts/proto/vendor-model-viewer.min.js','utf8');
 const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg, customers, glb };
 
-const html = `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>OneBase Site Prototype</title>
+const html = `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><title>OneBase Site Prototype</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap">
 <style>
 :root{
