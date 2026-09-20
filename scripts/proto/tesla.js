@@ -10,7 +10,7 @@ const TS_MEDIA = {
   airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'},
   airfit:{mode:'photo', img:'photo-airfit', pos:'45% 40%'}, airflex:{mode:'render', img:'cut-airflex', bg:'#e7e9eb', light:true}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
 };
-const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-open','yk-real-front'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
+const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
 function tsMedia(p){ const m=TS_MEDIA[p.id]; if (m && D.img[m.img]) return m; const k=tsImg(p); return k&&D.img[k]?{mode:'cut',img:k}:null; }
 function tsVisual(p, m, i){
   if (!m) return `<div class="ts-ghost">${esc(p.name)}</div>`;
@@ -59,14 +59,56 @@ function tsSiblings(p){ const row=TS_ROWS.find(([mk])=>mk===p.modality); return 
 function tsHeroNav(p){ const sib=tsSiblings(p); if (sib.length<2) return ''; const i=sib.findIndex(x=>x.id===p.id); const href=x=>`#/products/${x.category}/${x.id}`;
   return `<div class="ts-rownav ts-heronav"><a class="ts-arr" data-swipe="-1" ${i>0?`href="${href(sib[i-1])}"`:'aria-disabled="true"'} aria-label="Previous model">‹</a><div class="ts-pips">${sib.map(x=>`<a href="${href(x)}" class="${x.id===p.id?'on':''}">${esc(x.name)}</a>`).join('')}</div><a class="ts-arr" data-swipe="1" ${i<sib.length-1?`href="${href(sib[i+1])}"`:'aria-disabled="true"'} aria-label="Next model">›</a></div>`; }
 let TS_DIR = 0;
+function tsModels(p){ const sib=tsSiblings(p); if (sib.length<2) return ''; const href=x=>`#/products/${x.category}/${x.id}`;
+  return `<nav class="ts-models" aria-label="Models">${sib.map(x=>`<a href="${href(x)}" class="${x.id===p.id?'on':''}">${esc(x.name)}</a>`).join('')}</nav>`; }
+/* full-bleed feature chapters per product (real photography) */
+const TS_FEATURES = {
+  yakisugi:[
+    {img:'yk-led-ceiling', k:'Red light', t:'Red light, built into the ceiling.', b:'LED arrays across the ceiling add red and near-infrared light to every session. No separate bed, no extra room.'},
+    {img:'yk-bench-l', k:'Infrared', t:'Full-spectrum heat behind every backrest.', b:'Low-EMF near, mid and far infrared emitters sit behind the cedar slats, at a restorative 135–149°F.'},
+    {img:'yk-bench-tier', k:'Seating', t:'Two tiers. Pick your heat.', b:'Tiered L-shaped cedar benches seat the whole group, with side-wall LED panels at shoulder height.'},
+    {img:'yk-audio', k:'Audio', t:'A Bose speaker in the ceiling.', b:'Stream music, breathwork or class audio straight into the cabin.', pos:'50% 50%'},
+    {img:'yk-charred', k:'Finish', t:'Real charred cedar. You can feel it.', b:'The Yakisugi finish is a carbonised layer that resists moisture, bacteria and wear, with a texture no laminate can copy.', pos:'50% 4%'},
+  ],
+};
+/* chapters you swipe through for ONE product: overview, in the room, why, specs, sizes, app */
+function tsChapters(p){
+  const md = tsMedia(p); const hl = (p.highlights||[]).slice(0,4); const sp = (p.specs||[]).slice(0,6);
+  const room = (TS_GALLERY[p.id]||[]).find(k=>D.img[k] && !(md&&md.img===k));
+  const ch = [];
+  if (room) ch.push(['In the room', `<section class="ts ts-ch ts-photo ts-dark" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[room]}" alt="OneBase ${esc(p.name)} installed" loading="lazy"><div class="ts-veil"></div>
+    <div class="ts-top"><p class="ts-eyebrow">In the room</p><h2>${esc(hl[0]?hl[0].title:'Built for the recovery floor')}</h2><p class="ts-lead">${esc(hl[0]?hl[0].body:p.tagline)}</p></div><div class="ts-bot"></div></section>`]);
+  (TS_FEATURES[p.id]||[]).filter(f=>D.img[f.img]).forEach(f => ch.push([f.k, `<section class="ts ts-ch ts-photo ts-dark ts-feat" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[f.img]}" alt="${esc(f.t)}" style="object-position:${f.pos||'50% 50%'}" loading="lazy"><div class="ts-veil"></div>
+    <div class="ts-top"></div><div class="ts-bot ch-feat"><p class="ts-eyebrow">${esc(f.k)}</p><h2>${esc(f.t)}</h2><p class="ts-lead">${esc(f.b)}</p></div></section>`]));
+  if (hl.length>1) ch.push(['Why it works', `<section class="ts ts-ch ts-dark ts-why" data-dark="1" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
+    <div class="ts-top"><p class="ts-eyebrow">Why it works</p><h2>${esc(p.tagline)}</h2></div>
+    <div class="ts-bot ch-body"><div class="ch-grid">${hl.map((h,i)=>`<div class="ch-card"><span>0${i+1}</span><b>${esc(h.title)}</b><p>${esc(h.body)}</p></div>`).join('')}</div></div></section>`]);
+  if (sp.length) ch.push(['Specs', `<section class="ts ts-ch ts-light-ch" data-dark="0" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
+    <div class="ts-top"><p class="ts-eyebrow">Specs</p><h2>The numbers.</h2></div>
+    <div class="ts-bot ch-body"><dl class="ch-specs">${sp.map(x=>`<div><dt>${esc(x.label)}</dt><dd>${esc(x.value)}</dd></div>`).join('')}</dl>
+    <div class="ts-cta"><a class="ts-b1" href="#specForm" data-scroll="specForm">Get the full spec sheet</a></div></div></section>`]);
+  if ((p.sizes||[]).length) ch.push(['Sizes', `<section class="ts ts-ch ts-light-ch" data-dark="0" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
+    <div class="ts-top"><p class="ts-eyebrow">Sizes</p><h2>${p.sizes.length>1?`${p.sizes.length} sizes. Pick yours.`:'One size, done right.'}</h2></div>
+    <div class="ts-bot ch-body"><div class="ch-sizes">${p.sizes.map(z=>`<a href="#cfg" data-scroll="cfg" class="ch-size"><b>${esc(z.label)}</b><span>${esc(z.note||'')}</span><i>Configure →</i></a>`).join('')}</div></div></section>`]);
+  ch.push(['App', `<section class="ts ts-ch ts-rlight ts-app" data-dark="0" style="${tsStyle(p,{bg:'#e8eaec'})}"><div class="ts-bg"></div>
+    <div class="ts-top"><p class="ts-eyebrow">Software</p><h2>Run it from one app.</h2><p class="ts-lead">Members book and start sessions from their phone. Your team sees every ${esc(p.name)} across every site in OneBase OS.</p></div>
+    ${D.img['app-interface']?`<div class="ts-fig ts-render"><img class="ts-img" src="${D.img['app-interface']}" alt="OneBase OS dashboard" loading="lazy"></div>`:''}
+    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#sw" data-scroll-sw>Try it on this page</a><button class="ts-b2" data-figma>Open the real app</button></div></div></section>`]);
+  return ch;
+}
 function tsProductHero(p){
   const md = tsMedia(p); const cls = tsCls(md); const dark = /ts-dark/.test(cls); const f = FACTS[p.id]||[]; const m = D.modalities[p.modality];
   const dir = TS_DIR; TS_DIR = 0;
-  return `<section class="ts ts-hero on${cls}${dir>0?' from-r':dir<0?' from-l':''}" data-dark="${dark?1:0}" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
+  const ov = `<section class="ts ts-hero on${cls}${dir>0?' from-r':dir<0?' from-l':''}" data-k="0" data-dark="${dark?1:0}" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
    <div class="ts-top"><p class="ts-eyebrow"><a href="#/products">Products</a> / <a href="#/products/${p.category}">${m.name}</a></p><h1>OneBase ${esc(p.name)}</h1><p class="ts-lead">${esc(TS_LEAD[p.id]||p.tagline)}</p></div>
    ${tsVisual(p,md,0)}
    <div class="ts-bot"><div class="ts-stats">${f.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
-    <div class="ts-cta"><a class="ts-b1" href="#cfg" data-scroll="cfg">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div>${tsHeroNav(p)}</section>
+    <div class="ts-cta"><a class="ts-b1" href="#cfg" data-scroll="cfg">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>`;
+  const ch = [['Overview', ov], ...tsChapters(p)];
+  return `<section class="ts-row ts-hrow${tsSiblings(p).length>1?' has-models':''}" data-row="h" aria-label="OneBase ${esc(p.name)}">${tsModels(p)}
+   <div class="ts-track" data-row="h">${ch.map(([,h],k)=>k?h.replace('<section class="ts ','<section data-k="'+k+'" class="ts '):h).join('')}</div>
+   <div class="ts-rownav ts-chnav"><button class="ts-arr" data-dir="-1" data-row="h" aria-label="Previous">‹</button><div class="ts-pips">${ch.map(([n],k)=>`<button data-row="h" data-k="${k}" class="${k===0?'on':''}">${n}</button>`).join('')}</div><button class="ts-arr" data-dir="1" data-row="h" aria-label="Next">›</button></div>
+   <p class="ts-swipe ts-chhint">Swipe for more</p></section>
   <section class="wrap ts-intro"><p class="key">${esc(p.tagline)}</p><div class="stack" style="gap:18px"><p class="muted">${esc(p.description)}</p>
    <dl class="ts-dl">${p.sizes.length?`<div><dt>Sizes</dt><dd>${p.sizes.map(s=>s.label).join(' · ')}</dd></div>`:''}${p.colours.length?`<div><dt>Finishes</dt><dd>${p.colours.join(' · ')}</dd></div>`:''}${p.pressures.length?`<div><dt>Pressure</dt><dd>${p.pressures.join(' · ')}</dd></div>`:''}${p.fromPriceUSD?`<div><dt>From</dt><dd>US$${p.fromPriceUSD.toLocaleString()}</dd></div>`:''}</dl>
    <p class="faint" style="font-size:12px">${p.status==='coming-soon'?'Taking pre-orders':'Installation service · US-based support · 2-year warranty'}${p.channels.precor&&S.precor?' · Available through Precor (US)':''}</p></div></section>
@@ -85,11 +127,10 @@ afterRender = function(){
 };
 addEventListener('scroll', () => { if (!document.body.classList.contains('is-snap') || document.documentElement.classList.contains('snap')) { document.body.classList.remove('solid'); return; } document.body.classList.toggle('solid', scrollY > innerHeight - 80); }, { passive:true });
 
-/* swipe between sibling models on a product page */
-(function(){ let x0=null, y0=0;
-  addEventListener('touchstart', e => { const h=e.target.closest('.ts-hero'); if (!h || e.target.closest('.ts-cta')) { x0=null; return; } x0=e.touches[0].clientX; y0=e.touches[0].clientY; }, {passive:true});
-  addEventListener('touchend', e => { if (x0===null) return; const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null; if (Math.abs(dx)<60 || Math.abs(dx)<Math.abs(dy)*1.3) return;
-    const a=document.querySelector(`.ts-heronav .ts-arr[data-swipe="${dx<0?1:-1}"]`); if (a && a.getAttribute('href')) { TS_DIR = dx<0?1:-1; location.hash = a.getAttribute('href'); } }, {passive:true});
-  document.addEventListener('click', e => { const a=e.target.closest('.ts-heronav a'); if (!a) return; if (!a.getAttribute('href')) { e.preventDefault(); return; } const sib=[...document.querySelectorAll('.ts-heronav .ts-pips a')]; const cur=sib.findIndex(x=>x.classList.contains('on')); const nxt=a.dataset.swipe? cur+(+a.dataset.swipe) : sib.indexOf(a); TS_DIR = nxt>cur?1:-1; });
-  addEventListener('keydown', e => { if (!['ArrowLeft','ArrowRight'].includes(e.key) || !document.querySelector('.ts-heronav') || scrollY > innerHeight*0.5 || e.target.closest('input,textarea,select')) return; const a=document.querySelector(`.ts-heronav .ts-arr[data-swipe="${e.key==='ArrowRight'?1:-1}"]`); if (a && a.getAttribute('href')) { TS_DIR = e.key==='ArrowRight'?1:-1; location.hash=a.getAttribute('href'); } });
-})();
+/* product page: arrows move between chapters; model pills animate direction */
+addEventListener('keydown', e => { const tr=document.querySelector('.ts-track[data-row="h"]'); if (!tr || !['ArrowLeft','ArrowRight'].includes(e.key) || scrollY > innerHeight*0.5 || e.target.closest('input,textarea,select')) return; e.preventDefault(); tsGoModel('h', Math.round(tr.scrollLeft/tr.clientWidth)+(e.key==='ArrowRight'?1:-1)); });
+document.addEventListener('click', e => { const a=e.target.closest('.ts-models a'); if (a) { const all=[...document.querySelectorAll('.ts-models a')]; const cur=all.findIndex(x=>x.classList.contains('on')); TS_DIR = all.indexOf(a)>cur?1:-1; return; }
+  const sw=e.target.closest('[data-scroll-sw]'); if (sw) { e.preventDefault(); document.querySelector('.sw-sec')?.scrollIntoView({behavior:RM()?'auto':'smooth'}); } });
+/* keep the active chapter pill in view on small screens */
+const _tsTrackSyncCh = tsTrackSync;
+tsTrackSync = function(tr){ _tsTrackSyncCh(tr); if (tr.dataset.row==='h') { const b=document.querySelector('.ts-chnav .ts-pips button.on'); const pp=b&&b.parentElement; if (pp) pp.scrollTo({left:b.offsetLeft - pp.clientWidth/2 + b.clientWidth/2, behavior:'smooth'}); } };
