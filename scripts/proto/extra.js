@@ -249,7 +249,9 @@ const HT = [['air','hero-air','24%'],['ice','hero-ice','30%'],['heat','hero-heat
 function tileHeroHTML(){
 if (!HT.every(t => D.img[t[1]])) return '';
 const tiles = HT.map(([k,img,y],i) => { const m = D.modalities[k]; return `<a class="ht ht-${k}${i===0?' on':''}" href="#/products/${m.category}" data-i="${i}" style="--y:${y}"><img src="${D.img[img]}" alt="${esc(m.name)} session at a OneBase venue"><span class="ht-veil"></span><span class="ht-cap"><span class="ht-lab">${m.label}</span><span class="ht-name">${m.name}</span><span class="ht-more"><span class="ht-blurb">${m.blurb}</span><span class="ht-go">See the range →</span></span></span><span class="ht-bar"></span></a>`; }).join('');
-return `<section class="hero hero-tiles"><div class="ht-copy">${eyebrow('Air · Ice · Heat · Light')}<h1>Recovery equipment engineered for the facilities people come back to.</h1><p class="key">Hyperbaric, cold, heat and light. Built in-house, medically led, connected by one platform.</p><div class="row"><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f">Talk to sales</a><a href="#/products" class="btn" style="border-color:rgba(255,255,255,.45);color:#fff">See the products</a></div></div><div class="ht-grid" role="list">${tiles}</div></section>`;
+const pills = HT.map(([k],i) => `<button type="button" data-i="${i}" aria-pressed="${i===0}">${D.modalities[k].label}</button>`).join('');
+const m0 = D.modalities[HT[0][0]];
+return `<section class="hero hero-tiles"><div class="ht-copy"><div class="ht-pills" role="group" aria-label="Modality">${pills}</div><a class="ht-now" href="#/products/${m0.category}"><span>${m0.name}</span> · See the range →</a>${eyebrow('Air · Ice · Heat · Light')}<h1>Recovery equipment engineered for the facilities people come back to.</h1><p class="key">Hyperbaric, cold, heat and light. Built in-house, medically led, connected by one platform.</p><div class="row"><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f">Talk to sales</a><a href="#/products" class="btn" style="border-color:rgba(255,255,255,.45);color:#fff">See the products</a></div></div><div class="ht-grid" role="list">${tiles}</div></section>`;
 }
 const _homeT = pages.home;
 pages.home = () => {
@@ -259,7 +261,8 @@ return t ? h.replace(/<section class="hero hero-x">[\s\S]*?<\/section>/, t) : h;
 };
 let htTimer = null, htUser = false, htPtr = 'mouse';
 document.addEventListener('pointerdown', e => { htPtr = e.pointerType; }, true); document.addEventListener('keydown', () => { htPtr = 'key'; }, true);
-function htSet(i){ document.querySelectorAll('.ht').forEach(el => el.classList.toggle('on', +el.dataset.i === i)); }
+function htSet(i){ document.querySelectorAll('.ht').forEach(el => el.classList.toggle('on', +el.dataset.i === i)); document.querySelectorAll('.ht-pills button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.i === i))); const now = document.querySelector('.ht-now'), m = D.modalities[HT[i][0]]; if (now) { now.href = '#/products/' + m.category; now.firstChild.textContent = m.name; } }
+document.addEventListener('click', e => { const b = e.target.closest('.ht-pills button'); if (!b) return; htUser = true; clearInterval(htTimer); htSet(+b.dataset.i); });
 function htCycle(){ clearInterval(htTimer); if (htUser || RM()) return; htTimer = setInterval(() => { const g = document.querySelector('.ht-grid'); if (!g) { clearInterval(htTimer); return; } if (g.getBoundingClientRect().bottom < 0) return; const on = document.querySelector('.ht.on'); htSet(((on ? +on.dataset.i : -1) + 1) % HT.length); }, 3600); }
 document.addEventListener('pointerover', e => { const t = e.target.closest('.ht'); if (!t || e.pointerType === 'touch') return; htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
 document.addEventListener('focusin', e => { const t = e.target.closest('.ht'); if (!t || htPtr === 'touch') return; htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
