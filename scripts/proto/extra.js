@@ -244,3 +244,24 @@ function afterRender(){
   const home = !(location.hash||'#/').replace('#/','').length; document.body.classList.toggle('is-home', home); storyIdx = -1;
   plannerInit(); cfgInit(); observe(); onScroll();
 }
+/* ---------- Tile hero: four real sessions, one per modality. Hover or tap a tile to open it, click through to the range. ---------- */
+const HT = [['air','hero-air','24%'],['ice','hero-ice','30%'],['heat','hero-heat','38%'],['light','hero-light','26%']];
+function tileHeroHTML(){
+if (!HT.every(t => D.img[t[1]])) return '';
+const tiles = HT.map(([k,img,y],i) => { const m = D.modalities[k]; return `<a class="ht ht-${k}${i===0?' on':''}" href="#/products/${m.category}" data-i="${i}" style="--y:${y}"><img src="${D.img[img]}" alt="${esc(m.name)} session at a OneBase venue"><span class="ht-veil"></span><span class="ht-cap"><span class="ht-lab">${m.label}</span><span class="ht-name">${m.name}</span><span class="ht-more"><span class="ht-blurb">${m.blurb}</span><span class="ht-go">See the range →</span></span></span><span class="ht-bar"></span></a>`; }).join('');
+return `<section class="hero hero-tiles"><div class="ht-copy">${eyebrow('Air · Ice · Heat · Light')}<h1>Recovery equipment engineered for the facilities people come back to.</h1><p class="key">Hyperbaric, cold, heat and light. Built in-house, medically led, connected by one platform.</p><div class="row"><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f">Talk to sales</a><a href="#/products" class="btn" style="border-color:rgba(255,255,255,.45);color:#fff">See the products</a></div></div><div class="ht-grid" role="list">${tiles}</div></section>`;
+}
+const _homeT = pages.home;
+pages.home = () => {
+let h = _homeT().replace(counterHTML(), '');
+const t = tileHeroHTML();
+return t ? h.replace(/<section class="hero hero-x">[\s\S]*?<\/section>/, t) : h;
+};
+let htTimer = null, htUser = false, htPtr = 'mouse';
+document.addEventListener('pointerdown', e => { htPtr = e.pointerType; }, true); document.addEventListener('keydown', () => { htPtr = 'key'; }, true);
+function htSet(i){ document.querySelectorAll('.ht').forEach(el => el.classList.toggle('on', +el.dataset.i === i)); }
+function htCycle(){ clearInterval(htTimer); if (htUser || RM()) return; htTimer = setInterval(() => { const g = document.querySelector('.ht-grid'); if (!g) { clearInterval(htTimer); return; } if (g.getBoundingClientRect().bottom < 0) return; const on = document.querySelector('.ht.on'); htSet(((on ? +on.dataset.i : -1) + 1) % HT.length); }, 3600); }
+document.addEventListener('pointerover', e => { const t = e.target.closest('.ht'); if (!t || e.pointerType === 'touch') return; htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
+document.addEventListener('focusin', e => { const t = e.target.closest('.ht'); if (!t || htPtr === 'touch') return; htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
+document.addEventListener('click', e => { const t = e.target.closest('.ht'); if (!t || t.classList.contains('on') || htPtr !== 'touch') return; e.preventDefault(); htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
+addEventListener('hashchange', () => setTimeout(htCycle, 50)); setTimeout(htCycle, 50);
