@@ -414,7 +414,7 @@ html.snap .ts-row{scroll-snap-align:start}
 .ts-track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .ts-track::-webkit-scrollbar{display:none}
 .ts-track>.ts{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;height:100%;min-height:0}
-.ts-rownav{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:14px}
+.ts-rownav{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:14px}
 .ts-arr{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:24px;line-height:1;cursor:pointer;backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);transition:opacity .2s}
 .ts-arr:disabled{opacity:.25;cursor:default}
 .ts-pips{display:flex;gap:8px}.ts-pips button{position:relative;width:26px;height:4px;border-radius:2px;border:0;padding:0;background:rgba(255,255,255,.35);cursor:pointer;transition:background .2s,width .3s}
@@ -431,3 +431,17 @@ html.snap .ts-row{scroll-snap-align:start}
 @media(max-width:760px){.ts-rownav{bottom:calc(64px + env(safe-area-inset-bottom,0px))}.ts-track>.ts{padding-bottom:140px}.ts-arr{display:none}.ts-swipe{right:auto;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));animation:none}}
 .ts-track .ts-fig{top:max(26%,190px);bottom:max(36%,250px)}
 @media(max-width:760px){.ts-track .ts-fig{top:max(24%,190px);bottom:max(40%,300px)}.ts-rownav{bottom:calc(84px + env(safe-area-inset-bottom,0px))}.ts-swipe{display:none}.ts-track>.ts{padding-bottom:128px}}
+/* Model tabs (replace thin bars) */
+.ts-pips{display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(0,0,0,.28);backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.ts-pips button,.ts-pips a{width:auto!important;height:auto!important;background:transparent!important;border:0;border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:500;color:rgba(255,255,255,.75);cursor:pointer;white-space:nowrap;transition:background .25s,color .25s}
+.ts-pips button.on,.ts-pips a.on{background:#fff!important;color:#1f1f1f}
+.ts-row:has(.ts.on:not(.ts-dark)) .ts-pips,.ts-hero:not(.ts-dark) .ts-pips{background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px rgba(31,31,31,.12)}
+.ts-row:has(.ts.on:not(.ts-dark)) .ts-pips button,.ts-hero:not(.ts-dark) .ts-pips a{color:#4a4a4f}
+.ts-row:has(.ts.on:not(.ts-dark)) .ts-pips button.on,.ts-hero:not(.ts-dark) .ts-pips a.on{background:#1f1f1f!important;color:#fff}
+.ts-hero:not(.ts-dark) .ts-arr{background:rgba(31,31,31,.08);color:#1f1f1f;box-shadow:inset 0 0 0 1px rgba(31,31,31,.15)}
+a.ts-arr{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}a.ts-arr[aria-disabled]{opacity:.25;cursor:default}
+.ts-hero{padding-bottom:120px}.ts-hero .ts-fig{bottom:max(36%,250px)}
+.ts-hero.from-r .ts-top,.ts-hero.from-r .ts-fig,.ts-hero.from-r .ts-cover{animation:inR .6s cubic-bezier(.2,.7,.2,1) both}
+.ts-hero.from-l .ts-top,.ts-hero.from-l .ts-fig,.ts-hero.from-l .ts-cover{animation:inL .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes inR{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}@keyframes inL{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.ts-pips button,.ts-pips a{padding:7px 10px;font-size:12px}.ts-hero{padding-bottom:140px}.ts-hero .ts-fig{bottom:max(40%,300px)}.ts-heronav{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}

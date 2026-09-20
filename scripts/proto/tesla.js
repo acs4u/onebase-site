@@ -29,20 +29,20 @@ function tsSlide(p, i){
    <div class="ts-bot"><div class="ts-stats">${f.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
     <div class="ts-cta"><a class="ts-b1" href="#/products/${p.category}/${p.id}">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>`;
 }
-const TS_ROWS = [['ice',['icevault']],['heat',['yakisugi','hemlock']],['air',['airform','airsuite','airfit','airflex']],['light',['lightbed','lightpanel']]];
+const TS_ROWS = [['air',['airform','airsuite','airfit','airflex']],['heat',['yakisugi','hemlock']],['light',['lightbed','lightpanel']],['ice',['icevault']]];
 function tsIndex(){
   const rows = TS_ROWS.map(([mk,ids])=>[mk, ids.map(id=>D.products.find(p=>p.id===id)).filter(Boolean)]);
   return `<div class="ts-wrap">${rows.map(([mk,ps],r)=>`<section class="ts-row" data-row="${r}" aria-label="${esc(D.modalities[mk].name)}">
     <div class="ts-track" data-row="${r}">${ps.map((p,k)=>tsSlide(p,r).replace('<section class="ts','<section data-k="'+k+'" class="ts')).join('')}</div>
-    ${ps.length>1?`<div class="ts-rownav"><button class="ts-arr" data-dir="-1" data-row="${r}" aria-label="Previous model">‹</button><div class="ts-pips">${ps.map((p,k)=>`<button data-row="${r}" data-k="${k}" class="${k===0?'on':''}"><span>${esc(p.name)}</span></button>`).join('')}</div><button class="ts-arr" data-dir="1" data-row="${r}" aria-label="Next model">›</button></div><p class="ts-swipe">${ps.length} models · swipe to explore</p>`:''}</section>`).join('')}
+    ${ps.length>1?`<div class="ts-rownav"><button class="ts-arr" data-dir="-1" data-row="${r}" aria-label="Previous model">‹</button><div class="ts-pips">${ps.map((p,k)=>`<button data-row="${r}" data-k="${k}" class="${k===0?'on':''}">${esc(p.name)}</button>`).join('')}</div><button class="ts-arr" data-dir="1" data-row="${r}" aria-label="Next model">›</button></div><p class="ts-swipe">${ps.length} models · swipe to explore</p>`:''}</section>`).join('')}
    <section class="ts ts-dark ts-end" data-dark="1" data-i="end"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Planner</p><h2>Not sure where to start?</h2><p class="ts-lead">Tell us your venue and space. We’ll suggest the mix and lay it out to scale.</p></div>
     <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/planner">Plan your room</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>
    <nav class="ts-dots" aria-label="Categories">${rows.map(([mk],r)=>`<button data-go="${r}" aria-label="${esc(D.modalities[mk].name)}"><span>${esc(D.modalities[mk].name)}</span></button>`).join('')}</nav></div>`;
 }
 function tsGoModel(r, k){ const tr=document.querySelector(`.ts-track[data-row="${r}"]`); if(!tr) return; const n=tr.children.length; k=Math.max(0,Math.min(n-1,k)); tr.scrollTo({left:k*tr.clientWidth, behavior:RM()?'auto':'smooth'}); }
 function tsTrackSync(tr){ const r=tr.dataset.row; const k=Math.round(tr.scrollLeft/tr.clientWidth); document.querySelectorAll(`.ts-pips button[data-row="${r}"]`).forEach(b=>b.classList.toggle('on', +b.dataset.k===k)); const row=tr.closest('.ts-row'); row.querySelectorAll('.ts-arr').forEach(a=>a.disabled = (+a.dataset.dir<0 && k===0) || (+a.dataset.dir>0 && k===tr.children.length-1)); if (k>0) row.classList.add('seen'); }
-document.addEventListener('click', e => { const a=e.target.closest('.ts-arr'); if (a) { const tr=document.querySelector(`.ts-track[data-row="${a.dataset.row}"]`); tsGoModel(a.dataset.row, Math.round(tr.scrollLeft/tr.clientWidth)+(+a.dataset.dir)); return; }
-  const pip=e.target.closest('.ts-pips button'); if (pip) tsGoModel(pip.dataset.row, +pip.dataset.k); });
+document.addEventListener('click', e => { const a=e.target.closest('.ts-arr[data-row]'); if (a) { const tr=document.querySelector(`.ts-track[data-row="${a.dataset.row}"]`); if (!tr) return; tsGoModel(a.dataset.row, Math.round(tr.scrollLeft/tr.clientWidth)+(+a.dataset.dir)); return; }
+  const pip=e.target.closest('.ts-pips button[data-row]'); if (pip) tsGoModel(pip.dataset.row, +pip.dataset.k); });
 addEventListener('keydown', e => { if (!document.documentElement.classList.contains('snap') || !['ArrowLeft','ArrowRight'].includes(e.key)) return; const on=document.querySelector('.ts-track .ts.on'); if(!on) return; const tr=on.parentElement; e.preventDefault(); tsGoModel(tr.dataset.row, Math.round(tr.scrollLeft/tr.clientWidth)+(e.key==='ArrowRight'?1:-1)); });
 let tsIO;
 function tsInit(){
@@ -55,13 +55,18 @@ function tsInit(){
   document.querySelectorAll('.ts-track').forEach(tr => { let t; tr.addEventListener('scroll', () => { clearTimeout(t); t=setTimeout(()=>tsTrackSync(tr), 60); }, {passive:true}); tsTrackSync(tr); });
 }
 /* product page: full-screen hero, then the details that used to sit beside the image */
+function tsSiblings(p){ const row=TS_ROWS.find(([mk])=>mk===p.modality); return (row?row[1]:[p.id]).map(id=>D.products.find(x=>x.id===id)).filter(Boolean); }
+function tsHeroNav(p){ const sib=tsSiblings(p); if (sib.length<2) return ''; const i=sib.findIndex(x=>x.id===p.id); const href=x=>`#/products/${x.category}/${x.id}`;
+  return `<div class="ts-rownav ts-heronav"><a class="ts-arr" data-swipe="-1" ${i>0?`href="${href(sib[i-1])}"`:'aria-disabled="true"'} aria-label="Previous model">‹</a><div class="ts-pips">${sib.map(x=>`<a href="${href(x)}" class="${x.id===p.id?'on':''}">${esc(x.name)}</a>`).join('')}</div><a class="ts-arr" data-swipe="1" ${i<sib.length-1?`href="${href(sib[i+1])}"`:'aria-disabled="true"'} aria-label="Next model">›</a></div>`; }
+let TS_DIR = 0;
 function tsProductHero(p){
   const md = tsMedia(p); const cls = tsCls(md); const dark = /ts-dark/.test(cls); const f = FACTS[p.id]||[]; const m = D.modalities[p.modality];
-  return `<section class="ts ts-hero on${cls}" data-dark="${dark?1:0}" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
+  const dir = TS_DIR; TS_DIR = 0;
+  return `<section class="ts ts-hero on${cls}${dir>0?' from-r':dir<0?' from-l':''}" data-dark="${dark?1:0}" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
    <div class="ts-top"><p class="ts-eyebrow"><a href="#/products">Products</a> / <a href="#/products/${p.category}">${m.name}</a></p><h1>OneBase ${esc(p.name)}</h1><p class="ts-lead">${esc(TS_LEAD[p.id]||p.tagline)}</p></div>
    ${tsVisual(p,md,0)}
    <div class="ts-bot"><div class="ts-stats">${f.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
-    <div class="ts-cta"><a class="ts-b1" href="#cfg" data-scroll="cfg">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>
+    <div class="ts-cta"><a class="ts-b1" href="#cfg" data-scroll="cfg">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div>${tsHeroNav(p)}</section>
   <section class="wrap ts-intro"><p class="key">${esc(p.tagline)}</p><div class="stack" style="gap:18px"><p class="muted">${esc(p.description)}</p>
    <dl class="ts-dl">${p.sizes.length?`<div><dt>Sizes</dt><dd>${p.sizes.map(s=>s.label).join(' · ')}</dd></div>`:''}${p.colours.length?`<div><dt>Finishes</dt><dd>${p.colours.join(' · ')}</dd></div>`:''}${p.pressures.length?`<div><dt>Pressure</dt><dd>${p.pressures.join(' · ')}</dd></div>`:''}${p.fromPriceUSD?`<div><dt>From</dt><dd>US$${p.fromPriceUSD.toLocaleString()}</dd></div>`:''}</dl>
    <p class="faint" style="font-size:12px">${p.status==='coming-soon'?'Taking pre-orders':'Installation service · US-based support · 2-year warranty'}${p.channels.precor&&S.precor?' · Available through Precor (US)':''}</p></div></section>
@@ -79,3 +84,12 @@ afterRender = function(){
   _afterRenderTS(); tsInit();
 };
 addEventListener('scroll', () => { if (!document.body.classList.contains('is-snap') || document.documentElement.classList.contains('snap')) { document.body.classList.remove('solid'); return; } document.body.classList.toggle('solid', scrollY > innerHeight - 80); }, { passive:true });
+
+/* swipe between sibling models on a product page */
+(function(){ let x0=null, y0=0;
+  addEventListener('touchstart', e => { const h=e.target.closest('.ts-hero'); if (!h || e.target.closest('.ts-cta')) { x0=null; return; } x0=e.touches[0].clientX; y0=e.touches[0].clientY; }, {passive:true});
+  addEventListener('touchend', e => { if (x0===null) return; const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null; if (Math.abs(dx)<60 || Math.abs(dx)<Math.abs(dy)*1.3) return;
+    const a=document.querySelector(`.ts-heronav .ts-arr[data-swipe="${dx<0?1:-1}"]`); if (a && a.getAttribute('href')) { TS_DIR = dx<0?1:-1; location.hash = a.getAttribute('href'); } }, {passive:true});
+  document.addEventListener('click', e => { const a=e.target.closest('.ts-heronav a'); if (!a) return; if (!a.getAttribute('href')) { e.preventDefault(); return; } const sib=[...document.querySelectorAll('.ts-heronav .ts-pips a')]; const cur=sib.findIndex(x=>x.classList.contains('on')); const nxt=a.dataset.swipe? cur+(+a.dataset.swipe) : sib.indexOf(a); TS_DIR = nxt>cur?1:-1; });
+  addEventListener('keydown', e => { if (!['ArrowLeft','ArrowRight'].includes(e.key) || !document.querySelector('.ts-heronav') || scrollY > innerHeight*0.5 || e.target.closest('input,textarea,select')) return; const a=document.querySelector(`.ts-heronav .ts-arr[data-swipe="${e.key==='ArrowRight'?1:-1}"]`); if (a && a.getAttribute('href')) { TS_DIR = e.key==='ArrowRight'?1:-1; location.hash=a.getAttribute('href'); } });
+})();
