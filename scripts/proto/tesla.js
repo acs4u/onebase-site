@@ -29,13 +29,21 @@ function tsSlide(p, i){
    <div class="ts-bot"><div class="ts-stats">${f.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
     <div class="ts-cta"><a class="ts-b1" href="#/products/${p.category}/${p.id}">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>`;
 }
+const TS_ROWS = [['ice',['icevault']],['heat',['yakisugi','hemlock']],['air',['airform','airsuite','airfit','airflex']],['light',['lightbed','lightpanel']]];
 function tsIndex(){
-  const ps = TS_ORDER.map(id=>D.products.find(p=>p.id===id)).filter(Boolean);
-  return `<div class="ts-wrap">${ps.map(tsSlide).join('')}
-   <section class="ts ts-dark ts-end" data-dark="1"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Planner</p><h2>Not sure where to start?</h2><p class="ts-lead">Tell us your venue and space. We’ll suggest the mix and lay it out to scale.</p></div>
+  const rows = TS_ROWS.map(([mk,ids])=>[mk, ids.map(id=>D.products.find(p=>p.id===id)).filter(Boolean)]);
+  return `<div class="ts-wrap">${rows.map(([mk,ps],r)=>`<section class="ts-row" data-row="${r}" aria-label="${esc(D.modalities[mk].name)}">
+    <div class="ts-track" data-row="${r}">${ps.map((p,k)=>tsSlide(p,r).replace('<section class="ts','<section data-k="'+k+'" class="ts')).join('')}</div>
+    ${ps.length>1?`<div class="ts-rownav"><button class="ts-arr" data-dir="-1" data-row="${r}" aria-label="Previous model">‹</button><div class="ts-pips">${ps.map((p,k)=>`<button data-row="${r}" data-k="${k}" class="${k===0?'on':''}"><span>${esc(p.name)}</span></button>`).join('')}</div><button class="ts-arr" data-dir="1" data-row="${r}" aria-label="Next model">›</button></div><p class="ts-swipe">${ps.length} models · swipe to explore</p>`:''}</section>`).join('')}
+   <section class="ts ts-dark ts-end" data-dark="1" data-i="end"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Planner</p><h2>Not sure where to start?</h2><p class="ts-lead">Tell us your venue and space. We’ll suggest the mix and lay it out to scale.</p></div>
     <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/planner">Plan your room</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>
-   <nav class="ts-dots" aria-label="Products">${ps.map((p,i)=>`<button data-go="${i}" aria-label="${esc(p.name)}"><span>${esc(p.name)}</span></button>`).join('')}</nav></div>`;
+   <nav class="ts-dots" aria-label="Categories">${rows.map(([mk],r)=>`<button data-go="${r}" aria-label="${esc(D.modalities[mk].name)}"><span>${esc(D.modalities[mk].name)}</span></button>`).join('')}</nav></div>`;
 }
+function tsGoModel(r, k){ const tr=document.querySelector(`.ts-track[data-row="${r}"]`); if(!tr) return; const n=tr.children.length; k=Math.max(0,Math.min(n-1,k)); tr.scrollTo({left:k*tr.clientWidth, behavior:RM()?'auto':'smooth'}); }
+function tsTrackSync(tr){ const r=tr.dataset.row; const k=Math.round(tr.scrollLeft/tr.clientWidth); document.querySelectorAll(`.ts-pips button[data-row="${r}"]`).forEach(b=>b.classList.toggle('on', +b.dataset.k===k)); const row=tr.closest('.ts-row'); row.querySelectorAll('.ts-arr').forEach(a=>a.disabled = (+a.dataset.dir<0 && k===0) || (+a.dataset.dir>0 && k===tr.children.length-1)); if (k>0) row.classList.add('seen'); }
+document.addEventListener('click', e => { const a=e.target.closest('.ts-arr'); if (a) { const tr=document.querySelector(`.ts-track[data-row="${a.dataset.row}"]`); tsGoModel(a.dataset.row, Math.round(tr.scrollLeft/tr.clientWidth)+(+a.dataset.dir)); return; }
+  const pip=e.target.closest('.ts-pips button'); if (pip) tsGoModel(pip.dataset.row, +pip.dataset.k); });
+addEventListener('keydown', e => { if (!document.documentElement.classList.contains('snap') || !['ArrowLeft','ArrowRight'].includes(e.key)) return; const on=document.querySelector('.ts-track .ts.on'); if(!on) return; const tr=on.parentElement; e.preventDefault(); tsGoModel(tr.dataset.row, Math.round(tr.scrollLeft/tr.clientWidth)+(e.key==='ArrowRight'?1:-1)); });
 let tsIO;
 function tsInit(){
   const slides = document.querySelectorAll('.ts'); if (!slides.length) return;
@@ -43,7 +51,8 @@ function tsInit(){
   tsIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && e.intersectionRatio > .55) { const s=e.target; document.querySelectorAll('.ts.on').forEach(x=>x!==s&&x.classList.remove('on')); s.classList.add('on');
       document.body.classList.toggle('snap-dark', s.dataset.dark==='1'); const i=s.dataset.i; document.querySelectorAll('.ts-dots button').forEach(b=>b.classList.toggle('on', b.dataset.go===i)); } }), { threshold:[.56] });
   slides.forEach(s=>tsIO.observe(s)); slides[0].classList.add('on'); document.body.classList.toggle('snap-dark', slides[0].dataset.dark==='1');
-  const dots=document.querySelector('.ts-dots'); if (dots) dots.addEventListener('click', e => { const b=e.target.closest('button'); if (!b) return; document.querySelector(`.ts[data-i="${b.dataset.go}"]`).scrollIntoView({behavior:RM()?'auto':'smooth'}); });
+  const dots=document.querySelector('.ts-dots'); if (dots) dots.addEventListener('click', e => { const b=e.target.closest('button'); if (!b) return; (document.querySelector(`.ts-row[data-row="${b.dataset.go}"]`)||document.querySelector(`.ts[data-i="${b.dataset.go}"]`)).scrollIntoView({behavior:RM()?'auto':'smooth'}); });
+  document.querySelectorAll('.ts-track').forEach(tr => { let t; tr.addEventListener('scroll', () => { clearTimeout(t); t=setTimeout(()=>tsTrackSync(tr), 60); }, {passive:true}); tsTrackSync(tr); });
 }
 /* product page: full-screen hero, then the details that used to sit beside the image */
 function tsProductHero(p){

@@ -408,3 +408,26 @@ body:not(.is-snap) .ts-dots{display:none}
 .ts-gal figure{margin:0;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--surf)}
 .ts-gal img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}.ts-gal figure:hover img{transform:scale(1.04)}
 @media(max-width:760px){.ts-render .ts-img{max-width:92vw}}
+/* Horizontal model rows */
+html.snap .ts-row{scroll-snap-align:start}
+.ts-row{position:relative;height:100svh;min-height:600px}
+.ts-track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.ts-track::-webkit-scrollbar{display:none}
+.ts-track>.ts{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;height:100%;min-height:0}
+.ts-rownav{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:14px}
+.ts-arr{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:24px;line-height:1;cursor:pointer;backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);transition:opacity .2s}
+.ts-arr:disabled{opacity:.25;cursor:default}
+.ts-pips{display:flex;gap:8px}.ts-pips button{position:relative;width:26px;height:4px;border-radius:2px;border:0;padding:0;background:rgba(255,255,255,.35);cursor:pointer;transition:background .2s,width .3s}
+.ts-pips button.on{background:#fff;width:40px}
+.ts-pips span{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;color:#fff;opacity:0;transition:opacity .2s;pointer-events:none}.ts-pips button:hover span{opacity:1}
+.ts-row:has(.ts.on:not(.ts-dark)) .ts-arr{background:rgba(31,31,31,.08);color:#1f1f1f;box-shadow:inset 0 0 0 1px rgba(31,31,31,.15)}
+.ts-row:has(.ts.on:not(.ts-dark)) .ts-pips button{background:rgba(31,31,31,.25)}.ts-row:has(.ts.on:not(.ts-dark)) .ts-pips button.on{background:#1f1f1f}
+.ts-row:has(.ts.on:not(.ts-dark)) .ts-pips span,.ts-row:has(.ts.on:not(.ts-dark)) .ts-swipe{color:#4a4a4f}
+.ts-swipe{position:absolute;right:28px;bottom:36px;z-index:5;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);animation:nudge 2.4s ease-in-out infinite;transition:opacity .4s}
+.ts-row.seen .ts-swipe{opacity:0}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+.ts-track>.ts .ts-bot{padding-bottom:40px}
+.ts-track>.ts{padding-bottom:120px}
+@media(max-width:760px){.ts-rownav{bottom:calc(64px + env(safe-area-inset-bottom,0px))}.ts-track>.ts{padding-bottom:140px}.ts-arr{display:none}.ts-swipe{right:auto;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));animation:none}}
+.ts-track .ts-fig{top:max(26%,190px);bottom:max(36%,250px)}
+@media(max-width:760px){.ts-track .ts-fig{top:max(24%,190px);bottom:max(40%,300px)}.ts-rownav{bottom:calc(84px + env(safe-area-inset-bottom,0px))}.ts-swipe{display:none}.ts-track>.ts{padding-bottom:128px}}
