@@ -4,12 +4,28 @@ const TS_LEAD = { icevault:'Dry cold for two to eight. No water, no ice, no nitr
   lightbed:'Whole-body red and near-infrared. Five wavelengths.', airsuite:'A walk-in hyperbaric room with medical-grade BIBS.', airfit:'Soft-shell hyperbaric you can place almost anywhere.',
   airflex:'Step in, roll in. Accessible soft-shell hyperbaric.', hemlock:'Four-person full-spectrum infrared in light Hemlock.', lightpanel:'Red and near-infrared panels. One, two or four.' };
 function tsImg(p){ return CUT[p.id] || (D.prodImg[p.id]) || null; }
+const TS_MEDIA = {
+  icevault:{mode:'render', img:'canva-icevault-render', bg:'#1f1f1f'}, yakisugi:{mode:'render', img:'canva-yakisugi-render', bg:'#1f1f1f'},
+  airsuite:{mode:'render', img:'canva-airsuite-duo', bg:'#b3b0a8', light:true},
+  airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'},
+  airflex:{mode:'photo', img:'photo-airflex', pos:'45% 40%'}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
+};
+const TS_GALLERY = { icevault:['photo-spa','photo-sports'], yakisugi:['canva-yakisugi-spa','photo-spa'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airflex:['photo-airflex'] };
+function tsMedia(p){ const m=TS_MEDIA[p.id]; if (m && D.img[m.img]) return m; const k=tsImg(p); return k&&D.img[k]?{mode:'cut',img:k}:null; }
+function tsVisual(p, m, i){
+  if (!m) return `<div class="ts-ghost">${esc(p.name)}</div>`;
+  if (m.mode==='photo') return `<img class="ts-cover" src="${D.img[m.img]}" alt="OneBase ${esc(p.name)} in use" style="object-position:${m.pos||'50% 50%'}" loading="${i<2?'eager':'lazy'}"><div class="ts-veil"></div>`;
+  if (m.mode==='render') return `<div class="ts-fig ts-render"><img class="ts-img" src="${D.img[m.img]}" alt="OneBase ${esc(p.name)}" loading="${i<2?'eager':'lazy'}"></div>`;
+  return `<div class="ts-fig"><img class="ts-img ts-cut" src="${D.img[m.img]}" alt="OneBase ${esc(p.name)}" loading="${i<2?'eager':'lazy'}"><span class="ts-shadow"></span></div>`;
+}
+function tsCls(m){ if (!m) return ' ts-dark'; if (m.mode==='photo') return ' ts-photo ts-dark'; if (m.mode==='render') return m.light?' ts-rlight':' ts-dark ts-rdark'; return ''; }
+function tsStyle(p,m){ return `--ts-tint:${MODC[p.modality].soft};--ts-deep:${MODC[p.modality].deep};--ts-glow:${MODC[p.modality].glow}${m&&m.bg?';--ts-rbg:'+m.bg:''}`; }
 function tsSlide(p, i){
-  const k = tsImg(p); const dark = !k || !D.img[k]; const f = FACTS[p.id]||[];
-  return `<section class="ts${dark?' ts-dark':''}" data-i="${i}" data-dark="${dark?1:0}" style="--ts-tint:${MODC[p.modality].soft};--ts-deep:${MODC[p.modality].deep};--ts-glow:${MODC[p.modality].glow}">
+  const m = tsMedia(p); const cls = tsCls(m); const dark = /ts-dark/.test(cls); const f = FACTS[p.id]||[];
+  return `<section class="ts${cls}" data-i="${i}" data-dark="${dark?1:0}" style="${tsStyle(p,m)}">
    <div class="ts-bg"></div>
    <div class="ts-top"><p class="ts-eyebrow">${D.modalities[p.modality].name}${p.status==='coming-soon'?' · Pre-order':''}</p><h2>OneBase ${esc(p.name)}</h2><p class="ts-lead">${esc(TS_LEAD[p.id]||p.tagline)}</p></div>
-   ${dark?`<div class="ts-ghost">${esc(p.name)}</div>`:`<div class="ts-fig"><img class="ts-img" src="${D.img[k]}" alt="OneBase ${esc(p.name)}" loading="${i<2?'eager':'lazy'}"><span class="ts-shadow"></span></div>`}
+   ${tsVisual(p,m,i)}
    <div class="ts-bot"><div class="ts-stats">${f.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
     <div class="ts-cta"><a class="ts-b1" href="#/products/${p.category}/${p.id}">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>`;
 }
@@ -31,15 +47,16 @@ function tsInit(){
 }
 /* product page: full-screen hero, then the details that used to sit beside the image */
 function tsProductHero(p){
-  const k = tsImg(p); const has = k && D.img[k]; const f = FACTS[p.id]||[]; const m = D.modalities[p.modality];
-  return `<section class="ts ts-hero on${has?'':' ts-dark'}" data-dark="${has?0:1}" style="--ts-tint:${MODC[p.modality].soft};--ts-deep:${MODC[p.modality].deep};--ts-glow:${MODC[p.modality].glow}"><div class="ts-bg"></div>
+  const md = tsMedia(p); const cls = tsCls(md); const dark = /ts-dark/.test(cls); const f = FACTS[p.id]||[]; const m = D.modalities[p.modality];
+  return `<section class="ts ts-hero on${cls}" data-dark="${dark?1:0}" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
    <div class="ts-top"><p class="ts-eyebrow"><a href="#/products">Products</a> / <a href="#/products/${p.category}">${m.name}</a></p><h1>OneBase ${esc(p.name)}</h1><p class="ts-lead">${esc(TS_LEAD[p.id]||p.tagline)}</p></div>
-   ${has?`<div class="ts-fig"><img class="ts-img" src="${D.img[k]}" alt="OneBase ${esc(p.name)}"><span class="ts-shadow"></span></div>`:`<div class="ts-ghost">${esc(p.name)}</div>`}
+   ${tsVisual(p,md,0)}
    <div class="ts-bot"><div class="ts-stats">${f.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
     <div class="ts-cta"><a class="ts-b1" href="#cfg" data-scroll="cfg">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>
   <section class="wrap ts-intro"><p class="key">${esc(p.tagline)}</p><div class="stack" style="gap:18px"><p class="muted">${esc(p.description)}</p>
    <dl class="ts-dl">${p.sizes.length?`<div><dt>Sizes</dt><dd>${p.sizes.map(s=>s.label).join(' · ')}</dd></div>`:''}${p.colours.length?`<div><dt>Finishes</dt><dd>${p.colours.join(' · ')}</dd></div>`:''}${p.pressures.length?`<div><dt>Pressure</dt><dd>${p.pressures.join(' · ')}</dd></div>`:''}${p.fromPriceUSD?`<div><dt>From</dt><dd>US$${p.fromPriceUSD.toLocaleString()}</dd></div>`:''}</dl>
-   <p class="faint" style="font-size:12px">${p.status==='coming-soon'?'Taking pre-orders':'Installation service · US-based support · 2-year warranty'}${p.channels.precor&&S.precor?' · Available through Precor (US)':''}</p></div></section>`;
+   <p class="faint" style="font-size:12px">${p.status==='coming-soon'?'Taking pre-orders':'Installation service · US-based support · 2-year warranty'}${p.channels.precor&&S.precor?' · Available through Precor (US)':''}</p></div></section>
+  ${(TS_GALLERY[p.id]||[]).filter(k=>D.img[k] && !(TS_MEDIA[p.id]&&TS_MEDIA[p.id].img===k)).length?`<section class="ts-gal wrap">${(TS_GALLERY[p.id]||[]).filter(k=>D.img[k] && !(TS_MEDIA[p.id]&&TS_MEDIA[p.id].img===k)).slice(0,2).map(k=>`<figure><img src="${D.img[k]}" alt="OneBase ${esc(p.name)} installed" loading="lazy"></figure>`).join('')}</section>`:''}`;
 }
 pages.products = () => tsIndex();
 const _productTS = pages.product;

@@ -56,7 +56,7 @@ const CAT = {
   IV2:{p:'icevault',s:'Duo',m:'ice',w:47.24,d:51.8,n:2,cyc:15,img:'icevault-quad'}, IV4:{p:'icevault',s:'Quad',m:'ice',w:74.8,d:70.87,n:4,cyc:15,img:'icevault-quad'}, IV8:{p:'icevault',s:'Octo',m:'ice',w:106.3,d:110.24,n:8,cyc:15,img:'icevault-octo'},
   YK2:{p:'yakisugi',s:'Duo',m:'heat',w:68.9,d:68.9,n:2,cyc:45,img:'yakisugi'}, YK4:{p:'yakisugi',s:'Quad',m:'heat',w:79,d:79,n:4,cyc:45,img:'yakisugi'}, YK8:{p:'yakisugi',s:'Octo',m:'heat',w:108.5,d:108.5,n:8,cyc:45,img:'yakisugi'},
   HM4:{p:'hemlock',s:'Quad',m:'heat',w:83,d:52,n:4,cyc:45,img:'hemlock'},
-  AFT:{p:'airfit',s:'Plus',m:'air',w:86.5,d:50,n:1,cyc:75,img:'airfit'}, AFP:{p:'airform',s:'Plus',m:'air',w:87,d:58,n:1,cyc:75,img:'airform-plus-black'}, AS2:{p:'airsuite',s:'Duo',m:'air',w:86.6,d:63,n:2,cyc:75,img:null},
+  AFT:{p:'airfit',s:'Plus',m:'air',w:86.5,d:50,n:1,cyc:75,img:'airfit'}, AFP:{p:'airform',s:'Plus',m:'air',w:87,d:58,n:1,cyc:75,img:'airform-plus-black'}, AS2:{p:'airsuite',s:'Duo',m:'air',w:86.6,d:63,n:2,cyc:75,img:'canva-airsuite-duo'},
   LB:{p:'lightbed',s:'',m:'light',w:89.5,d:51,n:1,cyc:25,img:'lightbed-black'}, LP4:{p:'lightpanel',s:'Quad',m:'light',w:31.5,d:60,n:1,cyc:20,img:'lightpanel-quad'},
 };
 const VENUES = {
@@ -175,7 +175,7 @@ const DIMS = {
   lightbed:{_one:[89.5,51,44,1],_p:'6500 W · 240 V'},
 };
 const SWC = {'Matte Black':'#1f1f1f','Black':'#1f1f1f','Midnight Black':'#15161a','Yakisugi Black':'#2b2622','Matte White':'#f4f4f4','Arctic White':'#eef3f5','White':'#f4f4f4','Hemlock':'#d9b98c'};
-const VIMG = { icevault:{octo:'cut-icevault-octo',quad:'cut-icevault-quad',duo:'cut-icevault-quad'}, lightbed:{White:'lightbed-white',Black:'cut-lightbed-black'} };
+const VIMG = { airsuite:{solo:'canva-airsuite-solo',duo:'canva-airsuite-duo'} };
 const CF = {};
 const inch = (v) => v==null?'—':`${Math.round(v*10)/10}″`;
 const cm = (v) => v==null?'':`${Math.round(v*2.54)} cm`;
