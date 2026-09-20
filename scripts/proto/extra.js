@@ -206,7 +206,7 @@ function cfgRender(p){
     const w=document.getElementById('fpw'), dd=document.getElementById('fpd'); w.textContent = inch(d[0]); w.style.left='50%'; w.style.transform='translateX(-50%)'; w.style.top=`calc(${50-H/2}% - 20px)`;
     dd.textContent = inch(d[1]); dd.style.top='50%'; dd.style.transform='translateY(-50%)'; dd.style.left=`calc(${50+W/2}% + 8px)`; fp.style.display=''; }
   else fp.style.display='none';
-  const vk = VIMG[p.id] && (VIMG[p.id][st.size] || VIMG[p.id][st.col]); const hero = document.querySelector('#app .ts-img, #app .softbg img'); if (vk && hero && D.img[vk] && hero.getAttribute('src')!==D.img[vk]) hero.src = D.img[vk];
+  const vk = VIMG[p.id] && (VIMG[p.id][st.size] || VIMG[p.id][st.col]); const hero = document.querySelector('#app .softbg img'); if (vk && hero && D.img[vk] && hero.getAttribute('src')!==D.img[vk]) hero.src = D.img[vk];
   const rows = [];
   if (d) { rows.push(['Footprint', `${inch(d[0])} × ${inch(d[1])}<small>${cm(d[0])} × ${cm(d[1])}</small>`]); rows.push(['Height', d[2]?`${inch(d[2])}<small>${cm(d[2])}</small>`:'Confirmed at quote']); rows.push(['Capacity', `${d[3]} ${d[3]>1?'people':'person'}`]); rows.push(['Room from', `~${fmt(Math.ceil((d[0]/12+3)*(d[1]/12+4)/5)*5)} sq ft<small>incl. access space</small>`]); }
   rows.push(['Finish', esc(st.col||'—')]); rows.push(['Power', esc((d&&d[4]?d[4]+' · ':'')+(dm?dm._p:'Confirmed at quote'))]);

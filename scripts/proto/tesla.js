@@ -6,11 +6,11 @@ const TS_LEAD = { icevault:'Dry cold for two to eight. No water, no ice, no nitr
 function tsImg(p){ return CUT[p.id] || (D.prodImg[p.id]) || null; }
 const TS_MEDIA = {
   icevault:{mode:'render', img:'render-icevault-studio', bg:'#1a1a1a'}, yakisugi:{mode:'render', img:'yk-real-closed', bg:'#ffffff', light:true},
-  airsuite:{mode:'render', img:'canva-airsuite-duo', bg:'#b3b0a8', light:true},
+  airsuite:{mode:'render', img:'as-hero', bg:'#e9e9e7', light:true},
   airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'},
   airfit:{mode:'photo', img:'photo-airfit', pos:'45% 40%'}, airflex:{mode:'render', img:'cut-airflex', bg:'#e7e9eb', light:true}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
 };
-const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2','render-lightbed-studio'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
+const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['as-ext','canva-airsuite-photo','as-cover'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2','render-lightbed-studio'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
 function tsMedia(p){ const m=TS_MEDIA[p.id]; if (m && D.img[m.img]) return m; const k=tsImg(p); return k&&D.img[k]?{mode:'cut',img:k}:null; }
 function tsVisual(p, m, i){
   if (!m) return `<div class="ts-ghost">${esc(p.name)}</div>`;
@@ -63,6 +63,11 @@ function tsModels(p){ const sib=tsSiblings(p); if (sib.length<2) return ''; cons
   return `<nav class="ts-models" aria-label="Models">${sib.map(x=>`<a href="${href(x)}" class="${x.id===p.id?'on':''}">${esc(x.name)}</a>`).join('')}</nav>`; }
 /* full-bleed feature chapters per product (real photography) */
 const TS_FEATURES = {
+  airsuite:[
+    {img:'as-cover', k:'Inside', t:'Space to work, watch or rest.', b:'Warm circadian lighting, water-based air conditioning and built-in entertainment make a 90-minute session feel easy.', pos:'50% 40%'},
+    {img:'as-solo', k:'Solo', t:'One seat. Total privacy.', b:'A reclining leather seat and fold-down desk for focused, private sessions at 2.0 ATA.'},
+    {img:'as-duo', k:'Duo', t:'Two seats. Same 2.0 ATA.', b:'Individual reclining seats, individual entertainment and a dedicated oxygen concentrator per person.'},
+  ],
   yakisugi:[
     {img:'yk-led-ceiling', k:'Red light', t:'Red light, built into the ceiling.', b:'LED arrays across the ceiling add red and near-infrared light to every session. No separate bed, no extra room.'},
     {img:'yk-bench-l', k:'Infrared', t:'Full-spectrum heat behind every backrest.', b:'Low-EMF near, mid and far infrared emitters sit behind the cedar slats, at a restorative 135–149°F.'},
