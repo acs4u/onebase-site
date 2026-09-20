@@ -1,5 +1,5 @@
 /* ===== Products index: modality doors, filters, showcase cards, compare ===== */
-const CUT = { airfit:'cut-airfit', airflex:'cut-airflex', airform:'cut-airform-plus-black', airsuite:'canva-airsuite-duo', icevault:'cut-icevault-quad', yakisugi:'cut-yakisugi', hemlock:'cut-hemlock', lightpanel:'cut-lightpanel-quad', lightbed:'cut-lightbed-black' };
+const CUT = { airfit:'cut-airfit', airflex:'cut-airflex', airform:'cut-airform-plus-black', airsuite:'canva-airsuite-duo', icevault:'cut-icevault-quad', yakisugi:'yk-real-closed', hemlock:'cut-hemlock', lightpanel:'cut-lightpanel-quad', lightbed:'cut-lightbed-black' };
 const DOOR_IMG = { air:'cut-airform-plus-black', ice:'cut-icevault-quad', heat:'cut-yakisugi', light:'cut-lightbed-black' };
 const FACTS = {
   airfit:[['1.3–1.5','ATA'],['1','person'],['Soft-shell','portable']], airflex:[['1.3–1.5','ATA'],['1','person, seated'],['Step-in','soft-shell']],

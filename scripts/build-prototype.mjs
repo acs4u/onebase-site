@@ -45,7 +45,7 @@ const customers = [
   { seg: 'Brands & creators', names: ['Jake Paul', 'Kayla Barnes', 'The Fox Tan', 'FuzzYard', 'Pretty Farm Girl'] },
 ];
 const EXTRA_CSS = fs.readFileSync('scripts/proto/extra.css','utf8');
-const EXTRA_JS = fs.readFileSync('scripts/proto/extra.js','utf8') + '\n' + fs.readFileSync('scripts/proto/software.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tablet.js','utf8') + '\n' + fs.readFileSync('scripts/proto/capture.js','utf8') + '\n' + fs.readFileSync('scripts/proto/products.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tesla.js','utf8');
+const EXTRA_JS = fs.readFileSync('scripts/proto/extra.js','utf8') + '\n' + fs.readFileSync('scripts/proto/software.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tablet.js','utf8') + '\n' + fs.readFileSync('scripts/proto/capture.js','utf8') + '\n' + fs.readFileSync('scripts/proto/products.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tesla.js','utf8') + '\n' + fs.readFileSync('scripts/proto/figma.js','utf8');
 const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg, customers };
 
 const html = `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>OneBase Site Prototype</title>

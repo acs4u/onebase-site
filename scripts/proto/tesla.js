@@ -5,12 +5,12 @@ const TS_LEAD = { icevault:'Dry cold for two to eight. No water, no ice, no nitr
   airflex:'Step in, roll in. Accessible soft-shell hyperbaric.', hemlock:'Four-person full-spectrum infrared in light Hemlock.', lightpanel:'Red and near-infrared panels. One, two or four.' };
 function tsImg(p){ return CUT[p.id] || (D.prodImg[p.id]) || null; }
 const TS_MEDIA = {
-  icevault:{mode:'render', img:'canva-icevault-render', bg:'#1f1f1f'}, yakisugi:{mode:'render', img:'canva-yakisugi-render', bg:'#1f1f1f'},
+  icevault:{mode:'render', img:'render-icevault-studio', bg:'#1a1a1a'}, yakisugi:{mode:'render', img:'yk-real-closed', bg:'#ffffff', light:true},
   airsuite:{mode:'render', img:'canva-airsuite-duo', bg:'#b3b0a8', light:true},
   airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'},
-  airflex:{mode:'photo', img:'photo-airflex', pos:'45% 40%'}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
+  airfit:{mode:'photo', img:'photo-airfit', pos:'45% 40%'}, airflex:{mode:'render', img:'cut-airflex', bg:'#e7e9eb', light:true}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
 };
-const TS_GALLERY = { icevault:['photo-spa','photo-sports'], yakisugi:['canva-yakisugi-spa','photo-spa'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airflex:['photo-airflex'] };
+const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-open','yk-real-front'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
 function tsMedia(p){ const m=TS_MEDIA[p.id]; if (m && D.img[m.img]) return m; const k=tsImg(p); return k&&D.img[k]?{mode:'cut',img:k}:null; }
 function tsVisual(p, m, i){
   if (!m) return `<div class="ts-ghost">${esc(p.name)}</div>`;
