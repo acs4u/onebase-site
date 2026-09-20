@@ -46,7 +46,10 @@ const customers = [
 ];
 const EXTRA_CSS = fs.readFileSync('scripts/proto/extra.css','utf8');
 const EXTRA_JS = fs.readFileSync('scripts/proto/extra.js','utf8') + '\n' + fs.readFileSync('scripts/proto/software.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tablet.js','utf8') + '\n' + fs.readFileSync('scripts/proto/capture.js','utf8') + '\n' + fs.readFileSync('scripts/proto/products.js','utf8') + '\n' + fs.readFileSync('scripts/proto/tesla.js','utf8') + '\n' + fs.readFileSync('scripts/proto/figma.js','utf8');
-const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg, customers };
+const glbDir = 'public/models';
+const glb = fs.existsSync(glbDir) ? Object.fromEntries(fs.readdirSync(glbDir).filter(f => f.endsWith('.glb')).map(f => [f.replace('.glb',''), 'data:model/gltf-binary;base64,' + fs.readFileSync(path.join(glbDir, f)).toString('base64')])) : {};
+const MV = fs.readFileSync('scripts/proto/vendor-model-viewer.min.js','utf8');
+const data = { products, solutions, team, parts, modalities, policies, posts, img, prodImg, solImg, customers, glb };
 
 const html = `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>OneBase Site Prototype</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap">
@@ -348,6 +351,7 @@ document.addEventListener('click', e => { const b = e.target.closest('#cf .chip'
 ${EXTRA_JS}
 window.addEventListener('hashchange', route); route();
 </script>
+<script type="module">${MV}</script>
 `;
 fs.mkdirSync('prototype', { recursive: true });
 fs.writeFileSync('prototype/onebase-prototype.html', html);

@@ -10,7 +10,7 @@ const TS_MEDIA = {
   airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'},
   airfit:{mode:'photo', img:'photo-airfit', pos:'45% 40%'}, airflex:{mode:'render', img:'cut-airflex', bg:'#e7e9eb', light:true}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
 };
-const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
+const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['canva-airsuite-photo','canva-airsuite-solo'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2','render-lightbed-studio'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
 function tsMedia(p){ const m=TS_MEDIA[p.id]; if (m && D.img[m.img]) return m; const k=tsImg(p); return k&&D.img[k]?{mode:'cut',img:k}:null; }
 function tsVisual(p, m, i){
   if (!m) return `<div class="ts-ghost">${esc(p.name)}</div>`;
@@ -71,11 +71,28 @@ const TS_FEATURES = {
     {img:'yk-charred', k:'Finish', t:'Real charred cedar. You can feel it.', b:'The Yakisugi finish is a carbonised layer that resists moisture, bacteria and wear, with a texture no laminate can copy.', pos:'50% 4%'},
   ],
 };
+/* real-scale 3D models (exported from the render scenes) -> <model-viewer>, with AR on phones */
+const TS_3D = {
+  icevault:{glb:'icevault-quad', size:'Quad', dims:'74.8" W × 70.9" D × 95" H', orbit:'-18deg 80deg auto'},
+  yakisugi:{glb:'yakisugi-octo', size:'Octo', dims:'108.5" W × 108.5" D × 82.7" H', orbit:'-15deg 78deg auto'},
+  lightbed:{glb:'lightbed', size:'', dims:'89.5" L × 51" D × 44" H · built from our production CAD', orbit:'-22deg 76deg auto', limit:[-80,80], still:true,
+    finishes:[['Black',[0.012,0.012,0.013,1]],['White',[0.80,0.80,0.78,1]]], mat:'gloss'},
+};
+function ts3D(p){ const t=TS_3D[p.id]; if (!t || !D.glb || !D.glb[t.glb]) return null;
+  return `<section class="ts ts-ch ts-light-ch ts-3d" data-dark="0" style="${tsStyle(p,null)}"><div class="ts-bg"></div>
+    <div class="ts-top"><p class="ts-eyebrow">3D · to scale</p><h2>Walk around it. Then put it in your room.</h2></div>
+    <model-viewer class="ts-mv" src="${D.glb[t.glb]}" alt="OneBase ${esc(p.name)} ${t.size} 3D model" camera-controls touch-action="pan-y" ${t.still?'':'auto-rotate'} auto-rotate-delay="4000" rotation-per-second="10deg" interaction-prompt="none"
+      camera-orbit="${t.orbit}" min-camera-orbit="${t.limit?t.limit[0]+'deg':'auto'} 40deg auto" max-camera-orbit="${t.limit?t.limit[1]+'deg':'auto'} 92deg auto" shadow-intensity="1.1" shadow-softness=".8" exposure="1.05" environment-image="neutral"
+      ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" ar-placement="floor" loading="lazy" reveal="auto">
+      <button slot="ar-button" class="ts-b1 mv-ar">View in your room</button>
+      <div slot="progress-bar"></div></model-viewer>
+    <div class="ts-bot">${t.finishes?`<div class="mv-fin" data-mat="${t.mat}">${t.finishes.map(([n,c],i)=>`<button data-c="${c.join(',')}" class="${i?'':'on'}"><i style="background:rgb(${c.slice(0,3).map(v=>Math.round(Math.pow(v,1/2.2)*255)).join(',')})"></i>${n}</button>`).join('')}</div>`:''}<p class="mv-dims">OneBase ${esc(p.name)}${t.size?' '+t.size:''} · ${t.dims}</p><p class="mv-hint">Drag to rotate · scroll or pinch to zoom<span class="mv-noar"> · Open on your phone to place it in your room at full size</span></p></div></section>`; }
 /* chapters you swipe through for ONE product: overview, in the room, why, specs, sizes, app */
 function tsChapters(p){
   const md = tsMedia(p); const hl = (p.highlights||[]).slice(0,4); const sp = (p.specs||[]).slice(0,6);
   const room = (TS_GALLERY[p.id]||[]).find(k=>D.img[k] && !(md&&md.img===k));
   const ch = [];
+  const m3 = ts3D(p); if (m3) ch.push(['3D & AR', m3]);
   if (room) ch.push(['In the room', `<section class="ts ts-ch ts-photo ts-dark" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[room]}" alt="OneBase ${esc(p.name)} installed" loading="lazy"><div class="ts-veil"></div>
     <div class="ts-top"><p class="ts-eyebrow">In the room</p><h2>${esc(hl[0]?hl[0].title:'Built for the recovery floor')}</h2><p class="ts-lead">${esc(hl[0]?hl[0].body:p.tagline)}</p></div><div class="ts-bot"></div></section>`]);
   (TS_FEATURES[p.id]||[]).filter(f=>D.img[f.img]).forEach(f => ch.push([f.k, `<section class="ts ts-ch ts-photo ts-dark ts-feat" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[f.img]}" alt="${esc(f.t)}" style="object-position:${f.pos||'50% 50%'}" loading="lazy"><div class="ts-veil"></div>
@@ -134,3 +151,11 @@ document.addEventListener('click', e => { const a=e.target.closest('.ts-models a
 /* keep the active chapter pill in view on small screens */
 const _tsTrackSyncCh = tsTrackSync;
 tsTrackSync = function(tr){ _tsTrackSyncCh(tr); if (tr.dataset.row==='h') { const b=document.querySelector('.ts-chnav .ts-pips button.on'); const pp=b&&b.parentElement; if (pp) pp.scrollTo({left:b.offsetLeft - pp.clientWidth/2 + b.clientWidth/2, behavior:'smooth'}); } };
+
+/* hide the 'open on your phone' note when AR is available */
+document.addEventListener('load', e => { const mv=e.target; if (mv && mv.tagName==='MODEL-VIEWER') { mv.classList.add('ready'); if (mv.canActivateAR) mv.closest('.ts-3d')?.classList.add('has-ar'); } }, true);
+
+/* finish switcher on the 3D model */
+document.addEventListener('click', e => { const b=e.target.closest('.mv-fin button'); if (!b) return; const wrap=b.parentElement; const mv=wrap.closest('.ts-3d')?.querySelector('model-viewer'); if (!mv || !mv.model) return;
+  const c=b.dataset.c.split(',').map(Number); mv.model.materials.filter(m=>m.name===wrap.dataset.mat).forEach(m=>m.pbrMetallicRoughness.setBaseColorFactor(c));
+  wrap.querySelectorAll('button').forEach(x=>x.classList.toggle('on', x===b)); });

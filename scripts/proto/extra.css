@@ -480,8 +480,19 @@ a.ts-arr{display:inline-flex;align-items:center;justify-content:center;text-deco
  .ch-specs{grid-template-columns:1fr}.ch-specs div{padding:9px 0}.ch-specs dd{font-size:14px}
  .ch-sizes{grid-template-columns:1fr;gap:8px}.ch-size{padding:14px 16px;flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:4px 12px}.ch-size b{font-size:18px}.ch-size i{margin:0 0 0 auto}
 }
-@media(min-width:761px){.ts-why,.ts-light-ch{justify-content:center;gap:40px}.ts-why .ts-bot,.ts-light-ch .ts-bot{flex:0 1 auto}}
+@media(min-width:761px){.ts-why,.ts-light-ch:not(.ts-3d){justify-content:center;gap:40px}.ts-why .ts-bot,.ts-light-ch:not(.ts-3d) .ts-bot{flex:0 1 auto}}
 .ts-feat{justify-content:flex-end}
 .ch-feat{text-align:left;width:min(1100px,100%);align-self:center;padding-bottom:12px}
 .ch-feat h2{font-size:clamp(28px,4.2vw,50px);max-width:760px;margin:6px 0 10px}.ch-feat .ts-lead{max-width:560px;margin:0}
 .ts-feat .ts-veil{background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,.05) 50%,rgba(0,0,0,.75) 100%)}
+/* 3D + AR chapter */
+.ts-3d .ts-bg{background:radial-gradient(ellipse at 50% 60%,#fbfbfa,#e6e6e3)}
+.ts-mv{position:absolute;left:0;right:0;top:max(24%,190px);bottom:max(24%,170px);width:100%;height:auto;z-index:1;--poster-color:transparent;background:transparent;opacity:0;transition:opacity .8s}
+.ts-mv.ready{opacity:1}
+.ts-mv .mv-ar{position:absolute;right:24px;bottom:12px;border:0;font:inherit;cursor:pointer}
+.ts-3d .ts-bot{text-align:center}.mv-dims{font-size:15px;font-weight:500;margin:0 0 4px}.mv-hint{font-size:13px;color:#6b6b70;margin:0}
+.ts-3d.has-ar .mv-noar{display:none}
+@media(max-width:760px){.ts-mv{top:max(26%,200px);bottom:max(30%,230px)}.ts-mv .mv-ar{left:50%;right:auto;transform:translateX(-50%);bottom:-8px;white-space:nowrap}}
+.mv-fin{display:inline-flex;gap:6px;margin-bottom:10px;padding:4px;border-radius:999px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(31,31,31,.1)}
+.mv-fin button{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;cursor:pointer;color:#4a4a4f}
+.mv-fin button.on{background:#1f1f1f;color:#fff}.mv-fin i{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(128,128,128,.6)}
