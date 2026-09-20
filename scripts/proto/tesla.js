@@ -117,7 +117,7 @@ function tsChapters(p){
   ch.push(['App', `<section class="ts ts-ch ts-rlight ts-app" data-dark="0" style="${tsStyle(p,{bg:'#e8eaec'})}"><div class="ts-bg"></div>
     <div class="ts-top"><p class="ts-eyebrow">Software</p><h2>Run it from one app.</h2><p class="ts-lead">Members book and start sessions from their phone. Your team sees every ${esc(p.name)} across every site in OneBase OS.</p></div>
     ${D.img['app-interface']?`<div class="ts-fig ts-render"><img class="ts-img" src="${D.img['app-interface']}" alt="OneBase OS dashboard" loading="lazy"></div>`:''}
-    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#sw" data-scroll-sw>Try it on this page</a><button class="ts-b2" data-figma>Open the real app</button></div></div></section>`]);
+    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#sw" data-scroll-sw>Try it on this page</a>${p.id==='airsuite'&&typeof APZ_KEY!=='undefined'&&APZ_KEY?'<button class="ts-b2" data-apz-modal>Try the live chamber app</button>':'<button class="ts-b2" data-figma>Open the real app</button>'}</div></div></section>`]);
   return ch;
 }
 function tsProductHero(p){
