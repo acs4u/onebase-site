@@ -1,4 +1,8 @@
 {
+"framework": null,
+"installCommand": "echo skip",
+"buildCommand": "mkdir -p proto-dist && cp prototype/onebase-prototype.html proto-dist/index.html",
+"outputDirectory": "proto-dist",
   "redirects": [
     { "source": "/blogs/:category/:slug", "destination": "/blog/:slug", "permanent": true },
     { "source": "/en-:locale/:path*", "destination": "/:path*", "permanent": true },
