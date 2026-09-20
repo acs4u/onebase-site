@@ -6,11 +6,11 @@ const TS_LEAD = { icevault:'Dry cold for two to eight. No water, no ice, no nitr
 function tsImg(p){ return CUT[p.id] || (D.prodImg[p.id]) || null; }
 const TS_MEDIA = {
   icevault:{mode:'render', img:'render-icevault-studio', bg:'#1a1a1a'}, yakisugi:{mode:'render', img:'yk-real-closed', bg:'#ffffff', light:true},
-  airsuite:{mode:'render', img:'as-hero', bg:'#e9e9e7', light:true},
+  airsuite:{mode:'render', img:'as-pair', bg:'#1f1f1f'},
   airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'},
   airfit:{mode:'photo', img:'photo-airfit', pos:'45% 40%'}, airflex:{mode:'render', img:'cut-airflex', bg:'#e7e9eb', light:true}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
 };
-const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['as-ext','canva-airsuite-photo','as-cover'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2','render-lightbed-studio'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'] };
+const TS_GALLERY = { icevault:['render-icevault-gym','photo-sports'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['as-solo-chair','as-ext','as-cover'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2','render-lightbed-studio'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'], airflex:['af-life','af-prod'] };
 function tsMedia(p){ const m=TS_MEDIA[p.id]; if (m && D.img[m.img]) return m; const k=tsImg(p); return k&&D.img[k]?{mode:'cut',img:k}:null; }
 function tsVisual(p, m, i){
   if (!m) return `<div class="ts-ghost">${esc(p.name)}</div>`;
@@ -61,12 +61,14 @@ function tsHeroNav(p){ const sib=tsSiblings(p); if (sib.length<2) return ''; con
 let TS_DIR = 0;
 function tsModels(p){ const sib=tsSiblings(p); if (sib.length<2) return ''; const href=x=>`#/products/${x.category}/${x.id}`;
   return `<nav class="ts-models" aria-label="Models">${sib.map(x=>`<a href="${href(x)}" class="${x.id===p.id?'on':''}">${esc(x.name)}</a>`).join('')}</nav>`; }
+/* portrait photos: split layout on desktop (text left, photo right) */
+const TS_PORT = new Set(['af-life','as-man','as-solo-man','as-duo-int','as-solo-chair']);
 /* full-bleed feature chapters per product (real photography) */
 const TS_FEATURES = {
   airsuite:[
-    {img:'as-cover', k:'Inside', t:'Space to work, watch or rest.', b:'Warm circadian lighting, water-based air conditioning and built-in entertainment make a 90-minute session feel easy.', pos:'50% 40%'},
-    {img:'as-solo', k:'Solo', t:'One seat. Total privacy.', b:'A reclining leather seat and fold-down desk for focused, private sessions at 2.0 ATA.'},
-    {img:'as-duo', k:'Duo', t:'Two seats. Same 2.0 ATA.', b:'Individual reclining seats, individual entertainment and a dedicated oxygen concentrator per person.'},
+    {img:'as-man', k:'Inside', t:'Space to work, watch or rest.', b:'Warm circadian lighting, water-based air conditioning and built-in entertainment make a 90-minute session feel easy.', pos:'50% 45%'},
+    {img:'as-solo-man', k:'Solo', t:'One seat. Total privacy.', b:'A reclining leather seat and fold-down desk for focused, private sessions at 2.0 ATA.', pos:'50% 35%'},
+    {img:'as-duo-int', k:'Duo', t:'Two seats. Same 2.0 ATA.', b:'Individual reclining seats, individual entertainment and a dedicated oxygen concentrator per person.', pos:'50% 60%'},
   ],
   yakisugi:[
     {img:'yk-led-ceiling', k:'Red light', t:'Red light, built into the ceiling.', b:'LED arrays across the ceiling add red and near-infrared light to every session. No separate bed, no extra room.'},
@@ -98,9 +100,9 @@ function tsChapters(p){
   const room = (TS_GALLERY[p.id]||[]).find(k=>D.img[k] && !(md&&md.img===k));
   const ch = [];
   const m3 = ts3D(p); if (m3) ch.push(['3D & AR', m3]);
-  if (room) ch.push(['In the room', `<section class="ts ts-ch ts-photo ts-dark" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[room]}" alt="OneBase ${esc(p.name)} installed" loading="lazy"><div class="ts-veil"></div>
+  if (room) ch.push(['In the room', `<section class="ts ts-ch ts-photo ts-dark${TS_PORT.has(room)?' ts-split':''}" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[room]}" alt="OneBase ${esc(p.name)} installed" loading="lazy"><div class="ts-veil"></div>
     <div class="ts-top"><p class="ts-eyebrow">In the room</p><h2>${esc(hl[0]?hl[0].title:'Built for the recovery floor')}</h2><p class="ts-lead">${esc(hl[0]?hl[0].body:p.tagline)}</p></div><div class="ts-bot"></div></section>`]);
-  (TS_FEATURES[p.id]||[]).filter(f=>D.img[f.img]).forEach(f => ch.push([f.k, `<section class="ts ts-ch ts-photo ts-dark ts-feat" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[f.img]}" alt="${esc(f.t)}" style="object-position:${f.pos||'50% 50%'}" loading="lazy"><div class="ts-veil"></div>
+  (TS_FEATURES[p.id]||[]).filter(f=>D.img[f.img]).forEach(f => ch.push([f.k, `<section class="ts ts-ch ts-photo ts-dark ts-feat${TS_PORT.has(f.img)?' ts-split':''}" data-dark="1" style="${tsStyle(p,md)}"><img class="ts-cover" src="${D.img[f.img]}" alt="${esc(f.t)}" style="object-position:${f.pos||'50% 50%'}" loading="lazy"><div class="ts-veil"></div>
     <div class="ts-top"></div><div class="ts-bot ch-feat"><p class="ts-eyebrow">${esc(f.k)}</p><h2>${esc(f.t)}</h2><p class="ts-lead">${esc(f.b)}</p></div></section>`]));
   if (hl.length>1) ch.push(['Why it works', `<section class="ts ts-ch ts-dark ts-why" data-dark="1" style="${tsStyle(p,md)}"><div class="ts-bg"></div>
     <div class="ts-top"><p class="ts-eyebrow">Why it works</p><h2>${esc(p.tagline)}</h2></div>
