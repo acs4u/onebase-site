@@ -534,11 +534,47 @@ a.ts-arr{display:inline-flex;align-items:center;justify-content:center;text-deco
 .ht.on .ht-bar{transform:scaleX(1)}
 .ht-air .ht-bar{background:#9AACBE}.ht-ice .ht-bar{background:#5C94AB}.ht-heat .ht-bar{background:#E6886A}.ht-light .ht-bar{background:#EA7C8C}
 .ht:not(.on) .ht-name{opacity:.9}
-@media(max-width:900px){
-.hero.hero-tiles{grid-template-columns:1fr;grid-template-rows:auto minmax(58svh,1fr)}
-.ht-copy{padding:104px 20px 24px;gap:14px}.hero-tiles h1{font-size:clamp(30px,8.4vw,44px)}
-.ht.on{flex-grow:3.4}.ht-cap{left:12px;right:12px;bottom:16px}
-.ht:not(.on) .ht-name{display:none}.ht:not(.on) .ht-cap{align-items:center;left:0;right:0}
-.ht-name{font-size:17px;white-space:normal}.ht-blurb{font-size:13px}
-}
 @media(prefers-reduced-motion:reduce){.ht,.ht img,.ht-more,.ht-bar,.ht-copy>*{transition:none;animation:none}}
+
+/* ===== Home software overview ===== */
+.swo{background:var(--surf)}
+.swo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.swo-card{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;color:inherit;text-decoration:none;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s}
+.swo-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(31,31,31,.08);border-color:#c9cdd2}
+.swo-who{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.swo-name{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.swo-name h3{font-size:24px}
+.swo-line{font-size:16px;line-height:1.45}
+.swo-card ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column}
+.swo-card li{font-size:14px;line-height:1.45;color:var(--muted);padding:10px 0 10px 22px;border-top:1px solid var(--line);position:relative}
+.swo-card li::before{content:"";position:absolute;left:2px;top:17px;width:10px;height:2px;background:#1f1f1f}
+.swo-go{margin-top:auto;padding-top:8px;font-size:14px;font-weight:500;text-decoration:underline;text-underline-offset:4px}
+.swo-flow{border-top:1px solid var(--line);padding-top:28px;display:flex;flex-direction:column;gap:18px}
+.swo-flow ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:none}
+.swo-flow li{display:flex;flex-direction:column;gap:6px;position:relative}
+.swo-flow li strong{font-weight:500;font-size:17px}.swo-flow li span:last-child{font-size:14px;color:var(--muted);line-height:1.45}
+.swo-n{width:30px;height:30px;border-radius:50%;background:#1f1f1f;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:500;margin-bottom:6px}
+.swo-flow li:not(:last-child)::after{content:"";position:absolute;top:15px;left:40px;right:-10px;height:1px;background:var(--line)}
+@media(max-width:900px){.swo-grid{grid-template-columns:1fr}.swo-flow ol{grid-template-columns:1fr 1fr;row-gap:24px}.swo-flow li::after{display:none}}
+@media(max-width:520px){.swo-flow ol{grid-template-columns:1fr}.swo-card{padding:22px}}
+
+/* ===== Tile hero on phones: one full-bleed photo at a time, modality pills to switch ===== */
+.ht-pills,.ht-now{display:none}
+@media(max-width:900px){
+.hero.hero-tiles{display:block;position:relative;min-height:100svh}
+.hero-tiles .ht-grid{position:absolute;inset:0;display:block;min-height:0}
+.hero-tiles .ht{position:absolute;inset:0;opacity:0;pointer-events:none;animation:none;transition:opacity 1s ease}
+.hero-tiles .ht.on{opacity:1;pointer-events:auto}
+.hero-tiles .ht img{filter:none;transform:scale(1.04);transition:transform 6s linear}
+.hero-tiles .ht.on img{transform:scale(1)}
+.hero-tiles .ht-cap,.hero-tiles .ht-bar{display:none}
+.hero-tiles .ht-veil{background:linear-gradient(180deg,rgba(0,0,0,.5) 0,rgba(0,0,0,0) 20%,rgba(0,0,0,0) 38%,rgba(0,0,0,.82) 72%,rgba(0,0,0,.9) 100%)}
+.hero-tiles .ht-copy{position:relative;z-index:2;min-height:100svh;justify-content:flex-end;padding:0 20px calc(40px + env(safe-area-inset-bottom));gap:14px;pointer-events:none}
+.hero-tiles .ht-copy a,.hero-tiles .ht-copy button{pointer-events:auto}
+.hero-tiles .ht-copy>.eyebrow{display:none}
+.hero-tiles h1{font-size:clamp(30px,8.2vw,40px);max-width:13ch}
+.hero-tiles .key{font-size:16px}
+.ht-pills{display:flex;gap:6px;flex-wrap:wrap}
+.ht-pills button{font:500 13px/1 Poppins,sans-serif;letter-spacing:.06em;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:9px 14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:pointer}
+.ht-pills button[aria-pressed="true"]{background:#fff;color:#1f1f1f;border-color:#fff}
+.ht-now{display:block;font-size:13px;font-weight:500;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:4px}
+}
