@@ -265,3 +265,27 @@ document.addEventListener('pointerover', e => { const t = e.target.closest('.ht'
 document.addEventListener('focusin', e => { const t = e.target.closest('.ht'); if (!t || htPtr === 'touch') return; htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
 document.addEventListener('click', e => { const t = e.target.closest('.ht'); if (!t || t.classList.contains('on') || htPtr !== 'touch') return; e.preventDefault(); htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
 addEventListener('hashchange', () => setTimeout(htCycle, 50)); setTimeout(htCycle, 50);
+
+/* ---------- Home: software overview, straight after the room planner ---------- */
+const SWO = [
+ ['os','For owners and managers','OneBase OS','Coming late 2026','Every device, every site, on one screen.',['Faults and maintenance flagged before your team notices','Usage and peak hours by room, so you know what earns its space','One login across locations, with roles for owners, managers and technicians'],'See OneBase OS'],
+ ['dev','For your team at the unit','Device controller','','The touchscreen on each unit, built so anyone on shift can run a session.',['Start a session in a few taps from saved presets','Lights, climate and breathing controls on the same screen','A guided start and finish, so new staff are confident on day one'],'Try the AirSuite controller'],
+ ['app','For members and clients','OneBase app','','Doctor-built protocols in your members’ pockets.',['Protocols by physicians, tuned to each member’s goals','Every session logged, so members see progress and come back','One app across hyperbaric, cold, sauna and red light'],'See the member app']];
+function swOverviewHTML(){
+  const cards = SWO.map(([k,who,name,tag,line,pts,go]) => `<a class="swo-card swo-${k}" href="#/software"><p class="swo-who">${who}</p><div class="swo-name"><h3>${name}</h3>${tag?`<span class="pill">${tag}</span>`:''}</div><p class="swo-line">${line}</p><ul>${pts.map(p=>`<li>${p}</li>`).join('')}</ul><span class="swo-go">${go} →</span></a>`).join('');
+  const steps = [['Book','The member picks a protocol in the OneBase app.'],['Start','Your team starts it on the unit’s touchscreen.'],['Run','The session runs and is logged automatically.'],['Review','OneBase OS shows usage and flags what needs attention.']].map(([t,b],i)=>`<li><span class="swo-n">${i+1}</span><strong>${t}</strong><span>${b}</span></li>`).join('');
+  return `<section class="sec swo"><div class="wrap stack" style="gap:36px"><div class="row" style="justify-content:space-between;align-items:flex-end;gap:24px"><div class="stack" style="max-width:700px;gap:12px">${eyebrow('Software')}<h2>Three apps that take the admin out of running recovery.</h2><p class="muted">The same devices, seen three ways. Owners get the numbers, staff get a simple screen, and members get a plan that keeps them coming back.</p></div><a href="#/software" class="btn btn-g">Explore the software</a></div><div class="swo-grid">${cards}</div><div class="swo-flow"><p class="eyebrow">How one session runs</p><ol>${steps}</ol></div></div></section>`;
+}
+const _homeS = pages.home;
+pages.home = () => {
+  let h = _homeS();
+  h = h.replace(/<section class="sec"><div class="wrap grid g2" style="align-items:center;gap:48px"><div class="stack"><p class="eyebrow ">OneBase OS · coming late 2026[\s\S]*?<\/section>/, '');
+  const b = h.indexOf('>Built for business<'); const at = b < 0 ? -1 : h.lastIndexOf('<section', b);
+  return at < 0 ? h : h.slice(0, at) + swOverviewHTML() + h.slice(at);
+};
+
+/* ---------- Customer wording: no venue counts anywhere ---------- */
+const _homeC = pages.home, _custC = pages.customers, _partC = pages.partners;
+pages.home = () => _homeC().replace(/Installed at \d+\+ venues/, 'Trusted by leading operators worldwide');
+pages.customers = () => _custC().replace(/\d+\+ venues run on OneBase\./, 'Leading venues run on OneBase.').replace(/ <span style="opacity:\.6">\d+<\/span>/g, '');
+pages.partners = () => _partC().replace(/\d+\+ businesses across/, 'Trusted by businesses across');
