@@ -269,16 +269,90 @@ document.addEventListener('focusin', e => { const t = e.target.closest('.ht'); i
 document.addEventListener('click', e => { const t = e.target.closest('.ht'); if (!t || t.classList.contains('on') || htPtr !== 'touch') return; e.preventDefault(); htUser = true; clearInterval(htTimer); htSet(+t.dataset.i); });
 addEventListener('hashchange', () => setTimeout(htCycle, 50)); setTimeout(htCycle, 50);
 
-/* ---------- Home: software overview, straight after the room planner ---------- */
-const SWO = [
- ['os','For owners and managers','OneBase OS','Coming late 2026','Every device, every site, on one screen.',['Faults and maintenance flagged before your team notices','Usage and peak hours by room, so you know what earns its space','One login across locations, with roles for owners, managers and technicians'],'See OneBase OS'],
- ['dev','For your team at the unit','Device controller','','The touchscreen on each unit, built so anyone on shift can run a session.',['Start a session in a few taps from saved presets','Lights, climate and breathing controls on the same screen','A guided start and finish, so new staff are confident on day one'],'Try the AirSuite controller'],
- ['app','For members and clients','OneBase app','','Doctor-built protocols in your members’ pockets.',['Protocols by physicians, tuned to each member’s goals','Every session logged, so members see progress and come back','One app across hyperbaric, cold, sauna and red light'],'See the member app']];
-function swOverviewHTML(){
-  const cards = SWO.map(([k,who,name,tag,line,pts,go]) => `<a class="swo-card swo-${k}" href="#/software"><p class="swo-who">${who}</p><div class="swo-name"><h3>${name}</h3>${tag?`<span class="pill">${tag}</span>`:''}</div><p class="swo-line">${line}</p><ul>${pts.map(p=>`<li>${p}</li>`).join('')}</ul><span class="swo-go">${go} →</span></a>`).join('');
-  const steps = [['Book','The member picks a protocol in the OneBase app.'],['Start','Your team starts it on the unit’s touchscreen.'],['Run','The session runs and is logged automatically.'],['Review','OneBase OS shows usage and flags what needs attention.']].map(([t,b],i)=>`<li><span class="swo-n">${i+1}</span><strong>${t}</strong><span>${b}</span></li>`).join('');
-  return `<section class="sec swo"><div class="wrap stack" style="gap:36px"><div class="row" style="justify-content:space-between;align-items:flex-end;gap:24px"><div class="stack" style="max-width:700px;gap:12px">${eyebrow('Software')}<h2>Three apps that take the admin out of running recovery.</h2><p class="muted">The same devices, seen three ways. Owners get the numbers, staff get a simple screen, and members get a plan that keeps them coming back.</p></div><a href="#/software" class="btn btn-g">Explore the software</a></div><div class="swo-grid">${cards}</div><div class="swo-flow"><p class="eyebrow">How one session runs</p><ol>${steps}</ol></div></div></section>`;
+/* ---------- Home: software, Tesla-style — one idea per chapter, the real product in frame, a live screen you can use ---------- */
+const ST = { tab:'ready', mins:60, ata:1.3, left:3600, tog:{light:true,ac:true,bibs:false}, ph:'today', proto:0, booked:false, room:-1, tech:false, upd:'idle' };
+const ST_PROTOS = [['Deep Recovery','Hyperbaric · 60 min · 1.3 ATA'],['Post-workout reset','Cold · 3 min · 38°F'],['Detox','Sauna · 30 min · 140°F'],['Skin & repair','Red light · 12 min']];
+const ST_ROOMS = [['AirSuite Solo','In session','1.30 ATA · 42 min left','Service in 38 days'],['IceVault Quad','In session','37°F · 2 of 4 seats','Service in 12 days'],['Yakisugi Quad','Heating','128°F → 140°F','Service in 51 days'],['LightBed','Service due','Filter hours at 96%','Service due in 5 days'],['AirForm Plus','Ready','Next booking 7:00 pm','Service in 64 days'],['Hemlock Quad','Cleaning','Cycle ends in 6 min','Service in 29 days']];
+const stFmt = s => `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+const ST_MODS = [
+ { k:'air', label:'Air', unit:'AirSuite Solo', imgs:['as-man','hero-air'], a:['Time','min',60,20,90,5], b:['Pressure','ATA',1.3,1.1,1.5,0.1,1], c:['Air breaks',['Off','Every 20 min','Every 30 min'],1], start:1.0, tog:[['Lights',1],['Air con',1],['BIBS',0]], done:'Vented and logged to OneBase OS.' },
+ { k:'ice', label:'Ice', unit:'IceVault Quad', imgs:['hero-ice','render-icevault-studio'], a:['Time','min',3,1,10,1], b:['Temperature','°F',38,30,50,1,0], start:68, tog:[['Lights',1],['Music',1],['Airflow',1]], done:'Room back to standby and logged.' },
+ { k:'heat', label:'Heat', unit:'Yakisugi Quad', imgs:['hero-heat','yk-real-open'], a:['Time','min',30,10,45,5], b:['Temperature','°F',140,120,149,1,0], start:72, tog:[['Lights',1],['Music',1],['Colour light',0]], done:'Cabin cooling down and logged.' },
+ { k:'light', label:'Light', unit:'LightBed', imgs:['hero-light','photo-lightbed-2'], a:['Time','min',12,6,20,2], b:['Intensity','%',100,50,100,10,0], start:0, tog:[['Pulse',0],['Fan',1],['Music',1]], done:'Bed cooled and logged.' }];
+ST.mod = 0; ST.va = ST_MODS[0].a[2]; ST.vb = ST_MODS[0].b[2]; ST.vc = 1; ST.tg = ST_MODS[0].tog.map(t=>!!t[1]);
+const stM = () => ST_MODS[ST.mod];
+function stBreak(){ const cyc = (ST.vc === 1 ? 20 : 30) * 60, el = ST.va * 60 - ST.left, t = el % (cyc + 300); return t >= cyc ? `Air break · back on oxygen in ${stFmt(cyc + 300 - t)}` : `On oxygen · air break in ${stFmt(cyc - t)}`; }
+const stFmtB = (m, v) => m.b[1] === 'ATA' ? v.toFixed(m.b[6] ? 2 : 1) + ' ATA' : Math.round(v) + (m.b[1] === '%' ? '%' : m.b[1]);
+function stImg(m){ const i = m.imgs.find(x => D.img[x]); return i ? D.img[i] : ''; }
+function stTabHTML(){
+  const t = ST.tab, m = stM();
+  const bar = st => `<div class="sx-bar"><span>${m.unit}</span><span class="sx-st">${st}</span></div>`;
+  const adj = (key, cfg, v) => `<div><span>${cfg[0]}</span><div class="st-adj"><button data-st="adj" data-key="${key}" data-d="-1" aria-label="Less ${cfg[0].toLowerCase()}">−</button><b>${key==='a' ? v + ' ' + cfg[1] : stFmtB(m, v).replace(/(\d)(ATA)/,'$1 $2')}</b><button data-st="adj" data-key="${key}" data-d="1" aria-label="More ${cfg[0].toLowerCase()}">+</button></div></div>`;
+  const brk = m.c ? `<div class="st-brk"><span>${m.c[0]}</span><div class="st-seg">${m.c[1].map((o,i)=>`<button data-st="brk" data-i="${i}" aria-pressed="${i===ST.vc}">${o}</button>`).join('')}</div>${ST.vc?`<small>5 min on air after every ${ST.vc===1?20:30} min on oxygen</small>`:''}</div>` : '';
+  if (t === 'ready') return `${bar('Ready')}<div class="st-pre">${adj('a', m.a, ST.va)}${adj('b', m.b, ST.vb)}</div>${brk}<button class="sx-btn" data-st="start">Start session</button>`;
+  if (t === 'run') { const k = 1 - ST.left / (ST.va * 60); const cur = m.b[1] === '%' ? ST.vb : m.start + (ST.vb - m.start) * Math.min(1, k * 4);
+    return `${bar('In session')}<div class="sx-run"><div><span>Time left</span><b class="st-left">${stFmt(ST.left)}</b></div><div><span>${m.b[0]}</span><b class="st-cur">${stFmtB(m, cur)}</b></div></div><div class="sx-meter"><i class="sx-fill" style="width:${k*100}%"></i></div>${m.c && ST.vc ? `<p class="st-nb">${stBreak()}</p>` : ''}<div class="st-row">${m.tog.map((x,i)=>`<button class="st-tg" data-st="tog" data-i="${i}" aria-pressed="${ST.tg[i]}">${x[0]}<i></i></button>`).join('')}<button class="st-end" data-st="end">End</button></div>`; }
+  return `${bar('Complete')}<div class="sx-mid"><div class="sx-ok">✓</div><b class="sx-big">Session complete</b><span class="sx-m">${m.done}</span></div><button class="sx-btn" data-st="reset">New session</button>`;
 }
+function stModsHTML(){ return `<div class="st-mods" role="tablist" aria-label="Product">${ST_MODS.map((m,i)=>`<button role="tab" data-st="mod" data-i="${i}" aria-selected="${i===ST.mod}">${m.label}</button>`).join('')}</div><button class="st-arr st-prev" data-st="modstep" data-d="-1" aria-label="Previous product">‹</button><button class="st-arr st-next" data-st="modstep" data-d="1" aria-label="Next product">›</button>`; }
+function stSetMod(i, dir){
+  ST.mod = (i + ST_MODS.length) % ST_MODS.length; const m = stM(); clearInterval(stT);
+  ST.tab = 'ready'; ST.va = m.a[2]; ST.vb = m.b[2]; ST.vc = m.c ? m.c[2] : 0; ST.tg = m.tog.map(t=>!!t[1]);
+  const vis = document.querySelector('.st-a1 .st-vis'); if (!vis) return;
+  vis.dataset.mod = m.k; const img = vis.querySelector('img'), src = stImg(m);
+  if (img && src) { img.classList.remove('in-l','in-r'); void img.offsetWidth; img.src = src; img.classList.add(dir < 0 ? 'in-l' : 'in-r'); }
+  vis.querySelectorAll('.st-mods button').forEach(b => b.setAttribute('aria-selected', String(+b.dataset.i === ST.mod)));
+  stPaint('tab');
+}
+function stPhoneHTML(){
+  const p = ST.ph, pr = ST_PROTOS[ST.proto];
+  let body = '';
+  if (p === 'today') body = ST.booked ? `<div class="sx-ok">✓</div><b class="sx-c">You’re booked</b><span class="sx-c sx-m">${pr[0]} · Thu 6:30 pm</span><button class="st-ghost" data-st="unbook">Change booking</button>` : `<p class="sx-k">Good evening, Sam</p><div class="sx-card"><p class="sx-k">Today’s protocol</p><b>${pr[0]}</b><span>${pr[1]}</span></div><p class="sx-k">Thursday</p><div class="sx-slots"><i>5:30</i><i class="on">6:30</i><i>7:30</i></div><button class="sx-btn" data-st="book">Book 6:30 pm</button>`;
+  if (p === 'protos') body = `<p class="sx-k">Protocols</p>${ST_PROTOS.map((x,i)=>`<button class="st-pro" data-st="proto" data-i="${i}" aria-pressed="${i===ST.proto}"><b>${x[0]}</b><span>${x[1]}</span></button>`).join('')}`;
+  if (p === 'progress') body = `<p class="sx-k">This month</p><b class="st-bigc">4 sessions</b><div class="sx-bars">${[40,65,50,80,70,90].map(h=>`<i style="height:${h}%"></i>`).join('')}</div><div class="sx-row"><span>Streak</span><b>3 weeks</b></div><div class="sx-row"><span>Favourite</span><b>Deep Recovery</b></div>`;
+  return `<div class="sx-notch"></div><div class="st-pbody">${body}</div><nav class="st-nav">${[['today','Today'],['protos','Protocols'],['progress','Progress']].map(([k,l])=>`<button data-st="ph" data-k="${k}" aria-pressed="${p===k}">${l}</button>`).join('')}</nav>`;
+}
+function stDashHTML(){
+  const inUse = ST_ROOMS.filter(r=>r[1]==='In session').length;
+  return `<div class="sx-bar"><span>OneBase OS · All sites</span><span class="sx-m">Demo data</span></div><div class="sx-kpi"><div><span>Sessions today</span><b>86</b></div><div><span>Rooms in use</span><b>${inUse} of 6</b></div><div><span>Alerts</span><b class="${ST.tech?'':'st-warn'}">${ST.tech?0:1}</b></div></div><div class="sx-rooms">${ST_ROOMS.map((r,i)=>{ const st = (i===3&&ST.tech)?'Service booked':r[1]; return `<button class="st-room" data-st="room" data-i="${i}" aria-expanded="${ST.room===i}"><span>${r[0]}</span><em class="show st-${st.toLowerCase().replace(/ /g,'-')}">${st}</em>${ST.room===i?`<small>${r[2]}<br>${i===3&&ST.tech?'Technician booked for Tue 9:00 am':r[3]}</small>`:''}</button>`; }).join('')}</div>${ST.tech?`<div class="st-okb">Technician booked for Tuesday 9:00 am</div>`:`<div class="sx-alert show st-al"><span>LightBed · filter service due in 5 days</span><button data-st="tech">Book technician</button></div>`}`;
+}
+function stUpdHTML(){
+  const u = ST.upd;
+  return `<span>Controller software</span><b>${u==='idle'?'Up to date':u==='check'?'Checking…':u==='get'?'Installing update':'Updated'}</b><i class="st-upbar ${u}"></i><small>${u==='done'?'New: guided cool-down protocol added':u==='get'?'Sessions carry on as normal':'Last checked this morning'}</small>${u==='idle'||u==='done'?`<button class="st-ghost" data-st="upd">Check for updates</button>`:''}`;
+}
+function stPaint(which){ const m = { tab:['.st-tab .sx-bez',stTabHTML], ph:['.st-phone .sx-bez',stPhoneHTML], dash:['.st-dash .sx-bez',stDashHTML], upd:['.st-ver',stUpdHTML] }; (which?[which]:Object.keys(m)).forEach(k=>{ const el=document.querySelector(m[k][0]); if (el) el.innerHTML = m[k][1](); }); }
+function swOverviewHTML(){
+  const hint = '<span class="st-hint">Tap to try</span>';
+  const ch = (cls, img, eb, h, p, link, dev) => `<article class="st-ch ${cls}"><div class="st-copy"><p class="eyebrow">${eb}</p><h2>${h}</h2><p class="st-p">${p}</p>${link}</div><div class="st-vis">${img?`<img src="${D.img[img]}" alt="">`:''}${dev}</div></article>`;
+  return `<section class="st" aria-label="Software">
+  <article class="st-ctl"><div class="st-ctl-copy"><p class="eyebrow">AirSuite controller</p><h2>Runs itself.</h2><p class="st-p">Your team starts it. The chamber does the rest.</p></div><div class="st-ctl-dev" aria-hidden="true">${tbHTML()}</div><ol class="st-caps"><li><b>Settings load from the booking</b><span>Time, pressure and speed arrive with the member.</span></li><li><b>Airbreaks, handled automatically</b><span>Oxygen and air alternate on schedule.</span></li><li><b>One tap to start</b><span>Close the door and the session runs.</span></li></ol><a class="st-link" href="#/software" data-apz-modal>Try the real controller app →</a></article>
+  ${ch('st-a2 st-flip','af-life','OneBase app','Their plan, in their pocket.','Doctor-built protocols, booking and progress in one app. Members know what to do, and keep coming back to do it.','<a class="st-link" href="#/software">See the member app →</a>',`<div class="st-dev st-phone">${hint}<div class="sx-bez">${stPhoneHTML()}</div></div>`)}
+  ${ch('st-a3 st-dark','','OneBase OS · Coming late 2026','Every room. Every site. One screen.','Live status, usage and alerts for every unit you own, so problems reach you before they reach a member.','<a class="st-link" href="#/software">Explore OneBase OS →</a>',`<div class="st-dev st-dash">${hint}<div class="sx-bez">${stDashHTML()}</div></div>`)}
+  ${ch('st-a4 st-dark st-upd','','Software updates','It gets better after it’s installed.','New protocols and controller features arrive as software updates. No site visit, no downtime.','<a class="st-link" href="#/contact">Talk to sales →</a>',`<div class="st-ver">${stUpdHTML()}</div>`)}
+  </section>`;
+}
+let stT = null;
+function stRunTimer(){ clearInterval(stT); if (ST.tab !== 'run') return; stT = setInterval(() => { if (!document.querySelector('.st') || ST.tab !== 'run') { clearInterval(stT); return; } ST.left = Math.max(0, ST.left - Math.max(1, Math.round(ST.va * 60 / 90))); if (ST.left === 0) { ST.tab = 'done'; stPaint('tab'); clearInterval(stT); return; } const l = document.querySelector('.st-left'); if (l) l.textContent = stFmt(ST.left); const k = 1-ST.left/(ST.va*60); const f = document.querySelector('.st-tab .sx-fill'); if (f) f.style.width = k*100 + '%'; const m = stM(), c = document.querySelector('.st-cur'); const nb = document.querySelector('.st-nb'); if (nb) nb.textContent = stBreak(); if (c && m.b[1] !== '%') c.textContent = stFmtB(m, m.start + (ST.vb - m.start) * Math.min(1, k * 4)); }, 1000); }
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-st]'); if (!b || !b.closest('.st')) return; e.preventDefault(); const a = b.dataset.st;
+  b.closest('.st-dev')?.classList.add('used');
+  if (a === 'adj') { const m = stM(), c = b.dataset.key === 'a' ? m.a : m.b, d = +b.dataset.d * c[5]; if (b.dataset.key === 'a') ST.va = Math.min(c[4], Math.max(c[3], ST.va + d)); else ST.vb = Math.round(Math.min(c[4], Math.max(c[3], ST.vb + d)) * 10) / 10; stPaint('tab'); }
+  if (a === 'start') { ST.tab = 'run'; ST.left = ST.va * 60; stPaint('tab'); stRunTimer(); }
+  if (a === 'tog') { const i = +b.dataset.i; ST.tg[i] = !ST.tg[i]; b.setAttribute('aria-pressed', ST.tg[i]); }
+  if (a === 'brk') { ST.vc = +b.dataset.i; stPaint('tab'); }
+  if (a === 'mod') { const i = +b.dataset.i; stSetMod(i, i < ST.mod ? -1 : 1); }
+  if (a === 'modstep') { stSetMod(ST.mod + +b.dataset.d, +b.dataset.d); }
+  if (a === 'end') { ST.tab = 'done'; clearInterval(stT); stPaint('tab'); }
+  if (a === 'reset') { ST.tab = 'ready'; stPaint('tab'); }
+  if (a === 'ph') { ST.ph = b.dataset.k; stPaint('ph'); }
+  if (a === 'proto') { ST.proto = +b.dataset.i; ST.ph = 'today'; ST.booked = false; stPaint('ph'); }
+  if (a === 'book') { ST.booked = true; stPaint('ph'); }
+  if (a === 'unbook') { ST.booked = false; stPaint('ph'); }
+  if (a === 'room') { ST.room = ST.room === +b.dataset.i ? -1 : +b.dataset.i; stPaint('dash'); }
+  if (a === 'tech') { ST.tech = true; ST.room = 3; stPaint('dash'); }
+  if (a === 'upd') { ST.upd = 'check'; stPaint('upd'); setTimeout(() => { ST.upd = 'get'; stPaint('upd'); setTimeout(() => { ST.upd = 'done'; stPaint('upd'); }, 2600); }, 1200); }
+});
+addEventListener('hashchange', () => setTimeout(stRunTimer, 60));
 const _homeS = pages.home;
 pages.home = () => {
   let h = _homeS();
@@ -292,3 +366,10 @@ const _homeC = pages.home, _custC = pages.customers, _partC = pages.partners;
 pages.home = () => _homeC().replace(/Installed at \d+\+ venues/, 'Trusted by leading operators worldwide');
 pages.customers = () => _custC().replace(/\d+\+ venues run on OneBase\./, 'Leading venues run on OneBase.').replace(/ <span style="opacity:\.6">\d+<\/span>/g, '');
 pages.partners = () => _partC().replace(/\d+\+ businesses across/, 'Trusted by businesses across');
+
+(() => { let x0 = null, y0 = 0;
+  document.addEventListener('dragstart', e => { if (e.target.closest && e.target.closest('.st-a1 .st-vis')) e.preventDefault(); });
+  document.addEventListener('pointerdown', e => { const v = e.target.closest('.st-a1 .st-vis'); if (!v || e.target.closest('button')) { x0 = null; return; } x0 = e.clientX; y0 = e.clientY; });
+  document.addEventListener('pointerup', e => { if (x0 === null) return; const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { stSetMod(ST.mod + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); document.querySelector('.st-a1 .st-dev')?.classList.add('used'); } });
+  document.addEventListener('keydown', e => { if (!e.target.closest || !e.target.closest('.st-mods')) return; if (e.key === 'ArrowRight') stSetMod(ST.mod + 1, 1); if (e.key === 'ArrowLeft') stSetMod(ST.mod - 1, -1); });
+})();

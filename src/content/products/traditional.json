@@ -1,0 +1,36 @@
+{
+  "name": "Custom Traditional",
+  "modality": "heat",
+  "category": "sauna",
+  "order": 2,
+  "tagline": "Traditional saunas designed, built and installed for your space.",
+  "description": "When a stock cabin won't fit the room or the brief, we build the sauna around it. OneBase coordinates the design, manufacturing, procurement and installation of custom traditional saunas: a stone heater for proper löyly, hand-finished timber benches and panelling, and lighting laid out for the space. New rooms, or tired saunas rebuilt in place.",
+  "sizes": [],
+  "colours": [],
+  "pressures": [],
+  "highlights": [
+    { "title": "Designed around your room", "body": "Layout, bench tiers, heater position and lighting are drawn up for your space and how many people you need to seat." },
+    { "title": "One team, design to install", "body": "We coordinate design, manufacturing, procurement and installation, so you deal with one contact from first drawing to first session." },
+    { "title": "Proper löyly", "body": "A stone heater sized to the room, so members can throw water and get the soft, rolling steam of a traditional sauna." },
+    { "title": "Rebuilds as well as new builds", "body": "Old sauna past its best? We strip it back and rebuild it in place with new timber, heater and lighting." }
+  ],
+  "specs": [
+    { "label": "Build", "value": "Custom to your room and capacity" },
+    { "label": "Heater", "value": "Stone sauna heater, sized to the room" },
+    { "label": "Interior", "value": "Timber benches, backrests and panelling; species chosen at design" },
+    { "label": "Delivery", "value": "Design, manufacturing, procurement and installation by OneBase" },
+    { "label": "Projects", "value": "New builds and in-place rebuilds" }
+  ],
+  "electrical": [
+    { "label": "Supply", "value": "Confirmed at design to suit the heater and your site" }
+  ],
+  "certifications": [],
+  "faqs": [
+    { "q": "Can you rebuild our existing sauna?", "a": "Yes. We strip the room back, then rebuild the benches, panelling, heater and lighting in place. The before-and-after on this page is one of ours." },
+    { "q": "How do we get a quote?", "a": "Send us the room dimensions, a few photos and how many people you want to seat. We'll come back with a design and a fixed quote." }
+  ],
+  "images": [ { "src": "/images/products/traditional.jpg", "alt": "OneBase custom traditional sauna, rebuilt in cedar" } ],
+  "channels": { "direct": true, "precor": false },
+  "seoTitle": "OneBase Custom Traditional Sauna: designed, built and installed",
+  "seoDescription": "Custom traditional saunas for gyms, spas and clubs, from design and manufacturing to procurement and installation. New builds and in-place rebuilds."
+}

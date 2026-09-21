@@ -10,7 +10,7 @@ function tbFinish(){ const d=new Date(Date.now()+TB.mins*60000); return d.toLoca
 function tbTimer(k, label){ const R=160, C=2*Math.PI*R; const left=TB.mins*60*(1-k);
   return `<svg viewBox="0 0 375 375" class="tb-timer"><circle cx="187.5" cy="187.5" r="${R}" stroke="rgba(255,255,255,.12)" stroke-width="14" fill="none"/><circle cx="187.5" cy="187.5" r="${R}" stroke="#9aacbe" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-k)}" transform="rotate(-90 187.5 187.5)"/><text x="187.5" y="180" text-anchor="middle" font-size="64" font-weight="500" fill="#fff">${label||mmss(left)}</text><text x="187.5" y="225" text-anchor="middle" font-size="20" fill="rgba(255,255,255,.6)">${label?'':'remaining'}</text></svg>`; }
 function tbBoxes(interactive){
-  return `<div class="tb-boxes"><button class="tb-box" ${interactive?'data-tb="pick-time"':''}><b>${TB.mins}</b><span>Mins</span></button><button class="tb-box" ${interactive?'data-tb="pick-ata"':''}><b>${TB.ata.toFixed(1)}</b><span>ATA</span></button><button class="tb-box" ${interactive?'data-tb="pick-speed"':''}><b>${TB.speed}</b><span>Speed</span></button></div>`;
+  return `<div class="tb-boxes"><button class="tb-box" ${interactive?'data-tb="pick-time"':''}><b>${TB.mins}</b><span>Mins</span></button><button class="tb-box" ${interactive?'data-tb="pick-ata"':''}><b>${TB.ata.toFixed(1)}</b><span>ATA</span></button><button class="tb-box" ${interactive?'data-tb="pick-speed"':''}><b>${TB.speed}</b><span>Speed</span></button><button class="tb-box tb-box-ab" ${interactive?'data-tb="open-bibs"':''}><b>${TB.bibs.breaks?TB.bibs.o2+'/'+TB.bibs.air:'Off'}</b><span>Airbreaks</span></button></div>`;
 }
 function tbInfo(){ return `<div class="tb-info"><div><b>${TB.mins}</b> <span>Mins</span><small>Session Duration</small></div><i></i><div><b>${TB.ata.toFixed(1)}</b> <span>ATA</span><small>Pressure</small></div></div>`; }
 function tbPicker(){
@@ -78,6 +78,7 @@ function tbInit(){
     else if (a==='pick-done') TB.pick=null;
     else if (a==='val') { if (TB.pick==='time') TB.mins=+v; else if (TB.pick==='ata') TB.ata=+v; else TB.speed=v; }
     else if (a==='step') { if (TB.pick==='time') TB.mins=Math.min(120,Math.max(20,TB.mins+5*d)); else if (TB.pick==='ata') TB.ata=Math.round(Math.min(2,Math.max(1.1,TB.ata+0.1*d))*10)/10; else TB.speed=TB_SPEEDS[Math.min(4,Math.max(0,TB_SPEEDS.indexOf(TB.speed)+d))]; }
+    else if (a==='open-bibs') { TB.set='bibs'; TB.pick=null; }
     else if (a==='open-set') TB.set = TB.set ? null : 'session';
     else if (a==='close-set') TB.set=null;
     else if (a==='set') { TB.set=b.dataset.k; if (TB.set!=='session') TB.pick=null; }
@@ -113,3 +114,31 @@ const _swSetMod = swSetMod;
 swSetMod = function(m, name, pressures){ _swSetMod(m, name, pressures); if (m==='air') SW.view='tablet'; else if (SW.view==='tablet') SW.view='app'; };
 const _afterRender2 = afterRender;
 afterRender = function(){ tbStop(); document.body.style.overflow=''; _afterRender2(); };
+
+/* ===== Homepage: the real AirSuite tablet as a self-playing loop (nothing to tap — the Software page has the hands-on version) ===== */
+let tbLoopT = [], tbLoopOn = false;
+function tbLoopClear(){ tbLoopT.forEach(clearTimeout); tbLoopT = []; tbStop(); }
+function tbCap(i){ document.querySelectorAll('.st-caps li').forEach((li,k)=>li.classList.toggle('on', k===i)); }
+function tbLoop(){
+  tbLoopClear(); if (!document.querySelector('.st-ctl #tb-frame')) { tbLoopOn = false; return; } tbLoopOn = true;
+  const at = (ms, fn) => tbLoopT.push(setTimeout(() => { if (document.querySelector('.st-ctl #tb-frame')) fn(); }, ms));
+  Object.assign(TB, { mins:60, ata:1.3, speed:'Medium', set:null, pick:null }); TB.bibs.breaks = true; TB.bibs.o2 = 20; TB.bibs.air = 5;
+  TB.scr = 'home'; tbRender(); tbCap(0);
+  at(1600, () => { TB.pick = 'time'; tbRender(); });
+  at(2600, () => { TB.mins = 60; TB.pick = null; tbRender(); });
+  at(3600, () => { TB.set = 'bibs'; tbRender(); tbCap(1); });
+  at(6600, () => { TB.set = null; tbRender(); tbCap(2); });
+  at(7800, () => { tbGo('door'); });
+  at(9300, () => { tbGo('press'); });
+  at(12400, () => { tbStop(); TB.finish = tbFinish(); TB.scr = 'run'; TB.t = 0; tbRender(); let k = 0; TB.iv = setInterval(() => { k = Math.min(1, k + 0.01); TB.t = k; const tm = document.querySelector('#tb-canvas .tb-timer'); if (tm) tm.outerHTML = tbTimer(k); }, 100); });
+  at(19400, () => { tbStop(); TB.scr = 'done'; tbRender(); });
+  at(22400, () => tbLoop());
+}
+function tbLoopStart(){
+  const f = document.querySelector('.st-ctl #tb-frame'); if (!f) return;
+  if (RM()) { TB.scr = 'home'; TB.set = null; TB.pick = null; tbRender(); tbCap(-1); return; }
+  const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { if (!tbLoopOn) tbLoop(); } else { tbLoopClear(); tbLoopOn = false; } }, { threshold: 0.25 });
+  io.observe(f);
+}
+const _afterRender5 = afterRender;
+afterRender = function(){ tbLoopClear(); tbLoopOn = false; _afterRender5(); tbLoopStart(); };

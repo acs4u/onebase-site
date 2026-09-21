@@ -1,7 +1,7 @@
 {
 "framework": null,
 "installCommand": "echo skip",
-"buildCommand": "node scripts/fetch-hero.mjs && node scripts/build-prototype.mjs && mkdir -p proto-dist && cp prototype/onebase-prototype.html proto-dist/index.html",
+"buildCommand": "node scripts/fetch-hero.mjs && node scripts/build-prototype.mjs && mkdir -p proto-dist && cp prototype/onebase-prototype.html proto-dist/index.html && cp -r public/video proto-dist/video",
 "outputDirectory": "proto-dist",
   "redirects": [
     { "source": "/blogs/:category/:slug", "destination": "/blog/:slug", "permanent": true },

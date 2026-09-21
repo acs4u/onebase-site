@@ -166,3 +166,84 @@ document.addEventListener('load', e => { const mv=e.target; if (mv && mv.tagName
 document.addEventListener('click', e => { const b=e.target.closest('.mv-fin button'); if (!b) return; const wrap=b.parentElement; const mv=wrap.closest('.ts-3d')?.querySelector('model-viewer'); if (!mv || !mv.model) return;
   const c=b.dataset.c.split(',').map(Number); mv.model.materials.filter(m=>m.name===wrap.dataset.mat).forEach(m=>m.pbrMetallicRoughness.setBaseColorFactor(c));
   wrap.querySelectorAll('button').forEach(x=>x.classList.toggle('on', x===b)); });
+
+/* ===== Category pages ("Explore Air" etc.): one product per full screen, like /products, then a single call to action ===== */
+function tsCategory(cat){
+  const mk = Object.keys(D.modalities).find(k => D.modalities[k].category === cat); if (!mk) return null;
+  const order = (TS_ROWS.find(r => r[0] === mk) || [0, []])[1];
+  const ps = [...order.map(id => D.products.find(p => p.id === id)), ...D.products.filter(p => p.category === cat && !order.includes(p.id))].filter(Boolean);
+  const m = D.modalities[mk];
+  const slide = (p, r) => tsSlide(p, r).replace('<section class="ts', `<section data-k="0" class="ts`).replace(/>(Configure|Pre-order)<\/a>/, '>Explore</a>');
+  return `<div class="ts-wrap ts-cat">${ps.map((p, r) => `<section class="ts-row" data-row="${r}" aria-label="OneBase ${esc(p.name)}"><div class="ts-track" data-row="${r}">${slide(p, r)}</div></section>`).join('')}
+   <section class="ts ts-dark ts-end" data-dark="1" data-i="end" style="${tsStyle(ps[0] || { modality: mk }, null)}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">${esc(m.name)}</p><h2>Not sure which one fits?</h2><p class="ts-lead">Tell us your venue and space. We’ll recommend the right ${esc(m.label.toLowerCase())} setup and lay it out to scale.</p></div>
+    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/planner">Plan your room</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>
+   ${ps.length > 1 ? `<nav class="ts-dots" aria-label="${esc(m.name)}">${ps.map((p, r) => `<button data-go="${r}" aria-label="OneBase ${esc(p.name)}"><span>${esc(p.name)}</span></button>`).join('')}</nav>` : ''}</div>`;
+}
+const _categoryTS = pages.category;
+pages.category = (cat) => tsCategory(cat) || _categoryTS(cat);
+
+/* ===== Product pages below the hero: fewer, bigger sections — statement, configurator, software, specs (with the spec sheet), questions, one enquiry, related ===== */
+const _productPP = pages.product;
+pages.product = (cat, id) => {
+  let h = _productPP(cat, id); const p = D.products.find(x => x.id === id && x.category === cat); if (!p) return h;
+  const m = D.modalities[p.modality];
+  const form = (h.match(/<form class="enq spec-form" id="specForm">[\s\S]*?<\/form>/) || [''])[0];
+  const rows = [...(p.specs || []), ...(p.electrical || [])];
+  const state = `<section class="pp-state"><div class="wrap"><p class="pp-big">${esc(p.tagline)}</p><p class="pp-desc">${esc(p.description)}</p></div></section>`;
+  const specs = `<section class="pp-specs" id="specs"><div class="wrap pp-sgrid"><div><p class="eyebrow">Specs</p><h2>OneBase ${esc(p.name)}</h2><dl class="pp-dl">${rows.map(r => `<div><dt>${esc(r.label)}</dt><dd>${esc(r.value)}</dd></div>`).join('')}</dl></div>${form ? `<aside class="pp-ss"><h3>Get the spec sheet</h3><p>Dimensions, electrical, certifications and install requirements on one page, ready for a fit-out pack.</p>${form}<p class="pp-cad">Need CAD or electrical single-lines? <a href="#/contact">Ask our engineers</a></p></aside>` : ''}</div></section>`;
+  const rel = D.products.filter(x => x.category === cat && x.id !== id);
+  const more = rel.length ? `<section class="pp-more"><div class="wrap"><p class="eyebrow">Also in ${esc(m.name)}</p><div class="pp-mgrid">${rel.map(r => { const k = tsImg(r); return `<a class="pp-m" href="#/products/${cat}/${r.id}"><div class="pp-mimg">${k && D.img[k] ? `<img src="${D.img[k]}" alt="" loading="lazy">` : ''}</div><b>OneBase ${esc(r.name)}</b><span>${esc(TS_LEAD[r.id] || r.tagline)}</span><i>Explore →</i></a>`; }).join('')}</div></div></section>` : '';
+  h = h.replace(/<section class="wrap ts-intro">[\s\S]*?<\/section>/, state)
+       .replace(/<section class="ts-gal wrap">[\s\S]*?<\/section>/, '')
+       .replace(/<section class="sec" style="background:var\(--surf\)"><div class="wrap"><p class="eyebrow ">Product highlights[\s\S]*?<\/section>/, '')
+       .replace(/<section class="sec spec-cta">[\s\S]*?<\/section>/, '')
+       .replace(/<section class="sec"><div class="wrap grid g2" style="gap:48px"><div><h3 style="font-size:24px;margin-bottom:12px">Specifications[\s\S]*?<\/section>/, specs)
+       .replace(/<section class="sec"><div class="wrap"><p class="eyebrow ">More in [\s\S]*?<\/section>/, more);
+  return h;
+};
+const _afterRenderCat = afterRender;
+afterRender = function(){
+  _afterRenderCat();
+  const h = (location.hash || '#/').slice(2).split('/'); const cat = h[0] === 'products' && h.length === 2 && document.querySelector('.ts-cat');
+  if (cat) { document.documentElement.classList.add('snap'); document.body.classList.add('is-snap'); tsInit(); }
+};
+
+/* ===== Saunas: category renamed (infrared + custom traditional), and the Custom Traditional before-and-after story ===== */
+Object.assign(D.modalities.heat, { name:'Saunas', blurb:'Full-spectrum infrared in Yakisugi cedar or Hemlock, and custom traditional saunas built for your room.', h:'Infrared or traditional, built to run all day.', p:'Plug-and-play infrared in charred Yakisugi cedar or light Hemlock, or a traditional stone-heater sauna we design, build and install for your space.' });
+FACTS.traditional = [['Custom','to your room'],['Stone','heater & löyly'],['Design→install','one team']];
+TS_LEAD.traditional = 'Traditional saunas, designed, built and installed for your space.';
+TS_MEDIA.traditional = { mode:'photo', img:'trad-after', pos:'50% 60%' };
+D.prodImg.traditional = 'trad-after';
+TS_ROWS.find(r => r[0] === 'heat')[1].unshift('traditional');
+const TRAD_CLIENTS = 'Razor Sharp Fitness · Skyline Saunas';
+function tradVid(src, poster){ return `<video class="ts-cover tr-vid" muted playsinline loop preload="metadata" poster="${D.img[poster]||''}"><source src="video/${src}.mp4" type="video/mp4"></video>`; }
+const _tsChaptersTR = tsChapters;
+tsChapters = function(p){
+  const ch = _tsChaptersTR(p); if (p.id !== 'traditional') return ch;
+  const st = tsStyle(p, TS_MEDIA.traditional);
+  const vch = (k, vid, poster, eb, h2, lead) => [k, `<section class="ts ts-ch ts-photo ts-dark ts-split tr-ch" data-dark="1" style="${st}">${tradVid(vid, poster)}<div class="ts-veil"></div><div class="ts-top"></div><div class="ts-bot ch-feat"><p class="ts-eyebrow">${eb}</p><h2>${h2}</h2><p class="ts-lead">${lead}</p></div></section>`];
+  const cmp = ['Compare', `<section class="ts ts-ch ts-dark tr-cmp-ch" data-dark="1" style="${st}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Before and after</p><h2>Same room. New sauna.</h2></div>
+    <div class="tr-cmp" style="--x:50%"><img src="${D.img['trad-after']}" alt="The rebuilt sauna"><div class="tr-b"><img src="${D.img['trad-before']}" alt="The sauna before the rebuild"></div><span class="tr-l">Before</span><span class="tr-r">After</span><input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after"><i class="tr-h"></i></div><div class="ts-bot"></div></section>`];
+  const how = ['How we deliver', `<section class="ts ts-ch ts-light-ch" data-dark="0" style="${st}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">How we deliver</p><h2>One team, first drawing to first session.</h2></div>
+    <div class="ts-bot ch-body"><div class="ch-grid">${[['Design','Layout, bench tiers, heater and lighting drawn for your room.'],['Manufacture','Benches and panelling made to the design.'],['Procure','Heater, stones, lighting and fittings sourced and shipped.'],['Install','Built on site and handed over ready to heat.']].map(([t,b],i)=>`<div class="ch-card"><span>0${i+1}</span><b>${t}</b><p>${b}</p></div>`).join('')}</div><p class="tr-cl">Recent projects: ${TRAD_CLIENTS}</p></div></section>`];
+  const overview = ch.findIndex(c => c[0] === '3D & AR');
+  const proj = (k, name, kind) => [k, `<section class="ts ts-ch ts-dark tr-proj" data-dark="1" style="${st}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">${kind}</p><h2>${name}</h2></div><div class="ts-bot"></div></section>`];
+  return [vch('Rebuild', 'sauna-before', 'trad-before', 'Razor Sharp Fitness · Before', 'Tired, dark, past its best.', 'The gym’s old sauna: weathered benches, worn panelling and a heater near the end of its life.'),
+          vch('After', 'sauna-after-1', 'trad-heater', 'Razor Sharp Fitness · After', 'Rebuilt in fresh timber.', 'New stone heater, new tiered benches and backrests, new panelling. Built in place, in the same room.'),
+          cmp,
+          vch('Finished', 'sauna-after-2', 'trad-bench', 'Razor Sharp Fitness · Finished', 'Made for the room.', 'Every bench, rail and panel cut to fit, so it feels built in, not dropped in.'),
+          vch('New build', 'skyline-1', 'sky-room', 'Skyline Saunas · New build', 'From an empty shell to a full cedar room.', 'A brand-new sauna, designed for the space and fitted out top to bottom: tiered L-shaped benches, cedar walls and ceiling, stone heater.'),
+          vch('Detail', 'skyline-2', 'sky-heater', 'Skyline Saunas · Detail', 'Built to be used every day.', 'Guarded heater, tiered seating for groups, and timber chosen to take heat and heavy use.'),
+          how, ...ch.filter(c => c[0] !== 'App' && c[0] !== 'Sizes')];
+};;
+document.addEventListener('input', e => { const r = e.target.closest('.tr-cmp input'); if (r) r.parentElement.style.setProperty('--x', r.value + '%'); });
+let trIO = null;
+function trVideos(){ if (trIO) trIO.disconnect(); const vs = document.querySelectorAll('video.tr-vid'); if (!vs.length) return; if (RM()) return;
+  trIO = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting && e.intersectionRatio > .5) { v.play().catch(()=>{}); } else v.pause(); }), { threshold:[0,.5,1] }); vs.forEach(v => trIO.observe(v)); }
+const _afterRenderTR = afterRender;
+afterRender = function(){ _afterRenderTR(); trVideos(); };
+const _productTR = pages.product;
+pages.product = (cat, id) => { let h = _productTR(cat, id); if (id !== 'traditional') return h; return h.replace(/<a class="ts-b1" href="#cfg" data-scroll="cfg">Configure<\/a>/, '<a class="ts-b1" href="#enquiry" data-scroll="enquiry">Start your design</a>'); };
+/* every model in a range full-screen photo, so rows read consistently */
+Object.assign(TS_MEDIA, { yakisugi:{ mode:'photo', img:'yk-bench-tier', pos:'50% 55%' }, airsuite:{ mode:'photo', img:'as-cover', pos:'50% 45%' }, airflex:{ mode:'photo', img:'af-life', pos:'50% 30%' } });
+(() => { const r = TS_ROWS.find(x => x[0] === 'heat'); r[1] = ['yakisugi', 'traditional', 'hemlock']; })();
