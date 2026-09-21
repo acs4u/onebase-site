@@ -7,16 +7,16 @@ const fmt = (n) => Math.round(n).toLocaleString('en-US');
 const CHAPTERS = [
   { k:'air', label:'Air', cat:'hbot', img:'cut-airform-plus-black', title:'Hyperbaric oxygen, from soft-shell to walk-in suite.', lead:'Four chambers from 1.3 to 2.0 ATA. Soft-shell for flexibility, steel for clinic pressures, and the modular AirSuite room with medical-grade BIBS.', stats:[['1.3–2.0','ATA pressure range'],['4','chamber models'],['BIBS','medical-grade in AirSuite']] },
   { k:'ice', label:'Ice', cat:'cold-therapy', img:'cut-icevault-quad', title:'Cold therapy without the water, the ice or the gas.', lead:'The IceVault is a dry, electric cold room for two to eight people. Longer, more tolerable sessions, no wet floors, and a self-cleaning cycle.', stats:[['32–40°F','dry, electric cold'],['2–8','people per session'],['0','plumbing required']] },
-  { k:'heat', label:'Heat', cat:'sauna', img:'cut-yakisugi', title:'Full-spectrum infrared, built to run all day.', lead:'Low-EMF near, mid and far infrared at a restorative 135–149°F. Yakisugi-charred cedar for the statement piece, Hemlock for a clean, contemporary suite.', stats:[['135–149°F','restorative heat'],['Low-EMF','near, mid and far IR'],['2–8','people per cabin']] },
+  { k:'heat', label:'Heat', cat:'sauna', img:'cut-yakisugi', title:'Infrared or traditional, built to run all day.', lead:'Low-EMF full-spectrum infrared in Yakisugi-charred cedar or clean Hemlock, or a custom traditional sauna we design, build and install for your room.', stats:[['135–149°F','restorative heat'],['Low-EMF','near, mid and far IR'],['2–8','people per cabin']] },
   { k:'light', label:'Light', cat:'red-light', img:'cut-lightbed-black', title:'Whole-body red light, dosed to the protocol.', lead:'The LightBed delivers five wavelengths from 633 to 940 nm. LightPanel systems scale from a single panel to a four-panel stand.', stats:[['41,600','LEDs in the LightBed'],['5','wavelengths'],['Solo–Quad','LightPanel systems']] },
 ];
 function storyHTML(){
-  if (RM()) return `<section class="story-flat">${CHAPTERS.map((c,i)=>`<div class="ch-flat" style="--sbg:${MODC[c.k].deep};--sglow:${MODC[c.k].glow}"><div class="wrap grid"><div class="ch"><p class="num"><b>0${i+1}</b> · ${c.label}</p><h2>${c.title}</h2><p class="lead">${c.lead}</p><div class="stats">${c.stats.map(s=>`<div><strong>${s[0]}</strong><span>${s[1]}</span></div>`).join('')}</div><a class="go" href="#/products/${c.cat}">Explore ${c.label.toLowerCase()} →</a></div>${D.img[c.img]?`<img src="${D.img[c.img]}" alt="">`:''}</div></div>`).join('')}</section>`;
+  if (RM()) return `<section class="story-flat">${CHAPTERS.map((c,i)=>`<div class="ch-flat" style="--sbg:${MODC[c.k].deep};--sglow:${MODC[c.k].glow}"><div class="wrap grid"><div class="ch"><p class="num"><b>0${i+1}</b> · ${c.label}</p><h2>${c.title}</h2><p class="lead">${c.lead}</p><div class="stats">${c.stats.map(s=>`<div><strong>${s[0]}</strong><span>${s[1]}</span></div>`).join('')}</div><a class="go" href="#/products/${c.cat}">Explore ${c.label.toLowerCase()} →</a></div>${D.img[c.img]?`<a href="#/products/${c.cat}" aria-label="Explore ${c.label.toLowerCase()}"><img src="${D.img[c.img]}" alt=""></a>`:''}</div></div>`).join('')}</section>`;
   return `<section class="story" id="story" style="height:${CHAPTERS.length*100+60}svh" aria-label="Four modalities">
   <div class="story-stage" style="--sbg:${MODC.air.deep};--sglow:${MODC.air.glow}"><div class="story-glow"></div><div class="story-grain"></div>
    <div class="wrap story-grid">
     <div class="story-copy">${CHAPTERS.map((c,i)=>`<div class="ch${i===0?' on':''}" data-i="${i}"><p class="num"><b>0${i+1}</b> / 04 · ${c.label}</p><h2>${c.title}</h2><p class="lead">${c.lead}</p><div class="stats">${c.stats.map(s=>`<div><strong>${s[0]}</strong><span>${s[1]}</span></div>`).join('')}</div><a class="go" href="#/products/${c.cat}">Explore ${c.label.toLowerCase()} →</a></div>`).join('')}</div>
-    <div class="story-media">${CHAPTERS.map((c,i)=>`<figure class="${i===0?'on':''}" data-i="${i}">${D.img[c.img]?`<img src="${D.img[c.img]}" alt="OneBase ${c.label} equipment">`:''}</figure>`).join('')}</div>
+    <div class="story-media">${CHAPTERS.map((c,i)=>`<figure class="${i===0?'on':''}" data-i="${i}">${storyFig(c)}</figure>`).join('')}</div>
    </div>
    <div class="story-rail"><div class="wrap">${CHAPTERS.map((c,i)=>`<button data-go="${i}" class="${i===0?'on':''}"><i></i>0${i+1} ${c.label}</button>`).join('')}</div></div>
   </div></section>`;
@@ -192,7 +192,7 @@ function cfgHTML(p){
      ${p.colours.length>1?`<div><p class="eyebrow" style="margin-bottom:10px">Finish</p><div class="sw" data-k="col">${p.colours.map(c=>`<button aria-pressed="${st.col===c}" data-v="${esc(c)}"><i style="--c:${SWC[c]||'#888'}"></i>${esc(c)}</button>`).join('')}</div></div>`:''}
      ${p.pressures.length>1?`<div><p class="eyebrow" style="margin-bottom:10px">Pressure</p><div class="seg" data-k="pr">${p.pressures.map(x=>`<button aria-pressed="${st.pr===x}" data-v="${esc(x)}">${esc(x)}</button>`).join('')}</div></div>`:''}
      <dl class="readout" id="ro"></dl>
-     <div class="row"><button class="btn btn-p" id="cfgQuote">Get pricing for this build</button><a class="btn btn-g" href="#/planner">Plan a room with it</a></div>
+     <div class="row"><button class="btn btn-p" id="cfgQuote">Get pricing for this build</button></div>
     </div></div></div></section>`;
 }
 function cfgRender(p){
@@ -373,3 +373,65 @@ pages.partners = () => _partC().replace(/\d+\+ businesses across/, 'Trusted by b
   document.addEventListener('pointerup', e => { if (x0 === null) return; const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { stSetMod(ST.mod + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); document.querySelector('.st-a1 .st-dev')?.classList.add('used'); } });
   document.addEventListener('keydown', e => { if (!e.target.closest || !e.target.closest('.st-mods')) return; if (e.key === 'ArrowRight') stSetMod(ST.mod + 1, 1); if (e.key === 'ArrowLeft') stSetMod(ST.mod - 1, -1); });
 })();
+
+/* ---------- Scroll story: swipe through the products in each range ---------- */
+// Each chapter's picture is a native, snapping horizontal track: finger and trackpad swipes use the browser's own momentum,
+// the neighbouring products peek in at the edges, and a mouse can drag it too. Tap a product to open it.
+const STORY_PRODUCTS = {
+  air:   [['airform','cut-airform-plus-black','AirForm Plus'],['airfit','cut2-airfit','AirFit'],['airflex','cut2-airflex','AirFlex'],['airsuite','cut2-airsuite-duo','AirSuite Duo']],
+  ice:   [['icevault','cut-icevault-quad','IceVault Quad'],['icevault','cut-icevault-octo','IceVault Octo']],
+  heat:  [['yakisugi','cut-yakisugi','Yakisugi'],['traditional','trad-after','Custom Traditional','photo'],['hemlock','cut-hemlock','Hemlock']],
+  light: [['lightbed','cut-lightbed-black','LightBed'],['lightpanel','cut-lightpanel-quad','LightPanel Quad']],
+};
+const spList = (k) => (STORY_PRODUCTS[k] || []).filter(x => D.img[x[1]]);
+function storyFig(c){
+  const list = spList(c.k);
+  if (!list.length) return D.img[c.img] ? `<a href="#/products/${c.cat}"><img src="${D.img[c.img]}" alt="OneBase ${c.label} equipment"></a>` : '';
+  const slides = list.map(([id, img, name, mode], j) => `<a class="sp-slide${mode==='photo'?' sp-photo':''}" data-j="${j}" href="#/products/${c.cat}/${id}" draggable="false"><img src="${D.img[img]}" alt="OneBase ${esc(name)}" draggable="false"${mode==='key'?' data-key="1"':''}></a>`).join('');
+  const many = list.length > 1;
+  return `<div class="sp${many?' sp-many':''}" data-k="${c.k}" aria-roledescription="carousel" aria-label="${esc(c.label)} range">
+    <div class="sp-track" tabindex="0">${slides}</div>
+    <div class="sp-cap"><a class="sp-name" href="#/products/${c.cat}/${list[0][0]}">OneBase ${esc(list[0][2])}</a>${many?`<span class="sp-count">1 / ${list.length}</span>`:''}</div></div>`;
+}
+function spIndex(tr){ const w = tr.clientWidth; let best = 0, bd = 1e9; tr.querySelectorAll('.sp-slide').forEach((s,j) => { const d = Math.abs(s.offsetLeft + s.offsetWidth/2 - (tr.scrollLeft + w/2)); if (d < bd) { bd = d; best = j; } }); return best; }
+function spSync(sp){
+  const tr = sp.querySelector('.sp-track'), j = spIndex(tr), k = sp.dataset.k, list = spList(k), cat = CHAPTERS.find(c => c.k===k).cat;
+  if (sp.dataset.j === String(j)) return; sp.dataset.j = j;
+  tr.querySelectorAll('.sp-slide').forEach((s,i) => s.classList.toggle('on', i===j));
+  const ct = sp.querySelector('.sp-count'); if (ct) ct.textContent = (j+1) + ' / ' + list.length;
+  const nm = sp.querySelector('.sp-name'); nm.textContent = 'OneBase ' + list[j][2]; nm.setAttribute('href', `#/products/${cat}/${list[j][0]}`);
+}
+function spTo(sp, j){ const tr = sp.querySelector('.sp-track'); const s = tr.querySelectorAll('.sp-slide')[j]; if (!s) return; tr.scrollTo({ left: s.offsetLeft + s.offsetWidth/2 - tr.clientWidth/2, behavior: RM() ? 'auto' : 'smooth' }); }
+function spInit(){
+  document.querySelectorAll('.sp').forEach(sp => {
+    const tr = sp.querySelector('.sp-track'); spSync(sp);
+    tr.addEventListener('scroll', () => { cancelAnimationFrame(tr._raf); tr._raf = requestAnimationFrame(() => spSync(sp)); }, { passive:true });
+    // mouse drag (touch and trackpads scroll natively)
+    let drag = null;
+    tr.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' || e.button) return; drag = { x:e.clientX, left:tr.scrollLeft, j:spIndex(tr), moved:false }; });
+    addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x; if (!drag.moved && Math.abs(dx) > 4) { drag.moved = true; tr.classList.add('drag'); } if (drag.moved) tr.scrollLeft = drag.left - dx; });
+    addEventListener('pointerup', e => { if (!drag) return; const d = drag; drag = null; if (!d.moved) return; tr.classList.remove('drag'); const dx = e.clientX - d.x, n = tr.querySelectorAll('.sp-slide').length;
+      spTo(sp, Math.abs(dx) > 40 ? Math.min(n-1, Math.max(0, d.j + (dx < 0 ? 1 : -1))) : d.j); sp._swiped = Date.now(); });
+    tr.addEventListener('click', e => { if (sp._swiped && Date.now() - sp._swiped < 300) { e.preventDefault(); e.stopPropagation(); return; } const s = e.target.closest('.sp-slide'); if (s && !s.classList.contains('on')) { e.preventDefault(); spTo(sp, +s.dataset.j); } }, true);
+    sp.querySelectorAll('.sp-arr').forEach(b => b.addEventListener('click', () => { const n = sp.querySelectorAll('.sp-slide').length; spTo(sp, Math.min(n-1, Math.max(0, spIndex(tr) + (b.classList.contains('sp-next') ? 1 : -1)))); }));
+    tr.addEventListener('keydown', e => { if (e.key==='ArrowRight'||e.key==='ArrowLeft') { e.preventDefault(); const n = sp.querySelectorAll('.sp-slide').length; spTo(sp, Math.min(n-1, Math.max(0, spIndex(tr) + (e.key==='ArrowRight'?1:-1)))); } });
+  });
+}
+
+// AirSuite's render sits on a studio backdrop; lift the product off it once, in the browser, so it matches the other cut-outs.
+const spKeyed = {};
+function spKeyOut(img){
+  const src = img.getAttribute('src'); if (spKeyed[src]) { img.src = spKeyed[src]; img.dataset.key = ''; return; }
+  const run = () => { try {
+    const w = img.naturalWidth, h = img.naturalHeight; const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const cx = cv.getContext('2d'); cx.drawImage(img, 0, 0);
+    const d = cx.getImageData(0, 0, w, h), a = d.data; const px = (x,y) => (y*w+x)*4;
+    let r=0,g=0,b=0,c=0; for (let x=0;x<w;x+=4) for (const y of [0,h-1]) { const i=px(x,y); r+=a[i]; g+=a[i+1]; b+=a[i+2]; c++; } r/=c; g/=c; b/=c;
+    const near = i => Math.hypot(a[i]-r, a[i+1]-g, a[i+2]-b) < 30; const seen = new Uint8Array(w*h); const st = [];
+    for (let x=0;x<w;x++) { st.push(x, (h-1)*w+x); } for (let y=0;y<h;y++) { st.push(y*w, y*w+w-1); }
+    while (st.length) { const p = st.pop(); if (seen[p]) continue; seen[p] = 1; const i = p*4; if (!near(i)) continue; a[i+3] = 0; const x = p % w, y = (p / w) | 0; if (x>0) st.push(p-1); if (x<w-1) st.push(p+1); if (y>0) st.push(p-w); if (y<h-1) st.push(p+w); }
+    cx.putImageData(d, 0, 0); const url = cv.toDataURL('image/png'); spKeyed[src] = url; img.src = url; img.dataset.key = '';
+  } catch (err) {} };
+  if (img.complete && img.naturalWidth) run(); else img.addEventListener('load', run, { once:true });
+}
+const _afterRenderSP = afterRender;
+afterRender = function(){ _afterRenderSP(); document.querySelectorAll('.sp img[data-key="1"]').forEach(spKeyOut); spInit(); };

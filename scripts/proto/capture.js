@@ -24,7 +24,7 @@ function bkBody(){
     <form class="enq" id="bkForm" style="padding:0;border:0;background:none"><label>Name *<input required></label><label>Work email *<input type="email" required></label><label>Company *<input required></label><label>Phone<input type="tel"></label><label class="full">Anything we should know?<textarea rows="3">${BK.context?esc('Interested in '+BK.context):''}</textarea></label>
     <div class="full bk-foot" style="margin:0"><button type="button" class="btn btn-g" data-bk-go="2">Back</button><button class="btn btn-p" type="submit">Confirm booking</button></div></form>`; }
   const d=bkSlots()[BK.day];
-  return `<div class="bk-done"><div class="bk-tick">✓</div><h3>You’re booked</h3><p>${d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${BK.slot}. A calendar invite is on its way.</p><p class="muted small">Want to get ahead? Try the <a href="#/planner" style="text-decoration:underline">room planner</a> and we’ll bring your layout to the call.</p><button class="btn btn-p" data-bk-close>Done</button></div>`;
+  return `<div class="bk-done"><div class="bk-tick">✓</div><h3>You’re booked</h3><p>${d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${BK.slot}. A calendar invite is on its way.</p><button class="btn btn-p" data-bk-close>Done</button></div>`;
 }
 function bkRender(){ const m=document.getElementById('bk-body'); if (m) m.innerHTML=bkBody(); }
 function bkOpen(context){
@@ -46,7 +46,7 @@ function bkOpen(context){
 }
 /* intercept every sales CTA button (not plain nav links) */
 document.addEventListener('click', e => {
-  const a = e.target.closest('a.btn[href="#/contact"]'); if (!a) return;
+  const a = e.target.closest('a.btn[href="#/contact"], a.ts-b1[href="#/contact"]'); if (!a) return;
   e.preventDefault(); const p = currentProduct(); bkOpen(p ? 'OneBase '+p.name : '');
 }, true);
 function currentProduct(){ const parts=(location.hash||'').slice(2).split('/'); return parts[0]==='products' && parts[2] ? D.products.find(x=>x.id===parts[2]) : null; }

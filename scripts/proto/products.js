@@ -30,7 +30,7 @@ function productsHTML(){
    <label class="pr-venue">Best for <select id="prVenue"><option value="">Any venue</option>${venueOpts}</select></label><span class="pr-count" id="prCount"></span></div></div>
   <section class="wrap pr-grid-wrap"><div class="pr-grid" id="prGrid">${D.products.slice().sort((a,b)=>'air ice heat light'.indexOf(a.modality)-'air ice heat light'.indexOf(b.modality)||a.order-b.order).map(showcard).join('')}</div>
    <div class="pr-empty" id="prEmpty" hidden>No products match. <button class="linkbtn" data-reset>Clear filters</button></div></section>
-  <section class="sec" style="background:var(--surf)"><div class="wrap pr-help"><div class="stack" style="gap:10px"><h2>Not sure what fits your space?</h2><p class="muted">Tell the planner your venue and room size. It suggests a mix and lays it out to scale.</p></div><div class="row"><a href="#/planner" class="btn btn-p">Plan your room</a><a href="#/contact" class="btn btn-g">Talk to sales</a></div></div></section>
+  <section class="sec" style="background:var(--surf)"><div class="wrap pr-help"><div class="stack" style="gap:10px"><h2>Not sure what fits?</h2><p class="muted">Tell us about your facility and a OneBase specialist will recommend the right setup.</p></div><div class="row"><a href="#/contact" class="btn btn-p">Book a call</a><a href="#/guide" class="btn btn-g">Where each one fits</a></div></div></section>
   <div class="cmp-tray" id="cmpTray" hidden></div>`;
 }
 function prApply(){

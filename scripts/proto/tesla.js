@@ -35,8 +35,8 @@ function tsIndex(){
   return `<div class="ts-wrap">${rows.map(([mk,ps],r)=>`<section class="ts-row" data-row="${r}" aria-label="${esc(D.modalities[mk].name)}">
     <div class="ts-track" data-row="${r}">${ps.map((p,k)=>tsSlide(p,r).replace('<section class="ts','<section data-k="'+k+'" class="ts')).join('')}</div>
     ${ps.length>1?`<div class="ts-rownav"><button class="ts-arr" data-dir="-1" data-row="${r}" aria-label="Previous model">‹</button><div class="ts-pips">${ps.map((p,k)=>`<button data-row="${r}" data-k="${k}" class="${k===0?'on':''}">${esc(p.name)}</button>`).join('')}</div><button class="ts-arr" data-dir="1" data-row="${r}" aria-label="Next model">›</button></div><p class="ts-swipe">${ps.length} models · swipe to explore</p>`:''}</section>`).join('')}
-   <section class="ts ts-dark ts-end" data-dark="1" data-i="end"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Planner</p><h2>Not sure where to start?</h2><p class="ts-lead">Tell us your venue and space. We’ll suggest the mix and lay it out to scale.</p></div>
-    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/planner">Plan your room</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>
+   <section class="ts ts-dark ts-end" data-dark="1" data-i="end"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Planner</p><h2>Not sure where to start?</h2><p class="ts-lead">Tell us about your facility and a OneBase specialist will recommend the right setup.</p></div>
+    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/contact">Book a call</a><a class="ts-b2" href="#/guide">Where each one fits</a></div></div></section>
    <nav class="ts-dots" aria-label="Categories">${rows.map(([mk],r)=>`<button data-go="${r}" aria-label="${esc(D.modalities[mk].name)}"><span>${esc(D.modalities[mk].name)}</span></button>`).join('')}</nav></div>`;
 }
 function tsGoModel(r, k){ const tr=document.querySelector(`.ts-track[data-row="${r}"]`); if(!tr) return; const n=tr.children.length; k=Math.max(0,Math.min(n-1,k)); tr.scrollTo({left:k*tr.clientWidth, behavior:RM()?'auto':'smooth'}); }
@@ -175,8 +175,8 @@ function tsCategory(cat){
   const m = D.modalities[mk];
   const slide = (p, r) => tsSlide(p, r).replace('<section class="ts', `<section data-k="0" class="ts`).replace(/>(Configure|Pre-order)<\/a>/, '>Explore</a>');
   return `<div class="ts-wrap ts-cat">${ps.map((p, r) => `<section class="ts-row" data-row="${r}" aria-label="OneBase ${esc(p.name)}"><div class="ts-track" data-row="${r}">${slide(p, r)}</div></section>`).join('')}
-   <section class="ts ts-dark ts-end" data-dark="1" data-i="end" style="${tsStyle(ps[0] || { modality: mk }, null)}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">${esc(m.name)}</p><h2>Not sure which one fits?</h2><p class="ts-lead">Tell us your venue and space. We’ll recommend the right ${esc(m.label.toLowerCase())} setup and lay it out to scale.</p></div>
-    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/planner">Plan your room</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>
+   <section class="ts ts-dark ts-end" data-dark="1" data-i="end" style="${tsStyle(ps[0] || { modality: mk }, null)}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">${esc(m.name)}</p><h2>Not sure which one fits?</h2><p class="ts-lead">Tell us your venue and space. We’ll tell you whether ${esc(m.label.toLowerCase())} fits, and the setup we’d start with.</p></div>
+    <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/contact">Book a call</a><a class="ts-b2" href="#/guide">Where each one fits</a></div></div></section>
    ${ps.length > 1 ? `<nav class="ts-dots" aria-label="${esc(m.name)}">${ps.map((p, r) => `<button data-go="${r}" aria-label="OneBase ${esc(p.name)}"><span>${esc(p.name)}</span></button>`).join('')}</nav>` : ''}</div>`;
 }
 const _categoryTS = pages.category;
@@ -247,3 +247,29 @@ pages.product = (cat, id) => { let h = _productTR(cat, id); if (id !== 'traditio
 /* every model in a range full-screen photo, so rows read consistently */
 Object.assign(TS_MEDIA, { yakisugi:{ mode:'photo', img:'yk-bench-tier', pos:'50% 55%' }, airsuite:{ mode:'photo', img:'as-cover', pos:'50% 45%' }, airflex:{ mode:'photo', img:'af-life', pos:'50% 30%' } });
 (() => { const r = TS_ROWS.find(x => x[0] === 'heat'); r[1] = ['yakisugi', 'traditional', 'hemlock']; })();
+
+/* ===== Pictures lead somewhere: clicking a product picture takes you to the next step ===== */
+// Range and overview chapters open that product; the product hero scrolls on to the story; software pictures open the software page.
+function tsLinkify(){
+  document.querySelectorAll('#app .ts').forEach(sec => {
+    if (sec.classList.contains('ts-hero') || sec.classList.contains('ts-end') || sec.dataset.href) return;
+    const a = [...sec.querySelectorAll('a[href^="#/products/"]')].find(x => /^#\/products\/[^/]+\/[^/]+$/.test(x.getAttribute('href')));
+    if (a) { sec.dataset.href = a.getAttribute('href'); sec.classList.add('ts-link'); }
+  });
+  document.querySelectorAll('#app .ts-hero').forEach(sec => { if ((sec.closest('.ts-row') || sec).nextElementSibling) sec.classList.add('ts-link', 'ts-next'); });
+  document.querySelectorAll('#app .st .st-vis > img').forEach(img => img.classList.add('st-link'));
+}
+let tsDown = null;
+document.addEventListener('pointerdown', e => { tsDown = { x: e.clientX, y: e.clientY }; }, true);
+document.addEventListener('click', e => {
+  if (e.defaultPrevented || e.button) return;
+  if (tsDown && Math.hypot(e.clientX - tsDown.x, e.clientY - tsDown.y) > 8) return; // a swipe, not a tap
+  const t = e.target;
+  if (t.closest('a,button,input,select,textarea,label,video,summary,[data-apz-modal],.tr-cmp,.tb-frame,.ts-dots,.ts-bot,.ts-top p')) return;
+  const st = t.closest('.st-link'); if (st) { location.hash = '#/software'; return; }
+  const sec = t.closest('.ts-link'); if (!sec) return;
+  if (sec.classList.contains('ts-next')) { (sec.closest('.ts-row') || sec).nextElementSibling.scrollIntoView({ behavior: RM() ? 'auto' : 'smooth' }); return; }
+  if (sec.dataset.href) location.hash = sec.dataset.href;
+});
+const _afterRenderLink = afterRender;
+afterRender = function(){ _afterRenderLink(); tsLinkify(); };
