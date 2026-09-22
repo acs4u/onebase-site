@@ -210,7 +210,7 @@ afterRender = function(){
 
 /* ===== Saunas: category renamed (infrared + custom traditional), and the Custom Traditional before-and-after story ===== */
 Object.assign(D.modalities.heat, { name:'Saunas', blurb:'Full-spectrum infrared in Yakisugi cedar or Hemlock, and custom traditional saunas built for your room.', h:'Infrared or traditional, built to run all day.', p:'Plug-and-play infrared in charred Yakisugi cedar or light Hemlock, or a traditional stone-heater sauna we design, build and install for your space.' });
-FACTS.traditional = [['Custom','to your room'],['Stone','heater & löyly'],['Design→install','one team']];
+FACTS.traditional = [['6–10.5 kW','stone heater'],['149–176°F','operating temp'],['Design→install','one team']];
 TS_LEAD.traditional = 'Traditional saunas, designed, built and installed for your space.';
 TS_MEDIA.traditional = { mode:'photo', img:'trad-after', pos:'50% 60%' };
 D.prodImg.traditional = 'trad-after';
@@ -273,3 +273,23 @@ document.addEventListener('click', e => {
 });
 const _afterRenderLink = afterRender;
 afterRender = function(){ _afterRenderLink(); tsLinkify(); };
+
+/* ===== Custom Traditional: step through a new build from the bare room, then a refresh of a tired one ===== */
+const _tsChaptersTR2 = tsChapters;
+tsChapters = function(p){
+  const ch = _tsChaptersTR2(p); if (p.id !== 'traditional') return ch;
+  const st = tsStyle(p, TS_MEDIA.traditional), get = k => ch.find(c => c[0] === k);
+  const retag = (c, k, eb) => c && [k, c[1].replace(/<p class="ts-eyebrow">[^<]*<\/p>/, `<p class="ts-eyebrow">${eb}</p>`)];
+  const shell = D.img['trad-shell'] ? ['The room', `<section class="ts ts-ch ts-photo ts-dark ts-split tr-ch" data-dark="1" style="${st}"><img class="ts-cover" src="${D.img['trad-shell']}" alt="A framed, lined room ready for a sauna fit-out" style="object-position:50% 45%" loading="lazy"><div class="ts-veil"></div><div class="ts-top"></div><div class="ts-bot ch-feat"><p class="ts-eyebrow">New build · 1 of 3</p><h2>It starts as a bare room.</h2><p class="ts-lead">Your builder frames, insulates and lines it, runs a dedicated circuit and fits the sprinkler. We send the submittal that tells them exactly how.</p></div></section>`] : null;
+  const steps = [
+    shell,
+    retag(get('New build'), 'Fit-out', 'New build · 2 of 3'),
+    retag(get('Detail'), 'Ready', 'New build · 3 of 3'),
+    retag(get('Rebuild'), 'Refresh', 'Refresh · Before'),
+    get('Compare'),
+    retag(get('After'), 'Rebuilt', 'Refresh · After'),
+    retag(get('Finished'), 'Finished', 'Refresh · Finished'),
+  ].filter(Boolean);
+  const used = new Set(['New build','Detail','Rebuild','Compare','After','Finished']);
+  return [...steps, ...ch.filter(c => !used.has(c[0]))];
+};

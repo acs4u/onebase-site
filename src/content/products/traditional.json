@@ -9,28 +9,140 @@
   "colours": [],
   "pressures": [],
   "highlights": [
-    { "title": "Designed around your room", "body": "Layout, bench tiers, heater position and lighting are drawn up for your space and how many people you need to seat." },
-    { "title": "One team, design to install", "body": "We coordinate design, manufacturing, procurement and installation, so you deal with one contact from first drawing to first session." },
-    { "title": "Proper löyly", "body": "A stone heater sized to the room, so members can throw water and get the soft, rolling steam of a traditional sauna." },
-    { "title": "Rebuilds as well as new builds", "body": "Old sauna past its best? We strip it back and rebuild it in place with new timber, heater and lighting." }
+    {
+      "title": "Designed around your room",
+      "body": "Layout, bench tiers, heater position and lighting are drawn up for your space and how many people you need to seat."
+    },
+    {
+      "title": "One team, design to install",
+      "body": "We coordinate design, manufacturing, procurement and installation, so you deal with one contact from first drawing to first session."
+    },
+    {
+      "title": "Proper löyly",
+      "body": "A stone heater sized to the room, so members can throw water and get the soft, rolling steam of a traditional sauna."
+    },
+    {
+      "title": "Rebuilds as well as new builds",
+      "body": "Old sauna past its best? We strip it back and rebuild it in place with new timber, heater and lighting."
+    }
   ],
   "specs": [
-    { "label": "Build", "value": "Custom to your room and capacity" },
-    { "label": "Heater", "value": "Stone sauna heater, sized to the room" },
-    { "label": "Interior", "value": "Timber benches, backrests and panelling; species chosen at design" },
-    { "label": "Delivery", "value": "Design, manufacturing, procurement and installation by OneBase" },
-    { "label": "Projects", "value": "New builds and in-place rebuilds" }
+    {
+      "label": "Build",
+      "value": "Custom to your room and capacity, new builds and in-place rebuilds"
+    },
+    {
+      "label": "Room size",
+      "value": "177–635 cu ft (5–18 m³) interior volume"
+    },
+    {
+      "label": "Ceiling height",
+      "value": "7′0″–7′6″ (2.13–2.29 m) finished floor to ceiling"
+    },
+    {
+      "label": "Capacity",
+      "value": "Planned at 2 ft (60 cm) of bench per bather"
+    },
+    {
+      "label": "Heater",
+      "value": "Commercial stone heater, 6–10.5 kW, sized to the room"
+    },
+    {
+      "label": "Operating temperature",
+      "value": "149–176°F (65–80°C), 30–60 min heat-up"
+    },
+    {
+      "label": "Controls",
+      "value": "Digital control panel mounted outside the room, sensor inside"
+    },
+    {
+      "label": "Timber",
+      "value": "Western red cedar, Alaska yellow cedar or Western hemlock (no aroma or resin, for wood-sensitive users)"
+    },
+    {
+      "label": "Panelling",
+      "value": "1×4 tongue-and-groove, clear grade, kiln-dried to ≤11% moisture"
+    },
+    {
+      "label": "Benches",
+      "value": "Clear 2×2 slats, fixed from below so no metal on sitting surfaces"
+    },
+    {
+      "label": "Door",
+      "value": "Tempered glass in a Douglas fir frame, opens outward; 24″ standard or 36″ ADA width"
+    },
+    {
+      "label": "Ventilation",
+      "value": "Two adjustable louvred vents, about 5 air changes an hour"
+    },
+    {
+      "label": "Lighting",
+      "value": "Vapour-proof wall light, placed clear of the heater and upper benches"
+    },
+    {
+      "label": "Delivery",
+      "value": "Design, manufacturing, procurement and installation by OneBase"
+    },
+    {
+      "label": "Warranty",
+      "value": "1 year on room materials and workmanship; 5-year limited on the heater"
+    }
   ],
   "electrical": [
-    { "label": "Supply", "value": "Confirmed at design to suit the heater and your site" }
+    {
+      "label": "Single-phase",
+      "value": "240 V, 25–43.75 A depending on heater, on a 35–60 A breaker"
+    },
+    {
+      "label": "Three-phase",
+      "value": "208 V 3-phase option for the 10.5 kW heater, 29.2 A on a 40 A breaker"
+    },
+    {
+      "label": "Breaker",
+      "value": "Dedicated, non-GFCI, labelled \"SAUNA\""
+    },
+    {
+      "label": "Install",
+      "value": "Licensed electrician to NEC and local code; we supply the wire schedule"
+    }
   ],
   "certifications": [],
   "faqs": [
-    { "q": "Can you rebuild our existing sauna?", "a": "Yes. We strip the room back, then rebuild the benches, panelling, heater and lighting in place. The before-and-after on this page is one of ours." },
-    { "q": "How do we get a quote?", "a": "Send us the room dimensions, a few photos and how many people you want to seat. We'll come back with a design and a fixed quote." }
+    {
+      "q": "Can you rebuild our existing sauna?",
+      "a": "Yes. We strip the room back, then rebuild the benches, panelling, heater and lighting in place. The before-and-after on this page is one of ours."
+    },
+    {
+      "q": "What does our contractor need to have ready?",
+      "a": "A framed room lined with plywood and insulated walls and ceiling, a finished waterproof floor (concrete, tile or seamless vinyl), a door opening that swings outward, and a dedicated electrical circuit. We supply the vapour barrier and send a full submittal with the details for your builder and electrician."
+    },
+    {
+      "q": "Do we need a floor drain or a sprinkler?",
+      "a": "A floor drain is recommended for new builds and required for commercial saunas. Many jurisdictions require a sprinkler head rated to 285°F or higher, placed away from the heater, so check with your local authority early."
+    },
+    {
+      "q": "Which timber should we choose?",
+      "a": "Western red cedar has the classic aroma and colour. Alaska yellow cedar is smoother and paler. Western hemlock has no aroma or resin, so it suits venues with guests who are sensitive to wood."
+    },
+    {
+      "q": "What upkeep does it need?",
+      "a": "Scrub the benches and wash the floor weekly, use clean tap water on the stones, and rearrange or replace the stones about once a year. Interior wood stays unsealed, since sealers give off fumes at sauna temperatures."
+    },
+    {
+      "q": "How do we get a quote?",
+      "a": "Send us the room dimensions, a few photos and how many people you want to seat. We will come back with a design and a fixed quote."
+    }
   ],
-  "images": [ { "src": "/images/products/traditional.jpg", "alt": "OneBase custom traditional sauna, rebuilt in cedar" } ],
-  "channels": { "direct": true, "precor": false },
+  "images": [
+    {
+      "src": "/images/products/traditional.jpg",
+      "alt": "OneBase custom traditional sauna, rebuilt in cedar"
+    }
+  ],
+  "channels": {
+    "direct": true,
+    "precor": false
+  },
   "seoTitle": "OneBase Custom Traditional Sauna: designed, built and installed",
   "seoDescription": "Custom traditional saunas for gyms, spas and clubs, from design and manufacturing to procurement and installation. New builds and in-place rebuilds."
 }
