@@ -34,7 +34,7 @@ const GD = {
     lead:'Guests want a spa experience that feels special but doesn’t need a therapist on every booking.',
     heat:['The heart of the spa','A statement sauna is what guests photograph. Charred cedar or a custom traditional build sets the tone of the space.','Any time of day','20–30 min'],
     ice:['Contrast without a plunge pool','A dry cold room pairs with the sauna for a contrast circuit, with no pool plant or water chemistry to manage.','With the sauna','3–5 min'],
-    light:['A bookable treatment','A red light bed runs itself, so it can be sold as a treatment without tying up a therapist.','Pre- or post-spa','10–20 min'],
+    light:['A bookable treatment','A red light bed needs no hands-on time during a session, so it can be sold as a treatment without adding therapist hours.','Pre- or post-spa','10–20 min'],
     air:['Only with medical partners','Hyperbaric belongs in a medically supervised wellness programme, not an open-access spa.','Supervised programmes','60–90 min'],
   },
   clinic: {
@@ -110,8 +110,8 @@ NAV.splice(1, 0, ['Where it fits', '#/guide']);
 const GD_MORE = {
   gym: {
     light:['Members book a slot in the app and start it themselves. It needs a small room or a screened corner and a wipe-down between users.','heat',['lightpanel','lightbed']],
-    heat:['Most gyms run open sessions on the hour with a booking cap. The cabin runs itself; staff check it at opening and close.','ice',['yakisugi','hemlock','traditional']],
-    ice:['Self-serve, with a short timer on the door and a clear first-timer guide. No water means no testing log and no wet change area.','heat',['icevault']],
+    heat:['Most gyms run open sessions on the hour with a booking cap. Members use it unattended; staff check it at opening and close.','ice',['yakisugi','hemlock','traditional']],
+    ice:['Members use it unattended, with a short timer on the door and a clear first-timer guide. No water means no testing log and no wet change area.','heat',['icevault']],
     air:['Usually run through a partner clinician, booked as a premium session with a health screen first.','light',['airfit','airform']],
   },
   studio: {
@@ -134,7 +134,7 @@ const GD_MORE = {
   },
   clinic: {
     air:['Run by trained staff under clinical direction, with screening before the first session.','light',['airform','airsuite','airfit']],
-    light:['Patients book it around their appointments. It runs itself, so it adds no clinician time.','air',['lightbed','lightpanel']],
+    light:['Patients book it around their appointments. It needs no hands-on time, so it adds no clinician hours.','air',['lightbed','lightpanel']],
     ice:['Used as directed, with staff nearby. A dry room avoids wet floors in a clinical space.','heat',['icevault']],
     heat:['A gentler infrared cabin, used as directed alongside other care.','ice',['hemlock','yakisugi']],
   },
@@ -150,7 +150,7 @@ const GD_START = {
   studio:[['yakisugi','The heat half of a contrast circuit.'],['icevault','The cold half, with no water to change between groups.']],
   team:[['icevault','A whole squad through cold in minutes after training.'],['yakisugi','Rest-day heat for a group at a time.']],
   hotel:[['traditional','A statement sauna built to match the spa.'],['icevault','Cold for a contrast circuit, without a plunge pool.']],
-  clinic:[['airform','A monoplace chamber that sits alongside existing care.'],['lightbed','Runs itself between appointments.']],
+  clinic:[['airform','A monoplace chamber that sits alongside existing care.'],['lightbed','No clinician time between appointments.']],
   home:[['hemlock','A four-person sauna residents book from their phones.'],['lightpanel','A small-footprint panel for a wellness room.']],
 };
 const GD_DAY = {
@@ -220,13 +220,13 @@ const GD_SHORT = {
   team:{ lead:'A whole squad, between sessions.',
     ice:['A whole squad at once','No filling, draining or bags of ice.'], heat:['Rest-day heat','A position group at a time.'],
     light:['Targeted and quick','Fits in the treatment room.'], air:['Under your medical staff','Programmed per athlete.'] },
-  hotel:{ lead:'A spa that runs without a therapist on every booking.',
+  hotel:{ lead:'A spa that doesn’t add therapist hours.',
     heat:['The heart of the spa','The room guests photograph.'], ice:['Contrast, no plunge pool','No plant room, no chemicals.'],
-    light:['A bookable treatment','Runs itself from the tablet.'], air:['With medical partners','Supervised programmes only.'] },
+    light:['A bookable treatment','Started from the tablet.'], air:['With medical partners','Supervised programmes only.'] },
   clinic:{ lead:'More care between appointments.',
     air:['Where hyperbaric belongs','Alongside the care you already give.'], light:['Runs between visits','No clinician time needed.'],
     ice:['Cold, without the tub','No water, no slip risk.'], heat:['Gentle heat','Infrared suits more patients.'] },
-  home:{ lead:'An amenity that runs itself.',
+  home:{ lead:'An amenity residents book themselves.',
     heat:['The one people use','Booked from the building app.'], light:['Small footprint','A corner and a power outlet.'],
     ice:['No upkeep','No plumbing, no water treatment.'], air:['Usually not the fit','Better in a supervised clinic.'] },
 };
@@ -299,14 +299,14 @@ Object.assign(GD_SHORT, {
   hotel:{ lead:'A spa that doesn’t need a therapist for every booking.',
     heat:['The spa’s centrepiece','The sauna guests book first, and photograph.','20–30 min','Any time'],
     ice:['Hot-cold circuits','Pair it with the sauna. No plunge pool to maintain.','3–5 min','With the sauna'],
-    light:['A treatment that runs itself','Add it to the spa menu without adding therapist hours.','10–20 min','Any time'],
+    light:['A treatment with no hands-on time','Add it to the spa menu without adding therapist hours.','10–20 min','Any time'],
     air:['Wellness programmes','Best offered with a medical partner, not as open access.','60–90 min','Supervised'] },
   clinic:{ lead:'Extend care between appointments.',
     air:['Hyperbaric oxygen therapy','Delivered under clinical supervision, alongside your treatment plans.','60–90 min','As directed'],
     light:['Red and near-infrared light','Booked around appointments, with no clinician time needed.','10–20 min','Around visits'],
     ice:['Whole-body cold','Cold therapy without ice baths or wet floors.','3–10 min','As directed'],
     heat:['Infrared heat','A lower air temperature than a traditional sauna, so more patients can use it.','15–30 min','As directed'] },
-  home:{ lead:'Amenities that run themselves.',
+  home:{ lead:'Amenities residents book themselves.',
     heat:['The everyday sauna','The amenity residents actually use, booked from the building app.','20–30 min','Evenings'],
     light:['A red light room','Needs little more than a corner and a power point.','10–20 min','Any time'],
     ice:['A cold room','Cold exposure with no plumbing, water treatment or pool contractor.','3–10 min','With the sauna'],
@@ -538,7 +538,7 @@ gdDetail = function(v, m){
   return h;
 };
 // Residential & corporate amenity spaces: hyperbaric is still not advised there; home owners now have their own tab.
-GD_SHORT.home.lead = 'Amenities that run themselves.';
+GD_SHORT.home.lead = 'Amenities residents book themselves.';
 
 /* ---------- Each venue gets its own world: photo, tint and motion when you switch ---------- */
 const GD_BG = { gym:'sol-fitness', studio:'hero-bg', team:'sol-sports', hotel:'sol-spas', clinic:'photo-hbot-inside', home:'sol-multifamily', private:'af-life' };
@@ -608,3 +608,18 @@ gdSection = function(full){
 @media(prefers-reduced-motion:reduce){.gdq-anim *{animation:none!important}}`; document.head.appendChild(s); })();
 // keep the chosen tab in view on narrow screens
 document.addEventListener('click', e => { if (!e.target.closest('[data-gd]')) return; requestAnimationFrame(() => { const r = document.querySelector('#gd .gd-pills'), t = r && r.querySelector('[aria-selected=true]'); if (r && t && r.scrollWidth > r.clientWidth) r.scrollLeft = t.offsetLeft - r.offsetLeft - 20; }); });
+
+/* ---------- Tiles: the studio renders as supplied, on a light card with the words underneath ---------- */
+Object.assign(GD_IMG, { air:'gdr-air', ice:'gdr-ice', heat:'gdr-heat', light:'gdr-light' });
+delete GD_IMG_V.team.air; delete GD_IMG_V.clinic.air; delete GD_IMG_V.private.air;
+delete GD_IMG_V.studio.ice; delete GD_IMG_V.hotel.heat; delete GD_IMG_V.clinic.light; delete GD_IMG_V.home.heat; delete GD_IMG_V.home.light; delete GD_IMG_V.private.heat; delete GD_IMG_V.private.light;
+(() => { const s = document.createElement('style'); s.textContent = `
+.gd2 .gd-tile{aspect-ratio:auto;display:block;background:var(--card);color:var(--fg);border:1px solid var(--line);overflow:hidden}
+.gd2 .gd-tile img{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+.gd2 .gd-veil{display:none}
+.gd2 .gd-t{padding:18px 18px 20px}
+.gd2 .gd-mod{color:var(--faint)}
+.gd2 .gd-line{color:var(--muted)}
+.gd2 .gd-stats{border-top-color:var(--line);color:var(--faint)}
+.gd2 .gd-stats i{color:var(--fg)}
+.gdv .gd-tile{box-shadow:none}`; document.head.appendChild(s); })();

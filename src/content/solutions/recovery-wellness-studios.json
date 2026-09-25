@@ -1,37 +1,37 @@
 {
   "label": "Recovery & Wellness Studios",
   "order": 1,
-  "heroHeading": "The recovery system your members have been waiting for",
+  "heroHeading": "The whole circuit from one manufacturer",
   "heroImage": "/images/solutions/recovery-wellness-studios.jpg",
   "seoTitle": "Recovery & Wellness Studio Solutions",
   "seoDescription": "Recovery equipment & intelligent software for wellness studios. Boost retention with HBOT, red light, infrared sauna & cold therapy.",
   "valueProps": [
     {
-      "title": "Intelligent recovery",
-      "body": "From HBOT chambers to infrared saunas, deliver science-backed recovery with staff training that ensures consistent sessions and better client outcomes."
+      "title": "Built around throughput",
+      "body": "A sauna for four to eight and a cold room for the same group keeps a contrast circuit moving on the hour, with nothing to drain or refill between groups."
     },
     {
-      "title": "Complete solution",
-      "body": "Integrate proven modalities with one system and one point of contact, simplifying rollout and driving higher staff adoption and client uptake."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Reliability & durability",
-      "body": "Commercial-grade design, components and validation built for high-throughput environments to maximise uptime and protect ROI."
+      "title": "Built to run all day",
+      "body": "Commercial duty cycles, all day, every day. Dry cold means no water chemistry, and infrared cabins are ready between groups."
     },
     {
-      "title": "Exceptional service",
-      "body": "Support that extends beyond the sale with dedicated experts, remote diagnostics and local North American service."
+      "title": "Protocols your staff can follow",
+      "body": "Doctor-built session protocols in the app, so a first-timer and a regular get the same guidance whoever is on shift."
     }
   ],
   "features": [
     {
-      "title": "Give your facility a genuine edge",
-      "body": "OneBase commercial-grade HBOT chambers, infrared saunas, cold therapy and red light devices are among the most sought-after recovery modalities in the industry. With the OneBase app, your members don't just use the equipment; they follow doctor-approved protocols that deliver measurable results. The kind of member experience that earns loyalty.",
+      "title": "Design the circuit, not just the kit",
+      "body": "We lay out heat, cold and light so guests move through in a sequence that works, and so your busiest hour isn’t held up by one room.",
       "image": "/images/solutions/recovery-wellness-studios.jpg"
     },
     {
-      "title": "Build a community around outcomes that speak for themselves",
-      "body": "OneBase gives you the tools: clinically-backed modalities, a protocol app developed by Dr Scott Sherr, and cutting-edge therapies that signal you're serious about wellness.",
+      "title": "Hyperbaric as the high-value session",
+      "body": "Chambers run longer and need a trained operator, so they sit apart from the circuit and are booked on their own. We’ll tell you whether that’s worth it for your studio before you buy one.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

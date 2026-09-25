@@ -1,37 +1,37 @@
 {
   "label": "Boutique Spas & Hospitality",
   "order": 4,
-  "heroHeading": "Elevate your guest experience with premium wellness amenities",
+  "heroHeading": "A spa circuit that doesn’t add therapist hours",
   "heroImage": "/images/solutions/luxury-hospitality.jpg",
   "seoTitle": "Luxury Hotel & Spa Wellness Integration",
   "seoDescription": "Premium wellness amenities for boutique hotels & luxury spas. HBOT, red light, infrared sauna & cold therapy with proven guest satisfaction ROI.",
   "valueProps": [
     {
-      "title": "Premium design",
-      "body": "Sleek, modern aesthetics that complement luxury interiors and enhance the guest experience."
+      "title": "A sauna guests photograph",
+      "body": "Charred cedar, light hemlock or a custom traditional room built to match your spa. The sauna is the room people talk about."
     },
     {
-      "title": "Revenue driver",
-      "body": "Add a high-demand wellness offering that increases room rates, drives spa revenue and differentiates your property."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Built to last",
-      "body": "Engineered for hospitality environments: daily high-volume use with minimal maintenance."
+      "title": "Built to run all day",
+      "body": "Made for all-day operation in a commercial spa, with cleaning that fits your housekeeping round."
     },
     {
-      "title": "White-glove service",
-      "body": "From installation to ongoing maintenance, our service team provides premium, personalised support."
+      "title": "Bookable without staff time",
+      "body": "Cold and red light need no hands-on time during a session, so they sit on the spa menu without adding therapist hours. Staff still check and clean them through the day."
     }
   ],
   "features": [
     {
-      "title": "Create unforgettable wellness experiences",
-      "body": "OneBase lets you offer world-class recovery modalities, from HBOT chambers to infrared saunas and red light therapy, that create lasting impressions, drive repeat bookings and generate word-of-mouth.",
+      "title": "Contrast without a plunge pool",
+      "body": "A dry cold room pairs with the sauna for a contrast circuit and needs no plant room, no pool chemistry and no drainage.",
       "image": "/images/solutions/luxury-hospitality.jpg"
     },
     {
-      "title": "Turn under-utilised space into recurring revenue",
-      "body": "Transform under-used spaces into high-revenue wellness areas. Our products need minimal maintenance while commanding premium pricing for spa services and wellness packages.",
+      "title": "Built for your room, not a catalogue",
+      "body": "For traditional saunas we design, manufacture, procure and install: benches, panelling, heater and lighting laid out for the space you have.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

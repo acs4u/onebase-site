@@ -1,37 +1,37 @@
 {
   "label": "High-end Real Estate",
   "order": 6,
-  "heroHeading": "Elevate properties with premium wellness amenities that sell",
+  "heroHeading": "An amenity that shows well and keeps working",
   "heroImage": "/images/solutions/high-end-real-estate.jpg",
   "seoTitle": "High-End Real Estate Wellness Amenities",
   "seoDescription": "Premium wellness installations for luxury developments. Differentiate properties with commercial-grade HBOT, sauna & cold therapy amenities.",
   "valueProps": [
     {
-      "title": "Property differentiation",
-      "body": "Stand out with integrated wellness amenities that today's luxury buyers expect."
+      "title": "Something buyers remember",
+      "body": "A sauna and cold room read as a serious amenity on a tour, and they stay impressive years after handover."
     },
     {
-      "title": "Turnkey installation",
-      "body": "From design consultation to installation, we deliver move-in-ready wellness spaces."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Built-in value",
-      "body": "Premium wellness amenities increase property values and accelerate sales in luxury residential developments."
+      "title": "Built to run all day",
+      "body": "Built for shared use by a whole building, with finishes that take heat and heavy traffic."
     },
     {
-      "title": "Developer support",
-      "body": "Dedicated support for architects, designers and developers throughout planning and construction."
+      "title": "Nothing for the building team to manage",
+      "body": "No plumbing or water treatment for the cold room. Residents book from an app, and the building manager sees faults remotely."
     }
   ],
   "features": [
     {
-      "title": "The amenity luxury buyers demand",
-      "body": "Modern luxury buyers expect wellness-integrated living. OneBase lets developers offer cold therapy, infrared saunas, red light and hyperbaric oxygen therapy: the amenities that move units faster and command higher prices.",
+      "title": "Planned into the drawings",
+      "body": "We work from your floor plans: room sizes, ceiling heights, power and ventilation, so the amenity is built in rather than squeezed in.",
       "image": "/images/solutions/high-end-real-estate.jpg"
     },
     {
-      "title": "Seamless integration into any design vision",
-      "body": "Whether it's a penthouse spa, a community wellness centre or private villa amenities, OneBase products are designed with architectural flexibility in mind.",
+      "title": "Handover your operator can run",
+      "body": "Training at handover, a cleaning routine that fits the daily round, and remote monitoring so nobody has to notice a problem first.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

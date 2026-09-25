@@ -1,37 +1,37 @@
 {
   "label": "Corporate Wellness",
   "order": 5,
-  "heroHeading": "Empower your employees with advanced recovery and wellness tools",
+  "heroHeading": "A wellness room staff actually use",
   "heroImage": "/images/solutions/corporate-wellness.jpg",
   "seoTitle": "Corporate Wellness & Employee Performance",
   "seoDescription": "Executive wellness rooms & employee recovery programs. Commercial-grade HBOT, sauna & cold therapy with measurable ROI.",
   "valueProps": [
     {
-      "title": "Employee wellness",
-      "body": "Invest in your team's well-being with recovery solutions that reduce stress, boost productivity and improve retention."
+      "title": "Short sessions that fit a workday",
+      "body": "Ten minutes of red light or a few minutes of cold fits a lunch break. A sauna suits the end of the day."
     },
     {
-      "title": "Space-efficient design",
-      "body": "Designed for office wellness rooms, break areas and corporate fitness centres with minimal footprint."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Low maintenance",
-      "body": "Self-cleaning, smart-monitored systems that need minimal staff attention."
+      "title": "Built to run all day",
+      "body": "Commercial equipment, not consumer units, so it survives daily use by a whole floor of staff."
     },
     {
-      "title": "Program support",
-      "body": "We help you design and launch a corporate wellness program that drives engagement and delivers measurable results."
+      "title": "Booked from an app, checked by your team",
+      "body": "Staff book and start their own sessions. Facilities gets alerts for maintenance and consumables rather than finding out from a complaint."
     }
   ],
   "features": [
     {
-      "title": "A wellness perk that actually moves the needle",
-      "body": "Attract and retain top talent with amenities that go beyond the standard gym membership. OneBase recovery solutions are the premium perk employees talk about.",
+      "title": "Sized to the space you have",
+      "body": "A panel system fits a small room; a sauna and cold room need a dedicated circuit and a finished floor. We’ll tell you what your building needs before you commit.",
       "image": "/images/solutions/corporate-wellness.jpg"
     },
     {
-      "title": "Measurable ROI for your wellness investment",
-      "body": "Track usage, engagement and outcomes with the OneBase platform and demonstrate clear ROI to leadership.",
+      "title": "Hyperbaric needs supervision",
+      "body": "Chambers are medical devices and need a trained operator, so we steer most workplaces to heat, cold and light instead of selling one in.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

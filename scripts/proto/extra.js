@@ -15,7 +15,7 @@ function storyHTML(){
   return `<section class="story" id="story" style="height:${CHAPTERS.length*100+60}svh" aria-label="Four modalities">
   <div class="story-stage" style="--sbg:${MODC.air.deep};--sglow:${MODC.air.glow}"><div class="story-glow"></div><div class="story-grain"></div>
    <div class="wrap story-grid">
-    <div class="story-copy">${CHAPTERS.map((c,i)=>`<div class="ch${i===0?' on':''}" data-i="${i}"><p class="num"><b>0${i+1}</b> / 04 · ${c.label}</p><h2>${c.title}</h2><p class="lead">${c.lead}</p><div class="stats">${c.stats.map(s=>`<div><strong>${s[0]}</strong><span>${s[1]}</span></div>`).join('')}</div><a class="go" href="#/products/${c.cat}">Explore ${c.label.toLowerCase()} →</a></div>`).join('')}</div>
+    <div class="story-copy">${CHAPTERS.map((c,i)=>`<div class="ch${i===0?' on':''}" data-i="${i}"><p class="num">${c.label}</p><h2>${c.title}</h2><p class="lead">${c.lead}</p><div class="stats">${c.stats.map(s=>`<div><strong>${s[0]}</strong><span>${s[1]}</span></div>`).join('')}</div><a class="go" href="#/products/${c.cat}">Explore ${c.label.toLowerCase()} →</a></div>`).join('')}</div>
     <div class="story-media">${CHAPTERS.map((c,i)=>`<figure class="${i===0?'on':''}" data-i="${i}">${storyFig(c)}</figure>`).join('')}</div>
    </div>
    <div class="story-rail"><div class="wrap">${CHAPTERS.map((c,i)=>`<button data-go="${i}" class="${i===0?'on':''}"><i></i>0${i+1} ${c.label}</button>`).join('')}</div></div>
@@ -53,11 +53,11 @@ function observe(){
 
 /* ---------- Planner ---------- */
 const CAT = {
-  IV2:{p:'icevault',s:'Duo',m:'ice',w:47.24,d:51.8,n:2,cyc:15,img:'icevault-quad'}, IV4:{p:'icevault',s:'Quad',m:'ice',w:74.8,d:70.87,n:4,cyc:15,img:'icevault-quad'}, IV8:{p:'icevault',s:'Octo',m:'ice',w:106.3,d:110.24,n:8,cyc:15,img:'icevault-octo'},
-  YK2:{p:'yakisugi',s:'Duo',m:'heat',w:68.9,d:68.9,n:2,cyc:45,img:'yakisugi'}, YK4:{p:'yakisugi',s:'Quad',m:'heat',w:79,d:79,n:4,cyc:45,img:'yakisugi'}, YK8:{p:'yakisugi',s:'Octo',m:'heat',w:108.5,d:108.5,n:8,cyc:45,img:'yakisugi'},
+  IV2:{p:'icevault',s:'Duo',m:'ice',w:47.24,d:51.8,n:2,cyc:15,img:'cut3-icevault-duo'}, IV4:{p:'icevault',s:'Quad',m:'ice',w:74.8,d:70.87,n:4,cyc:15,img:'cut-icevault-quad'}, IV8:{p:'icevault',s:'Octo',m:'ice',w:106.3,d:110.24,n:8,cyc:15,img:'cut-icevault-octo'},
+  YK2:{p:'yakisugi',s:'Duo',m:'heat',w:68.9,d:68.9,n:2,cyc:45,img:'cut3-yakisugi-duo'}, YK4:{p:'yakisugi',s:'Quad',m:'heat',w:79,d:79,n:4,cyc:45,img:'cut-yakisugi'}, YK8:{p:'yakisugi',s:'Octo',m:'heat',w:108.5,d:108.5,n:8,cyc:45,img:'cut3-yakisugi-octo'},
   HM4:{p:'hemlock',s:'Quad',m:'heat',w:83,d:52,n:4,cyc:45,img:'hemlock'},
   AFT:{p:'airfit',s:'Plus',m:'air',w:86.5,d:50,n:1,cyc:75,img:'airfit'}, AFP:{p:'airform',s:'Plus',m:'air',w:87,d:58,n:1,cyc:75,img:'airform-plus-black'}, AS2:{p:'airsuite',s:'Duo',m:'air',w:86.6,d:63,n:2,cyc:75,img:'canva-airsuite-duo'},
-  LB:{p:'lightbed',s:'',m:'light',w:89.5,d:51,n:1,cyc:25,img:'lightbed-black'}, LP4:{p:'lightpanel',s:'Quad',m:'light',w:31.5,d:60,n:1,cyc:20,img:'lightpanel-quad'},
+  LB:{p:'lightbed',s:'',m:'light',w:89.5,d:51,n:1,cyc:25,img:'cut-lightbed-black'}, LP4:{p:'lightpanel',s:'Quad',m:'light',w:31.5,d:60,n:1,cyc:20,img:'lightpanel-quad'},
 };
 const VENUES = {
   gym:{l:'Gym or fitness club', def:['ice','heat','light'], price:0, t:{ice:['IV2','IV4','IV8'],heat:['HM4','YK4','YK8'],light:['LP4','LB',['LB','LP4']],air:['AFT','AFP','AFP']}},
@@ -325,7 +325,7 @@ function swOverviewHTML(){
   const hint = '<span class="st-hint">Tap to try</span>';
   const ch = (cls, img, eb, h, p, link, dev) => `<article class="st-ch ${cls}"><div class="st-copy"><p class="eyebrow">${eb}</p><h2>${h}</h2><p class="st-p">${p}</p>${link}</div><div class="st-vis">${img?`<img src="${D.img[img]}" alt="">`:''}${dev}</div></article>`;
   return `<section class="st" aria-label="Software">
-  <article class="st-ctl"><div class="st-ctl-copy"><p class="eyebrow">AirSuite controller</p><h2>Runs itself.</h2><p class="st-p">Your team starts it. The chamber does the rest.</p></div><div class="st-ctl-dev" aria-hidden="true">${tbHTML()}</div><ol class="st-caps"><li><b>Settings load from the booking</b><span>Time, pressure and speed arrive with the member.</span></li><li><b>Airbreaks, handled automatically</b><span>Oxygen and air alternate on schedule.</span></li><li><b>One tap to start</b><span>Close the door and the session runs.</span></li></ol><a class="st-link" href="#/software" data-apz-modal>Try the real controller app →</a></article>
+  <article class="st-ctl"><div class="st-ctl-copy"><p class="eyebrow">AirSuite controller</p><h2>Guided, start to finish.</h2><p class="st-p">Your operator starts and watches the session. The chamber handles the profile.</p></div><div class="st-ctl-dev" aria-hidden="true">${tbHTML()}</div><ol class="st-caps"><li><b>Settings load from the booking</b><span>Time, pressure and speed arrive with the member.</span></li><li><b>Airbreaks, handled automatically</b><span>Oxygen and air alternate on schedule.</span></li><li><b>One tap to start</b><span>Close the door and the profile runs, with your operator watching.</span></li></ol><a class="st-link" href="#/software" data-apz-modal>Try the real controller app →</a></article>
   ${ch('st-a2 st-flip','af-life','OneBase app','Their plan, in their pocket.','Doctor-built protocols, booking and progress in one app. Members know what to do, and keep coming back to do it.','<a class="st-link" href="#/software">See the member app →</a>',`<div class="st-dev st-phone">${hint}<div class="sx-bez">${stPhoneHTML()}</div></div>`)}
   ${ch('st-a3 st-dark','','OneBase OS · Coming late 2026','Every room. Every site. One screen.','Live status, usage and alerts for every unit you own, so problems reach you before they reach a member.','<a class="st-link" href="#/software">Explore OneBase OS →</a>',`<div class="st-dev st-dash">${hint}<div class="sx-bez">${stDashHTML()}</div></div>`)}
   ${ch('st-a4 st-dark st-upd','','Software updates','It gets better after it’s installed.','New protocols and controller features arrive as software updates. No site visit, no downtime.','<a class="st-link" href="#/contact">Talk to sales →</a>',`<div class="st-ver">${stUpdHTML()}</div>`)}
@@ -391,14 +391,15 @@ function storyFig(c){
   const many = list.length > 1;
   return `<div class="sp${many?' sp-many':''}" data-k="${c.k}" aria-roledescription="carousel" aria-label="${esc(c.label)} range">
     <div class="sp-track" tabindex="0">${slides}</div>
-    <div class="sp-cap"><a class="sp-name" href="#/products/${c.cat}/${list[0][0]}">OneBase ${esc(list[0][2])}</a>${many?`<span class="sp-count">1 / ${list.length}</span>`:''}</div></div>`;
+    <div class="sp-cap"><a class="sp-name" href="#/products/${c.cat}/${list[0][0]}">OneBase ${esc(list[0][2])}</a></div>
+    ${many?`<div class="sp-dots" role="tablist" aria-label="${esc(c.label)} models">${list.map((x,j)=>`<button type="button" role="tab" data-sp="${j}" aria-label="OneBase ${esc(x[2])}" aria-selected="${j===0}"></button>`).join('')}</div><p class="sp-hint">${list.length} models · swipe or tap</p>`:''}</div>`;
 }
 function spIndex(tr){ const w = tr.clientWidth; let best = 0, bd = 1e9; tr.querySelectorAll('.sp-slide').forEach((s,j) => { const d = Math.abs(s.offsetLeft + s.offsetWidth/2 - (tr.scrollLeft + w/2)); if (d < bd) { bd = d; best = j; } }); return best; }
 function spSync(sp){
   const tr = sp.querySelector('.sp-track'), j = spIndex(tr), k = sp.dataset.k, list = spList(k), cat = CHAPTERS.find(c => c.k===k).cat;
   if (sp.dataset.j === String(j)) return; sp.dataset.j = j;
   tr.querySelectorAll('.sp-slide').forEach((s,i) => s.classList.toggle('on', i===j));
-  const ct = sp.querySelector('.sp-count'); if (ct) ct.textContent = (j+1) + ' / ' + list.length;
+  sp.querySelectorAll('.sp-dots button').forEach((d,i) => d.setAttribute('aria-selected', i === j));
   const nm = sp.querySelector('.sp-name'); nm.textContent = 'OneBase ' + list[j][2]; nm.setAttribute('href', `#/products/${cat}/${list[j][0]}`);
 }
 function spTo(sp, j){ const tr = sp.querySelector('.sp-track'); const s = tr.querySelectorAll('.sp-slide')[j]; if (!s) return; tr.scrollTo({ left: s.offsetLeft + s.offsetWidth/2 - tr.clientWidth/2, behavior: RM() ? 'auto' : 'smooth' }); }
@@ -435,3 +436,6 @@ function spKeyOut(img){
 }
 const _afterRenderSP = afterRender;
 afterRender = function(){ _afterRenderSP(); document.querySelectorAll('.sp img[data-key="1"]').forEach(spKeyOut); spInit(); };
+
+// dots: tap one to jump to that model
+document.addEventListener('click', e => { const d = e.target.closest('.sp-dots button'); if (!d) return; const sp = d.closest('.sp'); spTo(sp, +d.dataset.sp); });

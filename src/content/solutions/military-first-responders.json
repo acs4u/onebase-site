@@ -1,37 +1,37 @@
 {
   "label": "Military & First Responders",
   "order": 8,
-  "heroHeading": "Equip your teams with elite recovery solutions for peak readiness",
+  "heroHeading": "Recovery equipment that stands up to shift work",
   "heroImage": "/images/solutions/military-first-responders.jpg",
   "seoTitle": "Military & First Responder Recovery",
   "seoDescription": "Tactical recovery equipment for military installations & first responder facilities. Commercial-grade HBOT, cold therapy & red light built for durability.",
   "valueProps": [
     {
-      "title": "Mission-ready recovery",
-      "body": "Purpose-built solutions that help service members maintain peak physical and mental readiness."
+      "title": "Group throughput",
+      "body": "Cold rooms and cabins sized for a crew, so a shift can go through together rather than one at a time."
     },
     {
-      "title": "Scalable deployment",
-      "body": "Modular systems designed for easy deployment across bases, stations and field operations."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Military-grade durability",
-      "body": "Reinforced construction and fail-safe systems for the most demanding environments."
+      "title": "Built to run all day",
+      "body": "Commercial builds and duty cycles, with parts and trained technicians in North America and Australia."
     },
     {
-      "title": "Government procurement",
-      "body": "Streamlined procurement with GSA schedule compatibility and dedicated government sales support."
+      "title": "Run by your own staff",
+      "body": "Training at handover, protocols in the app, and remote monitoring so a unit that needs attention is flagged before it goes down."
     }
   ],
   "features": [
     {
-      "title": "Support resilience and readiness",
-      "body": "Military personnel and first responders face extreme physical and mental demands. OneBase recovery solutions help reduce injury rates, accelerate recovery from training and support overall resilience.",
+      "title": "Planned around the watch",
+      "body": "We lay the space out for shift changes: how many go through at once, and how long each session takes.",
       "image": "/images/solutions/military-first-responders.jpg"
     },
     {
-      "title": "Proven in high-demand environments",
-      "body": "Our products are deployed across military installations and fire stations. Smart monitoring and minimal maintenance fit existing wellness programs.",
+      "title": "Hyperbaric under medical direction",
+      "body": "Chambers are medical devices and need trained operators and clinical oversight. We supply them that way or not at all.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

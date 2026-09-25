@@ -1,37 +1,37 @@
 {
   "label": "Fitness Centers & Gyms",
   "order": 2,
-  "heroHeading": "Add recovery technology that keeps members coming back",
+  "heroHeading": "Recovery your members book, on the days they don’t train",
   "heroImage": "/images/solutions/fitness-centers.jpg",
   "seoTitle": "Gym & Fitness Club Recovery Systems",
   "seoDescription": "Member retention recovery zones for gyms & fitness clubs. Commercial IceVault, sauna and red light systems that drive recurring revenue.",
   "valueProps": [
     {
-      "title": "Member retention",
-      "body": "Recovery amenities are the fastest-growing driver of gym loyalty. Give members a reason to stay, and to pay more, with commercial-grade contrast therapy and red light."
+      "title": "A reason to come in on rest days",
+      "body": "Members train hard four or five days a week. Sauna, cold and red light give them something to come in for on the other two, and something a budget gym down the road can’t match."
     },
     {
-      "title": "Plug-and-play setup",
-      "body": "Purpose-built for high-traffic fitness floors. Equipment integrates into existing layouts with minimal construction, plumbing or electrical work."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Built for heavy use",
-      "body": "Self-cleaning cycles, reinforced builds and smart diagnostics keep maintenance costs low."
+      "title": "Built to run all day",
+      "body": "Cabins, cold rooms and panels made for back-to-back sessions on a busy floor. No plumbing for the cold room, no water testing, no wet change area."
     },
     {
-      "title": "Launch support",
-      "body": "From floor-plan consultation to modality training, staff enablement and marketing materials, we help you launch a recovery zone members use and value."
+      "title": "Little staff time per session",
+      "body": "Members book a slot and start the session themselves. Your team gets training at handover and remote monitoring after it, so a fault shows up before a member reports it."
     }
   ],
   "features": [
     {
-      "title": "Turn your gym into a recovery destination",
-      "body": "Members today expect more than weights and cardio. OneBase saunas, IceVaults and red light beds let you offer the premium recovery experience boutique studios charge a fortune for, right on your gym floor.",
+      "title": "A recovery floor, not a spare room",
+      "body": "We plan the space around your layout and your peak hours: where the sauna and cold room sit, how people move between them, and how many can go through in an hour.",
       "image": "/images/solutions/fitness-centers.jpg"
     },
     {
-      "title": "A new revenue stream with built-in demand",
-      "body": "Offer recovery as a premium add-on or tiered membership upgrade. Facilities using OneBase report higher average revenue per member and reduced churn within the first 90 days of launch.",
+      "title": "Sell it the way that suits your club",
+      "body": "Included in a higher membership tier, sold as an add-on, or booked per session. The app handles booking and protocols either way, and shows you which modality is actually being used.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

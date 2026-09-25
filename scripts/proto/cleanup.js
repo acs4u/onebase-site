@@ -3,3 +3,5 @@ teaserHTML = function(){ return ''; };
 (() => { const i = NAV.findIndex(x => x[1] === '#/planner'); if (i > -1) NAV.splice(i, 1); })();
 pages.planner = () => pages.contact();
 pages.check = () => pages.contact();
+// No About page: send old links home
+pages.about = () => { location.replace('#/'); return pages.home(); };

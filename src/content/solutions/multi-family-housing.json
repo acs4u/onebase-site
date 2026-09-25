@@ -1,37 +1,37 @@
 {
   "label": "Multi-Family Housing",
   "order": 7,
-  "heroHeading": "Premium amenities and therapies that elevate multi-family living",
+  "heroHeading": "Amenities residents book themselves",
   "heroImage": "/images/solutions/multi-family-housing.jpg",
   "seoTitle": "Multi-Family Housing Wellness Amenities",
   "seoDescription": "Resident wellness amenities for multi-family developments. Boost occupancy & retention with commercial recovery equipment & smart software.",
   "valueProps": [
     {
-      "title": "Resident attraction",
-      "body": "Saunas are the lifestyle amenity today's renters actively seek, setting your property apart and driving lease-ups."
+      "title": "Used most days, not once a month",
+      "body": "A sauna is the amenity residents actually use. Red light and cold are easy additions in a small room."
     },
     {
-      "title": "Turnkey integration",
-      "body": "Sauna, cold, red light and HBOT are becoming expected wellness amenities, influencing where renters choose to live."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Commercial durability",
-      "body": "Engineered for high-traffic shared use with self-cleaning cycles, reinforced builds and smart diagnostics."
+      "title": "Built to run all day",
+      "body": "Shared-use equipment made for daily traffic, with local parts and technicians."
     },
     {
-      "title": "Ongoing support",
-      "body": "From design consultation to post-install maintenance, our North American service team keeps your amenity running."
+      "title": "Booked from the building app",
+      "body": "Residents book their own slots, and your team gets maintenance alerts rather than phone calls. Daily checks and cleaning still sit with the building team."
     }
   ],
   "features": [
     {
-      "title": "The amenity that sets your property apart",
-      "body": "In a crowded rental market, a premium sauna lounge drives tours, accelerates lease-ups and keeps residents renewing.",
+      "title": "Small footprint, plain requirements",
+      "body": "A dedicated circuit, a finished waterproof floor and ventilation. No plumbing, drains or chemical dosing for the cold room.",
       "image": "/images/solutions/multi-family-housing.jpg"
     },
     {
-      "title": "Low maintenance, high impact for property managers",
-      "body": "Smart monitoring, self-cleaning technology and durable construction mean fewer service calls and more resident satisfaction.",
+      "title": "Not the place for hyperbaric",
+      "body": "Chambers need medical oversight, so we don’t recommend them for unsupervised amenity spaces. We’ll say so rather than sell one.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

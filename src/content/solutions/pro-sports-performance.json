@@ -1,37 +1,37 @@
 {
   "label": "Pro Sports Teams & Performance",
   "order": 3,
-  "heroHeading": "Empower your athletes with elite-level recovery solutions",
+  "heroHeading": "A whole squad through recovery, between sessions",
   "heroImage": "/images/solutions/pro-sports-performance.jpg",
   "seoTitle": "Performance Recovery for Pro Sports",
   "seoDescription": "Professional athlete recovery systems — HBOT, contrast therapy & red light. Data-driven protocols for team performance centers.",
   "valueProps": [
     {
-      "title": "Peak performance",
-      "body": "Join the elite teams using cutting-edge recovery technology to get more out of their most valuable athletes, accelerating recovery and reducing injury downtime."
+      "title": "Group-sized, not one at a time",
+      "body": "An eight-person cold room and a large cabin get a squad through in minutes, instead of queueing for a single tub."
     },
     {
-      "title": "Integrated systems",
-      "body": "Our products integrate into existing training facilities, backed by a team that helps your staff build protocols and workflows that drive consistent athlete use."
+      "title": "One supplier for all four",
+      "body": "Hyperbaric, cold, heat and light from the same manufacturer. One contract, one install team, one app and one number to call when something needs attention."
     },
     {
-      "title": "Built for intensity",
-      "body": "Engineered for high-frequency, heavy-duty use. Our products withstand the demands of professional sports environments."
+      "title": "Built to run all day",
+      "body": "Built for daily use through a season, home and away, with local parts and technicians in North America and Australia."
     },
     {
-      "title": "Dedicated team support",
-      "body": "A dedicated technical support team keeps your facility operating without interruption."
+      "title": "Under your medical staff",
+      "body": "Hyperbaric and everything else runs to your doctors’ and physios’ programme, per athlete, logged in the app."
     }
   ],
   "features": [
     {
-      "title": "Give your athletes the competitive edge",
-      "body": "Professional sports teams demand the best recovery tools. OneBase provides hyperbaric oxygen therapy, contrast therapy and red light therapy designed for high-performance environments. Help your athletes recover faster, train harder and perform at their peak.",
+      "title": "Fits the training week",
+      "body": "Cold after sessions and games, heat on rest days, light between sessions. We plan the room so recovery happens on the way out, not as a separate trip.",
       "image": "/images/solutions/pro-sports-performance.jpg"
     },
     {
-      "title": "Data-driven recovery protocols",
-      "body": "Coming late 2026, OneBase's monitoring platform tracks usage patterns and session metrics across your entire team, so you can make informed decisions about recovery protocols with real-time insights.",
+      "title": "No ice, no hoses, no water tests",
+      "body": "A dry cold room means no filling, draining or bags of ice for your staff, and no water chemistry log for your facility team.",
       "image": "/images/hero/full-stack.jpg"
     }
   ],

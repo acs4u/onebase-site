@@ -34,7 +34,7 @@ const posts = [
 
 const imgDir = 'public/images/src';
 const img = Object.fromEntries(fs.readdirSync(imgDir).filter(f => /\.(jpg|png|webp)$/.test(f)).map(f => [f.replace(/\.(jpg|png|webp)$/,''), 'data:image/' + (f.endsWith('.png') ? 'png' : f.endsWith('.webp') ? 'webp' : 'jpeg') + ';base64,' + fs.readFileSync(path.join(imgDir, f)).toString('base64')]));
-const prodImg = { airfit:'airfit', airflex:'airflex', airform:'airform-plus-black', airsuite:null, icevault:'icevault-quad', yakisugi:'yakisugi', hemlock:'hemlock', lightpanel:'lightpanel-quad', lightbed:'lightbed-black' };
+const prodImg = { airfit:'airfit', airflex:'airflex', airform:'airform-plus-black', airsuite:null, icevault:'gdr-ice', yakisugi:'gdr-heat', hemlock:'hemlock', lightpanel:'lightpanel-quad', lightbed:'gdr-light' };
 const solImg = { 'fitness-centers':'sol-fitness','luxury-hospitality':'sol-spas','pro-sports-performance':'sol-sports','multi-family-housing':'sol-multifamily','military-first-responders':'sol-military','high-end-real-estate':'sol-realestate','recovery-wellness-studios':'hero-bg','corporate-wellness':'engineers' };
 // Customer wall — companies with closed-won deals in HubSpot (lifecycle = customer), grouped by segment. For review: remove any without permission.
 const customers = [
@@ -148,16 +148,10 @@ ${EXTRA_CSS}
 
 <footer class="site"><div class="wrap sec" id="foot"></div></footer>
 
-<div class="review" id="review">
-  <span>Prototype · every page is live</span>
-  <label><input type="checkbox" id="precorToggle"> Show “Available through Precor” line</label>
-  <button class="x" id="closeReview" aria-label="Hide bar">×</button>
-</div>
 
 <script>
 const D = ${JSON.stringify(data)};
-const S = { precor: false };
-try { S.precor = localStorage.getItem('ob-precor') === '1'; } catch (e) {}
+const S = { precor: true };
 const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const pn = (p, size) => 'OneBase ' + p.name + (size ? ' ' + size : '');
 const mod = (k) => D.modalities[k];
@@ -172,7 +166,7 @@ function allCust(){ const a=[]; D.customers.forEach(c=>c.names.forEach(n=>a.push
 function ctile(n, hid){ const k=LOGO[n]; const h=hid?' aria-hidden="true"':''; return k&&D.img['logo-'+k]?\`<span class="ct lg"\${h}><img src="\${D.img['logo-'+k]}" alt="\${esc(n)}" class="\${CREST.includes(k)?'crest':''}"></span>\`:\`<span class="ct wm"\${h}>\${esc(n)}</span>\`; }
 function marquee(){ const a=allCust(); const row=(r,rev)=>\`<div class="mq\${rev?' rev':''}"><div class="mq-t">\${r.map(x=>ctile(x.n)).join('')}\${r.map(x=>ctile(x.n,1)).join('')}</div></div>\`; return row(a.filter((_,i)=>i%2===0))+row(a.filter((_,i)=>i%2===1),1); }
 const eyebrow = (t, cls='') => \`<p class="eyebrow \${cls}">\${t}</p>\`;
-const precor = (small) => S.precor ? \`<span class="pill"><i></i>Available through Precor · US</span>\` : '';
+const precor = (small) => S.precor ? \`<span class="pill"><i></i>Available through authorized dealers</span>\` : '';
 const cta = (h='Ready to build your recovery space?', b='Speak with our team about products, facility planning and pricing for your business.', m='') => \`
 <section class="accgrad \${m?'mod-'+m:''}"><div class="wrap" style="padding-block:56px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px">
  <div class="stack" style="max-width:600px"><h2 style="color:#fff">\${h}</h2><p style="color:rgba(255,255,255,.82)">\${b}</p></div>
@@ -195,8 +189,8 @@ const enquiry = (h='Tell us about your facility', product='') => \`
 const prodCard = (p) => { const m = p.modality; return \`
 <a href="#/products/\${p.category}/\${p.id}" class="card mod-\${m}"><div class="bar"></div>\${pic(D.prodImg[p.id], p.images[0]?.alt || pn(p), 190, 'border-radius:0;background:var(--surf);padding:10px', 'contain')}
  <div class="body"><div class="row" style="justify-content:space-between"><h3>\${pn(p)}</h3>\${p.status==='coming-soon'?'<span class="pill">Coming soon</span>':''}</div>
- <p class="small muted">\${esc(p.tagline)}</p><p class="faint" style="font-size:12px">\${p.sizes.map(s=>s.label).join(' · ')||p.colours.join(' · ')}</p>
- <div class="row" style="justify-content:space-between;margin-top:auto;padding-top:8px"><span class="small" style="font-weight:500">View product →</span>\${p.channels.precor?precor():''}</div></div></a>\`; };
+ <p class="faint" style="font-size:12px">\${p.sizes.map(s=>s.label).join(' · ')||p.colours.join(' · ')}</p>
+ <div class="row" style="margin-top:auto;padding-top:8px"><span class="small" style="font-weight:500">View product →</span></div></div></a>\`; };
 
 const pages = {
  home: () => \`
@@ -259,7 +253,7 @@ const pages = {
 </div>\`; },
 
  solutions: () => \`
-<section class="wrap stack" style="padding-block:56px 24px;max-width:760px">\${eyebrow('Solutions')}<h1>Recovery, built for the way your facility runs.</h1><p class="muted">Every industry has its own throughput, footprint and procurement needs. Pick yours and we’ll show you the configurations that work, and the operators already running them.</p></section>
+<section class="wrap stack" style="padding-block:56px 24px;max-width:760px">\${eyebrow('Solutions')}<h1>Recovery, built for the way your facility runs.</h1><p class="muted">Hyperbaric, cold, heat and light from one manufacturer, built for commercial duty and run from one app. Pick your kind of venue and we’ll show you what operators like you install, and what it takes to run it.</p></section>
 <section class="wrap grid g3" style="padding-block:24px 64px">\${D.solutions.map(s=>\`<a href="#/solutions/\${s.id}" class="card dark" style="min-height:240px;justify-content:flex-end;padding:22px;position:relative">\${D.img[D.solImg[s.id]]?\`<img src="\${D.img[D.solImg[s.id]]}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><div class="veil" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.75))"></div>\`:\`<span class="ph" style="position:absolute;inset:0;background:var(--ink);color:rgba(255,255,255,.25);border-radius:0">Photo: \${esc(s.label)}</span>\`}<div style="position:relative"><h2 style="font-size:24px">\${esc(s.label)}</h2><p class="small muted" style="margin-top:4px">\${esc(s.heroHeading)}</p></div></a>\`).join('')}</section>
 \${cta()}\`,
 
@@ -282,18 +276,10 @@ const pages = {
 <section class="sec" style="background:var(--surf)"><div class="wrap row" style="justify-content:space-between;align-items:center;gap:24px"><div class="stack" style="gap:8px;max-width:620px"><h2>Want your venue on this wall?</h2><p class="muted">We plan the space, handle install and train your team.</p></div><a href="#/contact" class="btn btn-p">Talk to sales</a></div></section>\`,
  partners: () => \`
 <section class="wrap stack" style="padding-block:56px 32px;max-width:760px">\${eyebrow('Partners')}<h1>Buy direct, or through a partner you already trust.</h1><p class="muted">OneBase sells and supports direct across North America, Australia and Asia-Pacific. In selected markets our equipment is also available through distribution partners, with the same engineering, warranty and support behind it.</p></section>
-\${S.precor?\`<section class="wrap" style="padding-bottom:40px"><div class="dark" style="border-radius:var(--r);padding:32px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px"><div class="stack" style="max-width:640px">\${eyebrow('US commercial fitness')}<h2>OneBase, available through Precor.</h2><p class="muted">IceVault cold rooms, Yakisugi and Hemlock saunas, and LightPanel and LightBed red light are available to US fitness facilities through Precor. Your Precor rep can spec, quote and deliver OneBase equipment alongside your cardio and strength floor.</p></div><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f">Ask about Precor</a></div></section>\`:''}
+\${S.precor?\`<section class="wrap" style="padding-bottom:40px"><div class="dark" style="border-radius:var(--r);padding:32px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px"><div class="stack" style="max-width:640px"><h2>Available through authorized dealers.</h2></div><a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f">Find a dealer</a></div></section>\`:''}
 <section class="sec" style="background:var(--surf)"><div class="wrap grid g3" style="gap:36px">\${[['Direct sales','HBOT chambers, hospitality, real estate, sports, corporate and clinical projects are handled by the OneBase team. Facility planning, electrical guidance, installation and training included.'],['Dealers and integrators','Architects, wellness consultants and fit-out contractors can specify OneBase for their projects. Ask us for CAD, spec sheets and a partner price list.'],['Service partners','Trained technicians and local parts in North America and Australia. Remote diagnostics through OneBase OS for everything else.']].map(([t,b])=>\`<div><h3>\${t}</h3><p class="small muted" style="margin-top:8px">\${b}</p></div>\`).join('')}</div></section>
 <section class="sec" style="background:var(--surf)"><div class="stack" style="gap:24px"><div class="wrap row" style="justify-content:space-between;align-items:flex-end"><div class="stack" style="gap:10px;max-width:720px">\${eyebrow('Customers')}<h2>\${custCount()}+ businesses across North America, Australia, Asia and Europe.</h2></div><a href="#/customers" class="small" style="font-weight:500;text-decoration:underline;text-underline-offset:4px">See all customers</a></div><div class="stack" style="gap:2px">\${marquee()}</div></div></section>
 \${cta('Interested in partnering with OneBase?','Tell us about your market and we’ll come back with a partner pack.')}\`,
-
- about: () => { const groups = { founders:'Founders', medical:'Medical', engineering:'Engineering', commercial:'Sales & customer', operations:'Operations' }; return \`
-<section class="hero" style="min-height:min(60vh,520px)">\${D.img['engineers']?\`<img src="\${D.img['engineers']}" alt="OneBase engineers at work"><div class="veil"></div>\`:ph('OneBase engineers at work',0)}<div class="wrap inner stack" style="gap:16px">\${eyebrow('About')}<h1>Recovery technology engineered for outcomes.</h1><p class="key">Founded by an engineer, a hyperbaric physician and a Scandinavian designer.</p></div></section>
-<section class="sec"><div class="wrap grid g2" style="gap:48px"><div class="stack">\${eyebrow('Why we built OneBase')}<h2>Built for demanding wellness environments.</h2></div><div class="prose"><p>OneBase Health was founded with a single goal: to make advanced recovery technology accessible, reliable and beautiful enough for the world’s most demanding wellness environments. From professional sports facilities and luxury hospitality to corporate wellness programs and recovery studios, our equipment is engineered to perform at scale.</p><p>We believe recovery and longevity technology should be as rigorous in its engineering as it is in its outcomes. OneBase gives operators access to high-quality hyperbaric, contrast therapy, infrared sauna and light therapy equipment, backed by medical expertise, built to last, and designed to elevate any facility.</p></div></div></section>
-<section class="dark"><div class="wrap grid g3" style="padding-block:56px;gap:32px">\${[['Innovation with results','We push the boundaries of what recovery equipment can do, then prove it in commercial environments before we ship.'],['Clean design, advanced technology','Every session should be effective and enjoyable. Products are designed to elevate a space, and interfaces to be understood at a glance.'],['The most efficient treatments','Ongoing support, doctor-built protocols and staff training, so facilities get results from day one.']].map(([t,b])=>\`<div style="border-top:1px solid rgba(255,255,255,.15);padding-top:12px"><h3>\${t}</h3><p class="small muted" style="margin-top:8px">\${b}</p></div>\`).join('')}</div></section>
-<section class="sec"><div class="wrap">\${eyebrow('Credentials, standards and support')}<div class="grid g3" style="margin-top:18px;gap:32px">\${[['In-house engineering','Mechanical, electrical, embedded, software and security disciplines. Products validated for commercial duty before release.'],['Medical leadership','Our medical advisory and leadership team includes practising hyperbaric specialists who inform product decisions, protocols and operator education.'],['Quality systems','Supplier audits, certified components (CE, ISO 9001/13485 on applicable lines) and a 2-year standard warranty.']].map(([t,b])=>\`<div><h3>\${t}</h3><p class="small muted" style="margin-top:8px">\${b}</p></div>\`).join('')}</div></div></section>
-<section class="sec" style="background:var(--surf)"><div class="wrap stack" style="gap:28px">\${eyebrow('The people behind OneBase')}<h2 style="max-width:680px">A team spanning health, engineering, design and commercial operations.</h2>\${Object.entries(groups).map(([k,l])=>\`<div><p class="eyebrow">\${l}</p><div class="grid g4" style="margin-top:12px;gap:14px">\${D.team.filter(t=>t.group===k).map(t=>\`<div><p style="font-weight:500">\${esc(t.name)}</p><p class="small muted">\${esc(t.role)}</p></div>\`).join('')}</div></div>\`).join('')}</div></section>
-\${cta('Bring commercial recovery technology into your organisation.','Whether you run a studio, performance centre, hotel, workplace program or residential amenity, we can design a recovery experience built for measurable business value.')}\`; },
 
  contact: () => \`
 <section class="wrap stack" style="padding-block:56px 8px;max-width:800px">\${eyebrow('Contact')}<h1>Let’s plan your recovery space.</h1><div class="grid g3 small" style="margin-top:12px">\${[['North America','<strong style="font-weight:500">(208) 408-1801</strong><br><a style="text-decoration:underline;text-underline-offset:3px" href="#/contact">Schedule a call</a>'],['Australia & APAC','Perth, Western Australia<br><a style="text-decoration:underline;text-underline-offset:3px" href="#/contact">sales@onebasehealth.com</a>'],['Customer service','<a style="text-decoration:underline;text-underline-offset:3px" href="#/contact">customerservice@onebasehealth.com</a><br>Warranty, parts and support']].map(([t,b])=>\`<div><p class="eyebrow">\${t}</p><p style="margin-top:6px">\${b}</p></div>\`).join('')}</div></section>
@@ -316,16 +302,16 @@ const pages = {
  notfound: () => \`<section class="wrap" style="padding-block:96px"><h1>Page not found</h1><p class="muted" style="margin-top:12px"><a href="#/" style="text-decoration:underline">Back to home</a></p></section>\`,
 };
 
-const NAV = [['Products','#/products',Object.values(D.modalities).map(m=>[m.name,'#/products/'+m.category])],['Solutions','#/solutions'],['Software','#/software'],['Partners','#/partners'],['About','#/about'],['Blog','#/blog']];
+const NAV = [['Products','#/products',Object.values(D.modalities).map(m=>[m.name,'#/products/'+m.category])],['Solutions','#/solutions'],['Software','#/software'],['Partners','#/partners'],['Blog','#/blog']];
 function renderChrome(){
   const h = location.hash || '#/';
   document.getElementById('nav').innerHTML = NAV.map(([l,href])=>\`<a href="\${href}" class="\${h.startsWith(href)?'on':''}">\${l}</a>\`).join('');
   document.getElementById('drawer').innerHTML = NAV.map(([l,href,sub])=>\`<a href="\${href}">\${l}</a>\${(sub||[]).map(([sl,sh])=>\`<a href="\${sh}" class="sub">\${sl}</a>\`).join('')}\`).join('') + '<a href="#/parts" class="sub">Parts &amp; consumables</a>' + \`<img src="\${D.img['onebase-logo-white']}" alt="OneBase" style="height:22px;width:auto;margin-top:22px;align-self:flex-start">\` + '<a href="#/contact" class="btn" style="background:#fff;color:#1f1f1f;align-self:flex-start;margin-top:16px;border:0">Talk to sales</a>';
   document.getElementById('hdrLogo').innerHTML = D.img['onebase-logo-black'] ? \`<img src="\${D.img['onebase-logo-black']}" alt="OneBase" class="lg lg-dark"><img src="\${D.img['onebase-logo-white']}" alt="" class="lg lg-light">\` : 'OneBase';
-  document.getElementById('foot').innerHTML = \`<div class="cols"><div class="stack"><span class="logo"><img src="\${D.img['onebase-logo-white']}" alt="OneBase" style="height:26px;width:auto"></span><p class="key" style="color:rgba(255,255,255,.8);font-size:20px">The world’s easiest therapy system.</p><p style="color:rgba(255,255,255,.6)">Sales: (208) 408-1801<br>or <a href="#/contact" style="text-decoration:underline">schedule a call</a></p></div>
+  document.getElementById('foot').innerHTML = \`<div class="cols"><div class="stack"><span class="logo"><img src="\${D.img['onebase-logo-white']}" alt="OneBase" style="height:20px;width:auto"></span><p class="key" style="color:rgba(255,255,255,.8);font-size:20px">The world’s easiest therapy system.</p><p style="color:rgba(255,255,255,.6)">Sales: (208) 408-1801<br>or <a href="#/contact" style="text-decoration:underline">schedule a call</a></p></div>
   <div><p class="eyebrow">Products</p>\${Object.values(D.modalities).map(m=>\`<a href="#/products/\${m.category}">\${m.name}</a>\`).join('')}<a href="#/parts">Parts &amp; consumables</a></div>
   <div><p class="eyebrow">Solutions</p>\${D.solutions.map(s=>\`<a href="#/solutions/\${s.id}">\${s.label}</a>\`).join('')}</div>
-  <div><p class="eyebrow">Company</p><a href="#/about">About OneBase</a><a href="#/software">Software</a><a href="#/partners">Partners</a><a href="#/customers">Customers</a><a href="#/blog">Blog</a><a href="#/contact">Contact</a></div>
+  <div><p class="eyebrow">Company</p><a href="#/software">Software</a><a href="#/partners">Partners</a><a href="#/customers">Customers</a><a href="#/blog">Blog</a><a href="#/contact">Contact</a></div>
   <div><p class="eyebrow">Support</p><a href="#/policies/warranty">Warranty policy</a><a href="#/policies/returns">Refunds &amp; returns</a><a href="#/policies/privacy">Privacy policy</a><a href="#/policies/cookies">Cookie policy</a><a href="#/policies/terms">Terms of use</a></div></div>
   <div class="legal"><p style="max-width:900px">The recommendations made by Waylen Allen Limited do not constitute a medical recommendation and are intended for information and educational purposes only; no claims (real or implied) are being made. While studies support the effectiveness of hyperbaric oxygen therapy for various conditions, individual results vary. Always ask your doctor about all treatment options; only a doctor can assess whether hyperbaric oxygen therapy is appropriate for your situation. In the United States, hyperbaric chambers are a Class II medical device and require a medical prescription for use.</p><p style="margin-top:12px">© 2026 OneBase Health · Waylen Allen Limited. All rights reserved.</p></div>\`;
 }
@@ -343,9 +329,6 @@ function route(){
   renderChrome(); window.scrollTo({ top: 0 }); if (typeof afterRender === 'function') afterRender();
 }
 document.getElementById('menuBtn').addEventListener('click', () => { const d = document.getElementById('drawer'); const o = d.classList.toggle('open'); document.getElementById('menuBtn').setAttribute('aria-expanded', String(o)); });
-const tg = document.getElementById('precorToggle'); tg.checked = S.precor;
-tg.addEventListener('change', () => { S.precor = tg.checked; try { localStorage.setItem('ob-precor', S.precor ? '1' : '0'); } catch (e) {} route(); });
-document.getElementById('closeReview').addEventListener('click', () => { document.getElementById('review').hidden = true; });
 if (matchMedia('(min-width:900px)').matches) document.getElementById('phone').style.display = 'inline';
 document.addEventListener('click', e => { const b = e.target.closest('#cf .chip'); if (!b) return; const sg = b.dataset.seg; document.querySelectorAll('#cf .chip').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.querySelectorAll('#cg .cg').forEach(t => { t.hidden = !(sg === 'All' || t.dataset.seg === sg); }); });
 ${EXTRA_JS}
