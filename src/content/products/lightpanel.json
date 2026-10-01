@@ -2,7 +2,7 @@
   "name": "LightPanel",
   "modality": "light",
   "category": "red-light",
-  "order": 1,
+  "order": 3,
   "tagline": "Modular red and near-infrared panels. One, two or four.",
   "description": "The OneBase LightPanel is targeted red light therapy that scales. High-density 660 nm red and 850 nm near-infrared LEDs in a heat-managed chassis, with a touch interface for intensity and timer. Start with a Solo, stack to a Duo or Quad on a stand that runs horizontal or vertical for whole-body sessions.",
   "sizes": [

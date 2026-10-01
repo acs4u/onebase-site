@@ -1,0 +1,117 @@
+{
+  "name": "LightZone",
+  "modality": "light",
+  "category": "red-light",
+  "order": 2,
+  "tagline": "Stand-up red and near-infrared booth. 49,600 LEDs, 360° coverage.",
+  "description": "The OneBase LightZone is a stand-up red light booth. 49,600 LEDs across five wavelengths from 633 to 940 nm surround the body on every side, so a full-body session is done standing up. Self-circulating forced-air cooling, a compact footprint for commercial floors, in black or white.",
+  "sizes": [],
+  "colours": [
+    "Black",
+    "White"
+  ],
+  "pressures": [],
+  "highlights": [
+    {
+      "title": "360° coverage",
+      "body": "LEDs surround the body on every side, so every session is full-body, standing up."
+    },
+    {
+      "title": "Five wavelengths",
+      "body": "633 and 660 nm red with 810, 850 and 940 nm near-infrared, delivered together."
+    },
+    {
+      "title": "Stand-up sessions",
+      "body": "Step in, close the door, start the timer. No bed to wipe down between users, and quicker turnaround."
+    },
+    {
+      "title": "Built for commercial floors",
+      "body": "Forced-air cooling, IP53 protection and a footprint of about 4.6 × 4.7 ft."
+    }
+  ],
+  "specs": [
+    {
+      "label": "Dimensions",
+      "value": "Length 54\" (1370 mm) · Width 56\" (1420 mm) · Height 92.5\" (2340 mm)"
+    },
+    {
+      "label": "Weight",
+      "value": "772 lb (350 kg)"
+    },
+    {
+      "label": "LEDs",
+      "value": "49,600"
+    },
+    {
+      "label": "Wavelengths",
+      "value": "633 nm · 660 nm · 810 nm · 850 nm · 940 nm"
+    },
+    {
+      "label": "Cooling",
+      "value": "Self-circulating forced-air cooling"
+    },
+    {
+      "label": "Protection",
+      "value": "IP53, vertical indoor installation"
+    },
+    {
+      "label": "Colours",
+      "value": "Black, White"
+    },
+    {
+      "label": "Warranty",
+      "value": "2 years"
+    }
+  ],
+  "electrical": [
+    {
+      "label": "Supply",
+      "value": "220–240 V single-phase, 60 Hz"
+    },
+    {
+      "label": "Power",
+      "value": "8,000 W, 40 A at 220 V"
+    },
+    {
+      "label": "Circuit",
+      "value": "Dedicated circuit, hard-wired to a junction box, with RCD or breaker supplied on site"
+    },
+    {
+      "label": "Clearance",
+      "value": "12 in (30 cm) to walls, 40 in (1 m) between units and clear in front"
+    }
+  ],
+  "certifications": [
+    "CE"
+  ],
+  "faqs": [
+    {
+      "q": "How is a booth different from a bed?",
+      "a": "You stand rather than lie down, and the LEDs surround you, so the whole body is covered in one position. There is no bed surface to clean between users, which shortens turnaround."
+    },
+    {
+      "q": "What does the site need?",
+      "a": "A dedicated 220–240 V single-phase circuit capable of 40 A, hard-wired by a licensed electrician, with an RCD or breaker. Leave 12 in to the walls and 40 in clear in front. We send the full electrical requirements with every order."
+    },
+    {
+      "q": "Is red light therapy safe?",
+      "a": "Generally, yes, when used as directed. The wavelengths are non-ionising and carry none of the risks of UV. Follow the guidelines and consult a healthcare professional for underlying conditions."
+    },
+    {
+      "q": "Can anyone use it?",
+      "a": "Pregnant women, people with photosensitivity conditions or on photosensitising medication, and those with certain skin conditions should consult a healthcare professional first."
+    }
+  ],
+  "images": [
+    {
+      "src": "/images/products/lightzone.jpg",
+      "alt": "OneBase LightZone red light booth"
+    }
+  ],
+  "channels": {
+    "direct": true,
+    "precor": true
+  },
+  "seoTitle": "OneBase LightZone: stand-up red light therapy booth",
+  "seoDescription": "Commercial stand-up red and near-infrared booth with 49,600 LEDs, five wavelengths and 360° coverage."
+}

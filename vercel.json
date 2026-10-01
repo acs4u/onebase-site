@@ -1,17 +1,454 @@
 {
-"framework": null,
-"installCommand": "echo skip",
-"buildCommand": "node scripts/fetch-hero.mjs && node scripts/build-prototype.mjs && mkdir -p proto-dist && cp prototype/onebase-prototype.html proto-dist/index.html && cp -r public/video proto-dist/video",
-"outputDirectory": "proto-dist",
+  "framework": null,
+  "installCommand": "echo skip",
+  "buildCommand": "SITE=1 node scripts/build-prototype.mjs",
+  "outputDirectory": "proto-dist",
   "redirects": [
-    { "source": "/blogs/:category/:slug", "destination": "/blog/:slug", "permanent": true },
-    { "source": "/en-:locale/:path*", "destination": "/:path*", "permanent": true },
-    { "source": "/collections/:handle", "destination": "/products", "permanent": true }
+    {
+      "source": "/collections/chambers",
+      "destination": "/products/hbot",
+      "permanent": true
+    },
+    {
+      "source": "/collections/red-lights",
+      "destination": "/products/red-light",
+      "permanent": true
+    },
+    {
+      "source": "/collections/sauna-1",
+      "destination": "/products/sauna",
+      "permanent": true
+    },
+    {
+      "source": "/collections/cold-therapy",
+      "destination": "/products/cold-therapy",
+      "permanent": true
+    },
+    {
+      "source": "/collections/contrast-therapy-heat-and-ice",
+      "destination": "/products",
+      "permanent": true
+    },
+    {
+      "source": "/collections/replacement-parts",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/airfit-chamber",
+      "destination": "/products/hbot/airfit",
+      "permanent": true
+    },
+    {
+      "source": "/products/hyperbaric-oxygen-chamber-airflex",
+      "destination": "/products/hbot/airflex",
+      "permanent": true
+    },
+    {
+      "source": "/products/airform-chamber",
+      "destination": "/products/hbot/airform",
+      "permanent": true
+    },
+    {
+      "source": "/products/ice-vault-commercial-cold-therapy-room",
+      "destination": "/products/cold-therapy/icevault",
+      "permanent": true
+    },
+    {
+      "source": "/products/yakisugi-infrared-sauna",
+      "destination": "/products/sauna/yakisugi",
+      "permanent": true
+    },
+    {
+      "source": "/products/hemlock-4-person-sauna",
+      "destination": "/products/sauna/hemlock",
+      "permanent": true
+    },
+    {
+      "source": "/products/red-light-panel",
+      "destination": "/products/red-light/lightpanel",
+      "permanent": true
+    },
+    {
+      "source": "/products/red-light-panels",
+      "destination": "/products/red-light/lightpanel",
+      "permanent": true
+    },
+    {
+      "source": "/products/light-bed",
+      "destination": "/products/red-light/lightbed",
+      "permanent": true
+    },
+    {
+      "source": "/pages/our-story",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pages/onebase-team",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pages/contact",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/pages/request-for-quote",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/pages/for-businesses",
+      "destination": "/solutions",
+      "permanent": true
+    },
+    {
+      "source": "/pages/software-app",
+      "destination": "/software",
+      "permanent": true
+    },
+    {
+      "source": "/pages/software-roi",
+      "destination": "/software",
+      "permanent": true
+    },
+    {
+      "source": "/pages/retention-software",
+      "destination": "/software",
+      "permanent": true
+    },
+    {
+      "source": "/pages/airsuite",
+      "destination": "/products/hbot/airsuite",
+      "permanent": true
+    },
+    {
+      "source": "/pages/articles",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/pages/warranty-policy-1",
+      "destination": "/policies/warranty",
+      "permanent": true
+    },
+    {
+      "source": "/pages/refunds-and-returns-policy",
+      "destination": "/policies/returns",
+      "permanent": true
+    },
+    {
+      "source": "/pages/privacy-policy",
+      "destination": "/policies/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/pages/terms-of-use",
+      "destination": "/policies/terms",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/education",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/news",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/red-light",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/contrast-therapy",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/science-research",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-airfit",
+      "destination": "/products/hbot/airfit",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-airflex",
+      "destination": "/products/hbot/airflex",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-airform",
+      "destination": "/products/hbot/airform",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-airsuite",
+      "destination": "/products/hbot/airsuite",
+      "permanent": true
+    },
+    {
+      "source": "/products/icevault",
+      "destination": "/products/cold-therapy/icevault",
+      "permanent": true
+    },
+    {
+      "source": "/products/lightpanel",
+      "destination": "/products/red-light/lightpanel",
+      "permanent": true
+    },
+    {
+      "source": "/products/lightbed",
+      "destination": "/products/red-light/lightbed",
+      "permanent": true
+    },
+    {
+      "source": "/products/infrared-sauna-yakisugi",
+      "destination": "/products/sauna/yakisugi",
+      "permanent": true
+    },
+    {
+      "source": "/products/infrared-sauna-hemlock",
+      "destination": "/products/sauna/hemlock",
+      "permanent": true
+    },
+    {
+      "source": "/refunds-and-returns",
+      "destination": "/policies/returns",
+      "permanent": true
+    },
+    {
+      "source": "/warranty-policy",
+      "destination": "/policies/warranty",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/policies/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/cookie-policy",
+      "destination": "/policies/cookies",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-masks",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-masks-5-pack",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-masks-25-pack",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-masks-50-pack",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-masks-100-pack",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/sub-charcoal-filter",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/hbot-muffler",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/set-of-replacement-filters-airfit-airflex",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/set-of-replacement-filters-airform",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/pressure-gauge-external-blue",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/pressure-gauge-internal-black",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/automatic-pressure-relief-valve-1-3-ata",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/automatic-pressure-relief-valve-1-4-ata",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/emergency-pressure-release-valve-2-2-ata",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/airform-door-seal",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/ac-water-pump",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/ac-condensation-trap",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/condensation-container",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/products/frame-connector",
+      "destination": "/parts",
+      "permanent": true
+    },
+    {
+      "source": "/collections/all",
+      "destination": "/products",
+      "permanent": true
+    },
+    {
+      "source": "/collections",
+      "destination": "/products",
+      "permanent": true
+    },
+    {
+      "source": "/blogs",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/cart",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/account",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/account/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pages/:slug",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/policies/refund-policy",
+      "destination": "/policies/returns",
+      "permanent": true
+    },
+    {
+      "source": "/policies/privacy-policy",
+      "destination": "/policies/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/policies/terms-of-service",
+      "destination": "/policies/terms",
+      "permanent": true
+    },
+    {
+      "source": "/policies/shipping-policy",
+      "destination": "/policies/terms",
+      "permanent": true
+    },
+    {
+      "source": "/search",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/:category/:slug",
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/en-:locale/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/collections/:handle",
+      "destination": "/products",
+      "permanent": true
+    }
   ],
   "headers": [
-    { "source": "/(.*)", "headers": [
-      { "key": "X-Content-Type-Options", "value": "nosniff" },
-      { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" } ] },
-    { "source": "/(.*)", "has": [ { "type": "host", "value": "test\\.onebasehealth\\.com|.*\\.vercel\\.app" } ], "headers": [ { "key": "X-Robots-Tag", "value": "noindex, nofollow" } ] }
-  ]
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "test\\.onebasehealth\\.com|.*\\.vercel\\.app"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }

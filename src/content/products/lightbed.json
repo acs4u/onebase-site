@@ -2,7 +2,7 @@
   "name": "LightBed",
   "modality": "light",
   "category": "red-light",
-  "order": 2,
+  "order": 1,
   "tagline": "Full-body red and near-infrared bed. 41,600 LEDs.",
   "description": "The OneBase LightBed is full-body light therapy with minimal operational demand. 41,600 LEDs across five wavelengths from 633 to 940 nm, adjustable intensity, a built-in timer, multiple cooling systems, Bluetooth audio and an ergonomic padded bed. Short sessions, high throughput.",
   "sizes": [],

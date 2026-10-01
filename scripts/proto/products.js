@@ -1,5 +1,5 @@
 /* ===== Products index: modality doors, filters, showcase cards, compare ===== */
-const CUT = { airfit:'cut-airfit', airflex:'cut-airflex', airform:'cut-airform-plus-black', airsuite:'as-hero', icevault:'cut-icevault-quad', yakisugi:'yk-real-closed', hemlock:'cut-hemlock', lightpanel:'cut-lightpanel-quad', lightbed:'cut-lightbed-black' };
+const CUT = { airfit:'cut-airfit', airflex:'cut-airflex', airform:'cut-airform-plus-black', airsuite:'as-hero', icevault:'cut-icevault-quad', yakisugi:'yk-real-closed', hemlock:'cut-hemlock', lightpanel:'cut-lightpanel-quad', lightbed:'cut-lightbed-black', lightzone:'cut3-lightzone' };
 const DOOR_IMG = { air:'cut-airform-plus-black', ice:'cut-icevault-quad', heat:'cut-yakisugi', light:'cut-lightbed-black' };
 const FACTS = {
   airfit:[['1.3–1.5','ATA'],['1','person'],['Soft-shell','portable']], airflex:[['1.3–1.5','ATA'],['1','person, seated'],['Step-in','soft-shell']],
@@ -7,6 +7,7 @@ const FACTS = {
   icevault:[['32–40°F','dry cold'],['2–8','people'],['0','plumbing']], yakisugi:[['135–149°F','infrared'],['2–8','people'],['Cedar','Yakisugi finish']],
   hemlock:[['135–149°F','infrared'],['4','people'],['Hemlock','timber']], lightpanel:[['630–850','nm'],['Solo–Quad','panels'],['Stand','mounted']],
   lightbed:[['633–940','nm'],['41,600','LEDs'],['Full','body']],
+  lightzone:[['49,600','LEDs'],['5','wavelengths'],['360°','coverage']],
 };
 const PF = { mod:'all', venue:'' , cmp:[] };
 function venueProducts(v){ if (!v || !VENUES[v]) return null; const s=new Set(); Object.values(VENUES[v].t).forEach(arr=>arr.forEach(x=>(Array.isArray(x)?x:[x]).forEach(c=>s.add(CAT[c].p)))); return s; }
@@ -15,7 +16,7 @@ function showcard(p){
   return `<article class="sc mod-${m}" data-id="${p.id}" data-mod="${m}" style="--sc-soft:${c.soft};--sc-acc:${c.acc||c.glow};--sc-deep:${MODC[m].deep}">
    <a class="sc-media" href="#/products/${p.category}/${p.id}" aria-label="${esc(pn(p))}">${img?`<img src="${img}" alt="" loading="lazy">`:`<span class="sc-ph">${esc(p.name)}<small>Render coming soon</small></span>`}
     <span class="sc-pill"><i></i>${D.modalities[m].label}</span>${p.status==='coming-soon'?'<span class="sc-new">Pre-order</span>':''}</a>
-   <div class="sc-body"><div class="sc-head"><h3><a href="#/products/${p.category}/${p.id}">${esc(pn(p))}</a></h3>${p.fromPriceUSD?`<span class="sc-price">From US$${p.fromPriceUSD.toLocaleString()}</span>`:''}</div>
+   <div class="sc-body"><div class="sc-head"><h3><a href="#/products/${p.category}/${p.id}">${esc(pn(p))}</a></h3></div>
     <p class="sc-tag">${esc(p.tagline)}</p>
     <div class="sc-facts">${(FACTS[p.id]||[]).map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
     <div class="sc-foot"><span class="sc-sizes">${p.sizes.length?p.sizes.map(s=>s.label).join(' · '):p.colours.join(' · ')}</span>
@@ -48,7 +49,7 @@ function cmpRender(){
 function cmpOpen(){
   const ps=PF.cmp.map(id=>D.products.find(x=>x.id===id));
   const dimsOf=(p)=>{ const dm=DIMS[p.id]; if(!dm) return '—'; const ks=Object.keys(dm).filter(k=>k!=='_p'); const v=ks.map(k=>dm[k]).filter(Boolean); if(!v.length) return '—'; const a=v[0], b=v[v.length-1]; const f=(d)=>`${Math.round(d[0])}″ × ${Math.round(d[1])}″`; return v.length>1?`${f(a)} to ${f(b)}`:f(a); };
-  const rows=[['Modality',p=>D.modalities[p.modality].name],['Sizes',p=>p.sizes.map(s=>s.label).join(' · ')||'One size'],['Key spec',p=>(FACTS[p.id]||[])[0]?.join(' ')||'—'],['Capacity',p=>(FACTS[p.id]||[]).find(f=>/person|people/.test(f[1]))?.join(' ')||'1 person'],['Footprint',dimsOf],['Power',p=>DIMS[p.id]?DIMS[p.id]._p:(p.electrical[0]?.value||'Confirmed at quote')],['Finishes',p=>p.colours.join(' · ')],['Certifications',p=>p.certifications.join(' · ')||'—'],['Price',p=>p.fromPriceUSD?`From US$${p.fromPriceUSD.toLocaleString()}`:'Quote']];
+  const rows=[['Modality',p=>D.modalities[p.modality].name],['Sizes',p=>p.sizes.map(s=>s.label).join(' · ')||'One size'],['Key spec',p=>(FACTS[p.id]||[])[0]?.join(' ')||'—'],['Capacity',p=>(FACTS[p.id]||[]).find(f=>/person|people/.test(f[1]))?.join(' ')||'1 person'],['Footprint',dimsOf],['Power',p=>DIMS[p.id]?DIMS[p.id]._p:(p.electrical[0]?.value||'Confirmed at quote')],['Finishes',p=>p.colours.join(' · ')],['Certifications',p=>p.certifications.join(' · ')||'—']];
   let m=document.getElementById('cmp-modal'); if (!m) { m=document.createElement('div'); m.id='cmp-modal'; m.className='bk-modal'; document.body.appendChild(m); m.addEventListener('click',e=>{ if(e.target.closest('[data-cmp-close]')){ m.classList.remove('open'); document.body.style.overflow=''; } }); }
   m.innerHTML=`<div class="bk-back" data-cmp-close></div><div class="bk-card cmp-card"><button class="bk-x" data-cmp-close aria-label="Close">×</button><h3>Compare</h3><div class="cmp-scroll"><table class="cmp-t"><thead><tr><th></th>${ps.map(p=>`<th><div class="cmp-img" style="background:${MODC[p.modality].soft}">${CUT[p.id]&&D.img[CUT[p.id]]?`<img src="${D.img[CUT[p.id]]}" alt="">`:''}</div><a href="#/products/${p.category}/${p.id}" data-cmp-close>${esc(pn(p))}</a></th>`).join('')}</tr></thead><tbody>${rows.filter(([l,fn])=>ps.some(p=>{const v=fn(p); return v&&v!=='—';})).map(([l,fn])=>`<tr><th>${l}</th>${ps.map(p=>`<td>${esc(fn(p))}</td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="bk-foot"><a href="#/contact" class="btn btn-p" data-cmp-close>Talk to sales about these</a></div></div>`;
   m.classList.add('open'); document.body.style.overflow='hidden';

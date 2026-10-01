@@ -1,16 +1,16 @@
 /* ===== Tesla-style product presentation: full-screen snap slides on /products, full-screen hero on product pages ===== */
-const TS_ORDER = ['icevault','yakisugi','airform','lightbed','airsuite','airfit','airflex','hemlock','lightpanel'];
+const TS_ORDER = ['icevault','yakisugi','airform','lightbed','lightzone','airsuite','airfit','airflex','hemlock','lightpanel'];
 const TS_LEAD = { icevault:'Dry cold for two to eight. No water, no ice, no nitrogen.', yakisugi:'Charred cedar. Full-spectrum infrared. Built to run all day.', airform:'Steel hard-shell hyperbaric. Clinic pressures, calm inside.',
-  lightbed:'Whole-body red and near-infrared. Five wavelengths.', airsuite:'A walk-in hyperbaric room with medical-grade BIBS.', airfit:'Soft-shell hyperbaric you can place almost anywhere.',
+  lightbed:'Whole-body red and near-infrared. Five wavelengths.', lightzone:'Stand-up red light. 49,600 LEDs, all the way round.', airsuite:'A walk-in hyperbaric room with medical-grade BIBS.', airfit:'Soft-shell hyperbaric you can place almost anywhere.',
   airflex:'Step in, roll in. Accessible soft-shell hyperbaric.', hemlock:'Four-person full-spectrum infrared in light Hemlock.', lightpanel:'Red and near-infrared panels. One, two or four.' };
 function tsImg(p){ return CUT[p.id] || (D.prodImg[p.id]) || null; }
 const TS_MEDIA = {
   icevault:{mode:'render', img:'gdr-ice', bg:'#f4f4f4', light:true}, yakisugi:{mode:'render', img:'yk-real-closed', bg:'#ffffff', light:true},
   airsuite:{mode:'render', img:'as-pair', bg:'#1f1f1f'},
-  airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'},
+  airform:{mode:'photo', img:'photo-airform', pos:'55% 50%'}, lightbed:{mode:'photo', img:'photo-lightbed', pos:'50% 55%'}, lightzone:{mode:'render', img:'lz-photo', bg:'#0b0405'},
   airfit:{mode:'photo', img:'photo-airfit', pos:'45% 40%'}, airflex:{mode:'render', img:'cut-airflex', bg:'#e7e9eb', light:true}, hemlock:{mode:'photo', img:'photo-hemlock', pos:'45% 35%'}, lightpanel:{mode:'photo', img:'photo-lightpanel', pos:'60% 35%'},
 };
-const TS_GALLERY = { icevault:['gdr-ice-2','gdr-ice-3'], yakisugi:['render-yakisugi-spa','yk-real-34-open','yk-real-open'], airsuite:['as-solo-chair','as-man','as-ext'], airform:['photo-hbot-inside','photo-sports'], lightbed:['photo-lightbed-2','render-lightbed-studio'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel'], airfit:['photo-airfit'], airflex:['af-life','af-prod'] };
+const TS_GALLERY = { lightzone:['lzr-open-f','lzr-closed-l'], icevault:['gdr-ice-2','gdr-ice-3'], yakisugi:['rs-yakisugi','yk-duo-towels','rs-yakisugi-inside'], airsuite:['as-install','as-duo-seats','as-man'], airform:['tenx-airform','photo-hbot-inside'], lightbed:['photo-lightbed-2','photo-lightbed'], hemlock:['photo-hemlock'], lightpanel:['photo-lightpanel','tenx-redlight'], airfit:['photo-airfit'], airflex:['af-life','airflex-home'] };
 function tsMedia(p){ const m=TS_MEDIA[p.id]; if (m && D.img[m.img]) return m; const k=tsImg(p); return k&&D.img[k]?{mode:'cut',img:k}:null; }
 function tsVisual(p, m, i){
   if (!m) return `<div class="ts-ghost">${esc(p.name)}</div>`;
@@ -29,13 +29,13 @@ function tsSlide(p, i){
    <div class="ts-bot"><div class="ts-stats">${f.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
     <div class="ts-cta"><a class="ts-b1" href="#/products/${p.category}/${p.id}">${p.status==='coming-soon'?'Pre-order':'Configure'}</a><a class="ts-b2" href="#/contact">Talk to sales</a></div></div></section>`;
 }
-const TS_ROWS = [['air',['airform','airsuite','airfit','airflex']],['heat',['yakisugi','hemlock']],['light',['lightbed','lightpanel']],['ice',['icevault']]];
+const TS_ROWS = [['air',['airform','airsuite','airfit','airflex']],['heat',['yakisugi','hemlock']],['light',['lightbed','lightzone','lightpanel']],['ice',['icevault']]];
 function tsIndex(){
   const rows = TS_ROWS.map(([mk,ids])=>[mk, ids.map(id=>D.products.find(p=>p.id===id)).filter(Boolean)]);
   return `<div class="ts-wrap">${rows.map(([mk,ps],r)=>`<section class="ts-row" data-row="${r}" aria-label="${esc(D.modalities[mk].name)}">
     <div class="ts-track" data-row="${r}">${ps.map((p,k)=>tsSlide(p,r).replace('<section class="ts','<section data-k="'+k+'" class="ts')).join('')}</div>
     ${ps.length>1?`<div class="ts-rownav"><button class="ts-arr" data-dir="-1" data-row="${r}" aria-label="Previous model">‹</button><div class="ts-pips">${ps.map((p,k)=>`<button data-row="${r}" data-k="${k}" class="${k===0?'on':''}">${esc(p.name)}</button>`).join('')}</div><button class="ts-arr" data-dir="1" data-row="${r}" aria-label="Next model">›</button></div><p class="ts-swipe">${ps.length} models · swipe to explore</p>`:''}</section>`).join('')}
-   <section class="ts ts-dark ts-end" data-dark="1" data-i="end"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Planner</p><h2>Not sure where to start?</h2><p class="ts-lead">Tell us about your facility and a OneBase specialist will recommend the right setup.</p></div>
+   <section class="ts ts-dark ts-end" data-dark="1" data-i="end"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Talk to us</p><h2>Not sure where to start?</h2><p class="ts-lead">Tell us about your facility and a OneBase specialist will recommend the right setup.</p></div>
     <div class="ts-bot"><div class="ts-cta"><a class="ts-b1" href="#/contact">Book a call</a><a class="ts-b2" href="#/guide">Where each one fits</a></div></div></section>
    <nav class="ts-dots" aria-label="Categories">${rows.map(([mk],r)=>`<button data-go="${r}" aria-label="${esc(D.modalities[mk].name)}"><span>${esc(D.modalities[mk].name)}</span></button>`).join('')}</nav></div>`;
 }
@@ -62,7 +62,7 @@ let TS_DIR = 0;
 function tsModels(p){ const sib=tsSiblings(p); if (sib.length<2) return ''; const href=x=>`#/products/${x.category}/${x.id}`;
   return `<nav class="ts-models" aria-label="Models">${sib.map(x=>`<a href="${href(x)}" class="${x.id===p.id?'on':''}">${esc(x.name)}</a>`).join('')}</nav>`; }
 /* portrait photos: split layout on desktop (text left, photo right) */
-const TS_PORT = new Set(['as-lady','af-life','as-man','as-solo-man','as-duo-int','as-solo-chair']);
+const TS_PORT = new Set(['rs-yakisugi','rs-yakisugi-2','rs-yakisugi-inside','tenx-redlight','as-duo-seats','airflex-home','lz-photo','as-lady','af-life','as-man','as-solo-man','as-duo-int','as-solo-chair']);
 /* full-bleed feature chapters per product (real photography) */
 const TS_FEATURES = {
   airsuite:[
@@ -134,8 +134,8 @@ function tsProductHero(p){
    <div class="ts-rownav ts-chnav"><button class="ts-arr" data-dir="-1" data-row="h" aria-label="Previous">‹</button><div class="ts-pips">${ch.map(([n],k)=>`<button data-row="h" data-k="${k}" class="${k===0?'on':''}">${n}</button>`).join('')}</div><button class="ts-arr" data-dir="1" data-row="h" aria-label="Next">›</button></div>
    <p class="ts-swipe ts-chhint">Swipe for more</p></section>
   <section class="wrap ts-intro"><p class="key">${esc(p.tagline)}</p><div class="stack" style="gap:18px"><p class="muted">${esc(p.description)}</p>
-   <dl class="ts-dl">${p.sizes.length?`<div><dt>Sizes</dt><dd>${p.sizes.map(s=>s.label).join(' · ')}</dd></div>`:''}${p.colours.length?`<div><dt>Finishes</dt><dd>${p.colours.join(' · ')}</dd></div>`:''}${p.pressures.length?`<div><dt>Pressure</dt><dd>${p.pressures.join(' · ')}</dd></div>`:''}${p.fromPriceUSD?`<div><dt>From</dt><dd>US$${p.fromPriceUSD.toLocaleString()}</dd></div>`:''}</dl>
-   <p class="faint" style="font-size:12px">${p.status==='coming-soon'?'Taking pre-orders':'Installation service · US-based support · 2-year warranty'}${p.channels.precor&&S.precor?' · Available through authorized dealers':''}</p></div></section>
+   <dl class="ts-dl">${p.sizes.length?`<div><dt>Sizes</dt><dd>${p.sizes.map(s=>s.label).join(' · ')}</dd></div>`:''}${p.colours.length?`<div><dt>Finishes</dt><dd>${p.colours.join(' · ')}</dd></div>`:''}${p.pressures.length?`<div><dt>Pressure</dt><dd>${p.pressures.join(' · ')}</dd></div>`:''}</dl>
+   <p class="faint" style="font-size:12px">${p.status==='coming-soon'?'Taking pre-orders':'Installation service · US-based support · 2-year warranty'}${p.channels.dealer&&S.dealer?' · Available through authorized dealers':''}</p></div></section>
   ${(TS_GALLERY[p.id]||[]).filter(k=>D.img[k] && !(TS_MEDIA[p.id]&&TS_MEDIA[p.id].img===k)).length?`<section class="ts-gal wrap">${(TS_GALLERY[p.id]||[]).filter(k=>D.img[k] && !(TS_MEDIA[p.id]&&TS_MEDIA[p.id].img===k)).slice(0,2).map(k=>`<figure><img src="${D.img[k]}" alt="OneBase ${esc(p.name)} installed" loading="lazy"></figure>`).join('')}</section>`:''}`;
 }
 pages.products = () => tsIndex();
@@ -145,7 +145,7 @@ pages.product = (cat, id) => { const h=_productTS(cat,id); const p=D.products.fi
 document.addEventListener('click', e => { const a=e.target.closest('[data-scroll]'); if (!a) return; e.preventDefault(); document.getElementById(a.dataset.scroll)?.scrollIntoView({behavior:RM()?'auto':'smooth'}); });
 const _afterRenderTS = afterRender;
 afterRender = function(){
-  const h=(location.hash||'#/').slice(2).split('/'); const snap = h[0]==='products' && h.length===1; const prod = h[0]==='products' && h.length===3;
+  const h=obHash().slice(2).split('/'); const snap = h[0]==='products' && h.length===1; const prod = h[0]==='products' && h.length===3;
   document.documentElement.classList.toggle('snap', snap); document.body.classList.toggle('is-snap', snap||prod); document.body.classList.remove('snap-dark');
   _afterRenderTS(); tsInit();
 };
@@ -204,7 +204,7 @@ pages.product = (cat, id) => {
 const _afterRenderCat = afterRender;
 afterRender = function(){
   _afterRenderCat();
-  const h = (location.hash || '#/').slice(2).split('/'); const cat = h[0] === 'products' && h.length === 2 && document.querySelector('.ts-cat');
+  const h = obHash().slice(2).split('/'); const cat = h[0] === 'products' && h.length === 2 && document.querySelector('.ts-cat');
   if (cat) { document.documentElement.classList.add('snap'); document.body.classList.add('is-snap'); tsInit(); }
 };
 
@@ -216,7 +216,7 @@ TS_MEDIA.traditional = { mode:'photo', img:'trad-after', pos:'50% 60%' };
 D.prodImg.traditional = 'trad-after';
 TS_ROWS.find(r => r[0] === 'heat')[1].unshift('traditional');
 const TRAD_CLIENTS = 'Razor Sharp Fitness · Skyline Saunas';
-function tradVid(src, poster){ return `<video class="ts-cover tr-vid" muted playsinline loop preload="metadata" poster="${D.img[poster]||''}"><source src="video/${src}.mp4" type="video/mp4"></video>`; }
+function tradVid(src, poster){ return `<video class="ts-cover tr-vid" muted playsinline loop preload="metadata" poster="${D.img[poster]||''}"><source src="${OB_ROOT}video/${src}.mp4" type="video/mp4"></video>`; }
 const _tsChaptersTR = tsChapters;
 tsChapters = function(p){
   const ch = _tsChaptersTR(p); if (p.id !== 'traditional') return ch;
@@ -226,6 +226,7 @@ tsChapters = function(p){
     <div class="tr-cmp" style="--x:50%"><img src="${D.img['trad-after']}" alt="The rebuilt sauna"><div class="tr-b"><img src="${D.img['trad-before']}" alt="The sauna before the rebuild"></div><span class="tr-l">Before</span><span class="tr-r">After</span><input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after"><i class="tr-h"></i></div><div class="ts-bot"></div></section>`];
   const how = ['How we deliver', `<section class="ts ts-ch ts-light-ch" data-dark="0" style="${st}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">How we deliver</p><h2>One team, first drawing to first session.</h2></div>
     <div class="ts-bot ch-body"><div class="ch-grid">${[['Survey','Measure the room, identify the building power, and draw the layout.'],['Size','Heater matched to room volume and supply.'],['Review','We walk you through the drawings and send a submittal for your contractor.'],['Prepare','Your contractor frames, insulates, finishes the floor and provides wiring. We supply the vapor barrier.'],['Build','We line the room, build the benches, hang the door, fit the heater.'],['Hand over','One-hour burn-in, sign-off and owner walkthrough.']].map(([t,b],i)=>`<div class="ch-card"><span>0${i+1}</span><b>${t}</b><p>${b}</p></div>`).join('')}</div><p class="tr-cl">Recent projects: ${TRAD_CLIENTS}</p></div></section>`];
+  const design = ['Design', `<section class="ts ts-ch ts-light-ch tr-design" data-dark="0" style="${st}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">Design</p><h2>Drawn for your room before a board is cut.</h2></div><div class="tr-dv"><video class="tr-vid" muted playsinline loop preload="metadata" poster="${D.img['trad-design']||''}" aria-label="3D model of a custom sauna: walls, door, heater and tiered L-shaped benches"><source src="${OB_ROOT}video/sauna-design.mp4" type="video/mp4"></video></div><div class="ts-bot"><p class="ts-lead">Every wall, bench and heater position is modelled in 3D. You see the room from every angle and sign it off before we build.</p></div></section>`];
   const overview = ch.findIndex(c => c[0] === '3D & AR');
   const proj = (k, name, kind) => [k, `<section class="ts ts-ch ts-dark tr-proj" data-dark="1" style="${st}"><div class="ts-bg"></div><div class="ts-top"><p class="ts-eyebrow">${kind}</p><h2>${name}</h2></div><div class="ts-bot"></div></section>`];
   return [vch('Rebuild', 'sauna-before', 'trad-before', 'Razor Sharp Fitness · Before', 'Tired, dark, past its best.', 'The gym’s old sauna: weathered benches, worn panelling and a heater near the end of its life.'),
@@ -234,7 +235,7 @@ tsChapters = function(p){
           vch('Finished', 'sauna-after-2', 'trad-bench', 'Razor Sharp Fitness · Finished', 'Made for the room.', 'Every bench, rail and panel cut to fit, so it feels built in, not dropped in.'),
           vch('New build', 'skyline-1', 'sky-room', 'Skyline Saunas · New build', 'From an empty shell to a full cedar room.', 'A brand-new sauna, designed for the space and fitted out top to bottom: tiered L-shaped benches, cedar walls and ceiling, stone heater.'),
           vch('Detail', 'skyline-2', 'sky-heater', 'Skyline Saunas · Detail', 'Built to be used every day.', 'Guarded heater, tiered seating for groups, and timber chosen to take heat and heavy use.'),
-          how, ...ch.filter(c => c[0] !== 'App' && c[0] !== 'Sizes')];
+          design, how, ...ch.filter(c => c[0] !== 'App' && c[0] !== 'Sizes')];
 };;
 document.addEventListener('input', e => { const r = e.target.closest('.tr-cmp input'); if (r) r.parentElement.style.setProperty('--x', r.value + '%'); });
 let trIO = null;
@@ -266,10 +267,10 @@ document.addEventListener('click', e => {
   if (tsDown && Math.hypot(e.clientX - tsDown.x, e.clientY - tsDown.y) > 8) return; // a swipe, not a tap
   const t = e.target;
   if (t.closest('a,button,input,select,textarea,label,video,summary,[data-apz-modal],.tr-cmp,.tb-frame,.ts-dots,.ts-bot,.ts-top p')) return;
-  const st = t.closest('.st-link'); if (st) { location.hash = '#/software'; return; }
+  const st = t.closest('.st-link'); if (st) { obGo('#/software'); return; }
   const sec = t.closest('.ts-link'); if (!sec) return;
   if (sec.classList.contains('ts-next')) { (sec.closest('.ts-row') || sec).nextElementSibling.scrollIntoView({ behavior: RM() ? 'auto' : 'smooth' }); return; }
-  if (sec.dataset.href) location.hash = sec.dataset.href;
+  if (sec.dataset.href) obGo(sec.dataset.href);
 });
 const _afterRenderLink = afterRender;
 afterRender = function(){ _afterRenderLink(); tsLinkify(); };

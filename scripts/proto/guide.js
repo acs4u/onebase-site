@@ -75,7 +75,7 @@ let gdSection = function(full){
   </div></section>`;
 }
 document.addEventListener('click', e => { const b = e.target.closest('[data-gd]'); if (!b) return; gdVenue = b.dataset.gd; const s = document.getElementById('gd'); if (!s) return; const full = s.classList.contains('gd-full'); const y = s.getBoundingClientRect().top; s.outerHTML = gdSection(full); const n = document.getElementById('gd'); if (y < 0) n.scrollIntoView(); n.querySelector(`[data-gd="${gdVenue}"]`).focus({ preventScroll:true }); });
-pages.guide = () => { const seg = (location.hash.split('/')[2] || ''); if (GD[seg]) gdVenue = seg; return gdSection(true); };
+pages.guide = () => { const seg = (obHash().split('/')[2] || ''); if (GD[seg]) gdVenue = seg; return gdSection(true); };
 teaserHTML = function(){ return gdSection(false); };
 NAV.splice(1, 0, ['Where it fits', '#/guide']);
 // "Not sure where to start?" panels offer the guide next to booking a call
@@ -162,7 +162,7 @@ const GD_DAY = {
   home:[['Before work','Quick red light or cold.'],['Evenings','Sauna, booked from the app.'],['Weekends','The busiest time for the sauna and cold room.']],
 };
 const gdProd = (id) => D.products.find(p => p.id === id);
-const gdThumb = (id) => { const m = { icevault:'cut-icevault-quad', yakisugi:'cut-yakisugi', hemlock:'cut-hemlock', traditional:'trad-after', airfit:'cut2-airfit', airflex:'cut2-airflex', airform:'cut-airform-plus-black', airsuite:'cut2-airsuite-duo', lightbed:'cut-lightbed-black', lightpanel:'cut-lightpanel-quad' }[id]; return m && D.img[m]; };
+const gdThumb = (id) => { const m = { lightzone:'cut3-lightzone', icevault:'cut-icevault-quad', yakisugi:'cut-yakisugi', hemlock:'cut-hemlock', traditional:'trad-after', airfit:'cut2-airfit', airflex:'cut2-airflex', airform:'cut-airform-plus-black', airsuite:'cut2-airsuite-duo', lightbed:'cut-lightbed-black', lightpanel:'cut-lightpanel-quad' }[id]; return m && D.img[m]; };
 gdCards = function(v){
   const g = GD[v], more = GD_MORE[v];
   return GD_ORDER[v].map(m => { const [h, p, when, len] = g[m]; const mod = D.modalities[m]; const [run, pair, prods] = more[m];
@@ -230,7 +230,7 @@ const GD_SHORT = {
     heat:['The one people use','Booked from the building app.'], light:['Small footprint','A corner and a power outlet.'],
     ice:['No upkeep','No plumbing, no water treatment.'], air:['Usually not the fit','Better in a supervised clinic.'] },
 };
-const GD_IMG = { air:'as-cover', ice:'render-icevault-gym', heat:'render-yakisugi-spa', light:'render-lightbed-studio' };
+const GD_IMG = { air:'gdr-air', ice:'gdr-ice', heat:'gdr-heat', light:'gdr-light' };
 const GD_IMG_V = { hotel:{ heat:'trad-after' }, studio:{ ice:'render-icevault-studio' }, team:{ air:'as-pair' }, clinic:{ air:'photo-hbot-inside', light:'photo-lightbed' }, home:{ heat:'photo-hemlock', light:'photo-lightpanel' } };
 gdCards = function(v){
   return GD_ORDER[v].map(m => { const [h, line] = GD_SHORT[v][m]; const [, , when, len] = GD[v][m]; const mod = D.modalities[m];
@@ -275,7 +275,7 @@ gdSection = function(full){
 @media(max-width:600px){.gd-tiles{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding-inline:20px;scrollbar-width:none}.gd-tiles::-webkit-scrollbar{display:none}.gd-tile{scroll-snap-align:start}}`; document.head.appendChild(s); })();
 (() => { const s = document.createElement('style'); s.textContent = `
 .gd2 .gd-top{flex-direction:column;align-items:flex-start;gap:20px}
-.gd2 .gd-pills{justify-content:flex-start;max-width:none}
+.gd2 .gd-pills{justify-content:flex-start;max-width:none;align-self:stretch;min-width:0}
 .gd-mod{color:rgba(255,255,255,.75)}`; document.head.appendChild(s); })();
 
 /* ---------- Copy, rewritten plainly: what each one is used for, and why it suits this venue ---------- */
@@ -336,8 +336,8 @@ const GD_OFFER = {
   clinic:[['Treatment plans','Part of a course of care.'],['Session packs','Prepaid blocks.'],['Standalone','Booked on its own.']],
   home:[['Included amenity','Part of rent or membership.'],['App booking','Time slots with a weekly cap.'],['Premium amenity','A small monthly fee.']],
 };
-const GD_KIT = { light:['lightbed','lightpanel'], heat:['yakisugi','traditional','hemlock'], ice:['icevault'], air:['airform','airsuite','airfit'] };
-const GD_KIT_CODE = { lightbed:'LB', lightpanel:'LP4', yakisugi:'YK4', traditional:null, hemlock:'HM4', icevault:'IV4', airform:'AFP', airsuite:'AS2', airfit:'AFT' };
+const GD_KIT = { light:['lightbed','lightzone','lightpanel'], heat:['yakisugi','traditional','hemlock'], ice:['icevault'], air:['airform','airsuite','airfit'] };
+const GD_KIT_CODE = { lightzone:'LZ', lightbed:'LB', lightpanel:'LP4', yakisugi:'YK4', traditional:null, hemlock:'HM4', icevault:'IV4', airform:'AFP', airsuite:'AS2', airfit:'AFT' };
 function gdDetail(v, m){
   const vl = GD_VENUES.find(x => x[0] === v)[1], mod = D.modalities[m], w = GD_WHAT[m];
   const [h, line, len, when] = GD_SHORT[v][m]; const [run, pair] = GD_MORE[v][m];
@@ -361,7 +361,7 @@ function gdDetail(v, m){
       <p class="note gd-note">General information about how venues use this equipment, not medical advice.${m==='air'?' Hyperbaric chambers are Class II medical devices in the US and require a prescription.':''}</p>
     </div></article>`;
 }
-pages.guide = () => { const seg = location.hash.split('/'); const v = seg[2], m = seg[3];
+pages.guide = () => { const seg = obHash().split('/'); const v = seg[2], m = seg[3];
   if (GD[v]) gdVenue = v;
   if (GD[v] && GD_SHORT[v][m]) return gdDetail(v, m);
   return gdSection(true); };
@@ -541,7 +541,7 @@ gdDetail = function(v, m){
 GD_SHORT.home.lead = 'Amenities residents book themselves.';
 
 /* ---------- Each venue gets its own world: photo, tint and motion when you switch ---------- */
-const GD_BG = { gym:'sol-fitness', studio:'hero-bg', team:'sol-sports', hotel:'sol-spas', clinic:'photo-hbot-inside', home:'sol-multifamily', private:'af-life' };
+const GD_BG = { gym:'rs-yakisugi-2', studio:'tenx-redlight', team:'as-man', hotel:'tenx-airform', clinic:'photo-hbot-inside', home:'yk-duo-towels', private:'airflex-home' };
 const GD_TINT = { gym:'#1b2230', studio:'#2a1d18', team:'#0f2a2a', hotel:'#2b2219', clinic:'#162536', home:'#22222a', private:'#1d2330' };
 let gdPrev = null;
 const _gdSection3 = gdSection;
@@ -623,3 +623,5 @@ delete GD_IMG_V.studio.ice; delete GD_IMG_V.hotel.heat; delete GD_IMG_V.clinic.l
 .gd2 .gd-stats{border-top-color:var(--line);color:var(--faint)}
 .gd2 .gd-stats i{color:var(--fg)}
 .gdv .gd-tile{box-shadow:none}`; document.head.appendChild(s); })();
+// Mobile: keep the modality pills inside the viewport (they scroll sideways within their own row).
+(() => { const s = document.createElement('style'); s.textContent = `@media(max-width:900px){.gd .gd-top>.gd-pills{width:calc(100% + 40px);max-width:calc(100% + 40px);box-sizing:border-box}}`; document.head.appendChild(s); })();

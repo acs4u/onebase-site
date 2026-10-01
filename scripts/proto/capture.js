@@ -1,30 +1,23 @@
 /* ===== Contact capture: book-a-call, two-step enquiry, spec-sheet download =====
    Production: every submit posts to HubSpot Forms API (portal 20568937) with hidden fields:
-   source_page, capture_type (booking | enquiry | spec_sheet | planner | configurator), venue_type, sites, timeline, country, product, configuration.
-   Booking step uses HubSpot Meetings (round-robin by region) in place of the mock calendar below. */
+   source_page, capture_type (booking | enquiry | spec_sheet | configurator), venue_type, sites, timeline, country, product, configuration.
+   Submissions go through hsSubmit() in hubspot.js; the booking step embeds the HubSpot Meetings calendar. */
 const VENUE_TYPES = ['Gym or fitness club','Recovery studio','Sports team','Hotel or spa','Clinic','Residential / real estate','Corporate wellness','Other'];
 const TIMELINES = ['Ready now','1–3 months','3–6 months','6+ months','Just researching'];
-const BK = { step:1, venue:'', sites:'', timeline:'', day:null, slot:null, context:'' };
-function bkSlots(){ const out=[]; const d=new Date(); d.setHours(0,0,0,0); while(out.length<6){ d.setDate(d.getDate()+1); const wd=d.getDay(); if (wd===0||wd===6) continue; out.push(new Date(d)); } return out; }
-const BK_TIMES = ['9:00','10:00','11:30','13:00','14:30','16:00'];
-const bkTaken = (di, ti) => ((di*7 + ti*3) % 5) === 0;
+const BK = { step:1, venue:'', sites:'', timeline:'', email:'', context:'' };
+function bkMeetingsUrl(){ const u = new URL(HS.meetings); u.searchParams.set('embed','true'); if (BK.email) u.searchParams.set('email', BK.email); return u.toString(); }
 function bkBody(){
   const chips = (k, list) => `<div class="chips" data-bk="${k}">${list.map(v=>`<button type="button" class="chip" aria-pressed="${BK[k]===v}" data-v="${esc(v)}">${esc(v)}</button>`).join('')}</div>`;
-  const steps = `<ol class="bk-steps">${['Venue','Time','Details'].map((s,i)=>`<li class="${BK.step===i+1?'on':BK.step>i+1?'done':''}">${s}</li>`).join('')}</ol>`;
+  const steps = `<ol class="bk-steps">${['About you','Pick a time'].map((s,i)=>`<li class="${BK.step===i+1?'on':BK.step>i+1?'done':''}">${s}</li>`).join('')}</ol>`;
   if (BK.step===1) return steps + `<h3>Book a call with our team</h3><p class="muted small">30 minutes with a OneBase specialist. We’ll cover your space, the right equipment and pricing.</p>${BK.context?`<p class="bk-ctx">Re: ${esc(BK.context)}</p>`:''}
     <p class="bk-q">What kind of venue?</p>${chips('venue',VENUE_TYPES)}<p class="bk-q">How many sites?</p>${chips('sites',['1','2–5','6+'])}<p class="bk-q">When are you looking to install?</p>${chips('timeline',TIMELINES)}
-    <div class="bk-foot"><button class="btn btn-p" data-bk-go="2" ${BK.venue&&BK.sites&&BK.timeline?'':'disabled'}>Choose a time</button></div>`;
-  if (BK.step===2) { const days=bkSlots(); if (BK.day===null) BK.day=0; const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g,' ');
-    return steps + `<h3>Pick a time</h3><p class="muted small">Times shown in your time zone (${esc(tz)}).</p>
-    <div class="bk-days">${days.map((d,i)=>`<button type="button" data-bk-day="${i}" aria-pressed="${BK.day===i}"><small>${d.toLocaleDateString('en-US',{weekday:'short'})}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></button>`).join('')}</div>
-    <div class="bk-times">${BK_TIMES.map((t,i)=>{ const tk=bkTaken(BK.day,i); return `<button type="button" data-bk-slot="${t}" ${tk?'disabled':''} aria-pressed="${BK.slot===t}">${tk?'Taken':t}</button>`; }).join('')}</div>
-    <div class="bk-foot"><button class="btn btn-g" data-bk-go="1">Back</button><button class="btn btn-p" data-bk-go="3" ${BK.slot?'':'disabled'}>Continue</button></div>`; }
-  if (BK.step===3) { const d=bkSlots()[BK.day];
-    return steps + `<h3>Your details</h3><p class="bk-sum">${d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} · ${BK.slot} · 30 min · ${esc(BK.venue)}</p>
-    <form class="enq" id="bkForm" style="padding:0;border:0;background:none"><label>Name *<input required></label><label>Work email *<input type="email" required></label><label>Company *<input required></label><label>Phone<input type="tel"></label><label class="full">Anything we should know?<textarea rows="3">${BK.context?esc('Interested in '+BK.context):''}</textarea></label>
-    <div class="full bk-foot" style="margin:0"><button type="button" class="btn btn-g" data-bk-go="2">Back</button><button class="btn btn-p" type="submit">Confirm booking</button></div></form>`; }
-  const d=bkSlots()[BK.day];
-  return `<div class="bk-done"><div class="bk-tick">✓</div><h3>You’re booked</h3><p>${d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${BK.slot}. A calendar invite is on its way.</p><button class="btn btn-p" data-bk-close>Done</button></div>`;
+    <p class="bk-q">Work email</p><input class="bk-email" type="email" name="bkEmail" autocomplete="email" placeholder="you@company.com" value="${esc(BK.email)}">
+    <div class="bk-foot"><button class="btn btn-p" data-bk-next ${BK.venue&&BK.sites&&BK.timeline?'':'disabled'}>Choose a time</button></div>`;
+  if (BK.step===2) return steps + `<h3>Pick a time</h3><p class="muted small">Choose a slot that suits you. You’ll get a calendar invite straight away.</p>
+    <div class="bk-meet"><iframe src="${esc(bkMeetingsUrl())}" title="Book a call with OneBase" loading="lazy"></iframe></div>
+    <p class="faint small" style="margin-top:8px">Calendar not loading? <a href="${esc(HS.meetings)}" target="_blank" rel="noopener" style="text-decoration:underline">Open it in a new tab</a>.</p>
+    <div class="bk-foot"><button class="btn btn-g" data-bk-go="1">Back</button></div>`;
+  return `<div class="bk-done"><div class="bk-tick">✓</div><h3>You’re booked</h3><p>A calendar invite is on its way to your inbox.</p><button class="btn btn-p" data-bk-close>Done</button></div>`;
 }
 function bkRender(){ const m=document.getElementById('bk-body'); if (m) m.innerHTML=bkBody(); }
 function bkOpen(context){
@@ -35,13 +28,16 @@ function bkOpen(context){
       if (e.target.closest('[data-bk-close]')) { m.classList.remove('open'); document.body.style.overflow=''; return; }
       const c=e.target.closest('[data-bk] .chip'); if (c) { BK[c.parentElement.dataset.bk]=c.dataset.v; bkRender(); return; }
       const g=e.target.closest('[data-bk-go]'); if (g && !g.disabled) { e.preventDefault(); BK.step=+g.dataset.bkGo; bkRender(); return; }
-      const dy=e.target.closest('[data-bk-day]'); if (dy) { BK.day=+dy.dataset.bkDay; BK.slot=null; bkRender(); return; }
-      const sl=e.target.closest('[data-bk-slot]'); if (sl && !sl.disabled) { BK.slot=sl.dataset.bkSlot; bkRender(); return; }
+      const nx=e.target.closest('[data-bk-next]'); if (nx && !nx.disabled) { e.preventDefault(); const em=m.querySelector('.bk-email'); BK.email=(em&&em.value||'').trim();
+        if (em && BK.email && !em.checkValidity()) { em.reportValidity(); return; }
+        if (BK.email) hsSubmit('booking', { email:BK.email, venue:BK.venue, sites:BK.sites, timeline:BK.timeline, product:(currentProduct()||{}).id, message:BK.context?('Interested in '+BK.context):'' });
+        BK.step=2; bkRender(); return; }
     });
-    m.addEventListener('submit', e => { e.preventDefault(); BK.step=4; bkRender(); });
+    m.addEventListener('input', e => { if (e.target.classList.contains('bk-email')) BK.email = e.target.value; });
+    addEventListener('message', e => { if (/hubspot/.test(e.origin) && e.data && e.data.meetingBookSucceeded) { BK.step=3; bkRender(); } });
     addEventListener('keydown', e => { if (e.key==='Escape' && m.classList.contains('open')) { m.classList.remove('open'); document.body.style.overflow=''; } });
   }
-  Object.assign(BK, { step:1, day:null, slot:null, context: context||'' }); bkRender(); m.classList.add('open'); document.body.style.overflow='hidden';
+  Object.assign(BK, { step:1, context: context||'' }); bkRender(); m.classList.add('open'); document.body.style.overflow='hidden';
   setTimeout(()=>m.querySelector('.bk-card button, .bk-card .chip')?.focus(), 50);
 }
 /* intercept every sales CTA button (not plain nav links) */
@@ -49,7 +45,7 @@ document.addEventListener('click', e => {
   const a = e.target.closest('a.btn[href="#/contact"], a.ts-b1[href="#/contact"]'); if (!a) return;
   e.preventDefault(); const p = currentProduct(); bkOpen(p ? 'OneBase '+p.name : '');
 }, true);
-function currentProduct(){ const parts=(location.hash||'').slice(2).split('/'); return parts[0]==='products' && parts[2] ? D.products.find(x=>x.id===parts[2]) : null; }
+function currentProduct(){ const parts=obHash().slice(2).split('/'); return parts[0]==='products' && parts[2] ? D.products.find(x=>x.id===parts[2]) : null; }
 
 /* ---------- Two-step enquiry (replaces the long form inside #enquiry) ---------- */
 function enqHTML(p){
@@ -61,7 +57,7 @@ function enqHTML(p){
     <label>Timeline<select name="timeline"><option value="">Select</option>${TIMELINES.map(t=>`<option>${t}</option>`).join('')}</select></label><label>Sites<select name="sites"><option value="">Select</option><option>1</option><option>2–5</option><option>6+</option></select></label>
     <label class="full">Message<textarea id="msg" name="message" rows="3">${p?esc('Interested in OneBase '+p.name):''}</textarea></label></div>
     <div class="row" style="margin-top:14px"><button class="btn btn-g" type="button" data-enq="back">Back</button><button class="btn btn-p" type="submit">Send enquiry</button><span class="faint" style="font-size:12px">By submitting, you agree to receive communications from OneBase. Unsubscribe anytime.</span></div></div>
-   <input type="hidden" name="source_page" value="${esc(location.hash||'#/')}"><input type="hidden" name="product" value="${p?esc(p.id):''}">
+   <input type="hidden" name="source_page" value="${esc(obHash())}"><input type="hidden" name="product" value="${p?esc(p.id):''}">
   </form>`;
 }
 function enqInit(){
@@ -73,6 +69,9 @@ function enqInit(){
     else { f.querySelector('.enq-s1').hidden=false; f.querySelector('.enq-s2').hidden=true; f.querySelectorAll('.enq-prog span')[1].classList.remove('on'); } });
   f.addEventListener('submit', e => { e.preventDefault(); if (!f.checkValidity()) { f.reportValidity(); return; }
     const venue=f.elements.venue.value, tl=f.elements.timeline.value; const hot = tl==='Ready now'||tl==='1–3 months';
+    const cfg = window.OB_CFG && (f.elements.message.value||'').includes(window.OB_CFG) ? window.OB_CFG : '';
+    hsSubmit(cfg ? 'configurator' : 'enquiry', { email:f.elements.email.value, name:f.elements.name.value, company:f.elements.company.value, phone:f.elements.phone.value, country:f.elements.country.value, venue, timeline:tl, sites:f.elements.sites.value, message:f.elements.message.value, product:f.elements.product.value, configuration:cfg });
+    BK.email = f.elements.email.value;
     f.innerHTML = `<div class="full stack" style="gap:10px"><p style="font-weight:500;font-size:20px">Thanks, we’ve got it.</p><p class="muted">A specialist will reply within one business day.${hot?' Since you’re moving soon, you can lock in a call now instead of waiting.':''}</p><div><button type="button" class="btn btn-p" data-book>Book a call now</button></div></div>`;
     f.querySelector('[data-book]').onclick = () => { BK.venue=venue; BK.timeline=tl; bkOpen(p?'OneBase '+p.name:''); };
   });
@@ -95,6 +94,7 @@ function specSheet(p){
 function specInit(){
   const f=document.getElementById('specForm'); if (!f) return; const p=currentProduct();
   f.addEventListener('submit', e => { e.preventDefault(); if (!f.checkValidity()) { f.reportValidity(); return; }
+    hsSubmit('spec_sheet', { email:f.elements.email.value, role:f.elements.role.value, product:p&&p.id });
     f.innerHTML = `<p class="full" style="font-weight:500">Sent to ${esc(f.elements.email.value)}.</p><p class="full muted small">Here’s your copy now:</p><div class="full"><button type="button" class="btn btn-p" id="ssOpen">Open spec sheet</button></div>`;
     document.getElementById('ssOpen').onclick = () => ssOpen(p); ssOpen(p); });
 }

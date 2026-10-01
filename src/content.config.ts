@@ -25,7 +25,6 @@ const products = defineCollection({
       direct: z.boolean().default(true),
       precor: z.boolean().default(false), // available through Precor (US commercial fitness)
     }).default({}),
-    fromPriceUSD: z.number().optional(),  // shown as "from" only where OneBase publishes pricing
     status: z.enum(['available', 'coming-soon']).default('available'),
     seoTitle: z.string().optional(),
     seoDescription: z.string().optional(),
@@ -79,6 +78,7 @@ const parts = defineCollection({
       priceUSD: z.number(),
       image: z.string().optional(),
       stripePaymentLink: z.string().optional(), // set per SKU from the Stripe dashboard
+      shopifyHandle: z.string().optional(),
       description: z.string().optional(),
     })),
   }),

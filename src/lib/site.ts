@@ -9,7 +9,7 @@ export const site = {
   salesEmail: 'sales@onebasehealth.com',
   serviceEmail: 'customerservice@onebasehealth.com',
   bookingUrl: 'https://meetings.hubspot.com/jett-moody/meet-with-jett-moody',
-  hubspot: { portalId: '20568937', region: 'na1', formId: '' }, // TODO: paste the enquiry form GUID from HubSpot
+  hubspot: { portalId: '20568937', region: 'na1', formId: '1194e353-0e93-4633-b646-c522802cd883' }, // 'Website capture' form
   gtmId: 'GTM-T433HTQJ',
   social: {
     instagram: 'https://www.instagram.com/onebasehealth/',
@@ -25,7 +25,7 @@ export const modalities = {
   air:   { key: 'air',   label: 'Air',   category: 'hbot',         name: 'HBOT Chambers',      path: '/products/hbot',         blurb: 'Hyperbaric oxygen therapy from 1.3 to 2.0 ATA. Soft-shell, hard-shell and walk-in rooms.' },
   ice:   { key: 'ice',   label: 'Ice',   category: 'cold-therapy', name: 'Cold Therapy',       path: '/products/cold-therapy', blurb: 'Dry, electric cold rooms for 2 to 8 people. No water, no ice, no nitrogen.' },
   heat:  { key: 'heat',  label: 'Heat',  category: 'sauna',        name: 'Infrared Saunas',    path: '/products/sauna',        blurb: 'Full-spectrum, low-EMF infrared in Yakisugi cedar or Hemlock. Plug-and-play.' },
-  light: { key: 'light', label: 'Light', category: 'red-light',    name: 'Red Light Therapy',  path: '/products/red-light',    blurb: 'Modular panels and a 41,600-LED full-body bed. 633 to 940 nm.' },
+  light: { key: 'light', label: 'Light', category: 'red-light',    name: 'Red Light Therapy',  path: '/products/red-light',    blurb: 'Modular panels, a full-body bed and a stand-up booth. 633 to 940 nm.' },
 } as const;
 
 export type ModalityKey = keyof typeof modalities;
