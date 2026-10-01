@@ -1,0 +1,55 @@
+---
+title: "Hyperbaric Air Alone Mobilizes Stem Cells"
+description: "For the first time in hyperbaric history, we now know that even mild hyperbaric pressures, without supplemental oxygen increase stem cells. Prior to this, we knew that this was…"
+pubDate: 2023-08-28
+updatedDate: 2023-08-29
+author: "Daniel Rozsa"
+category: education
+heroImage: "/images/blog/hyperbaric-air-alone-mobilizes-stem-cells.webp"
+draft: false
+---
+
+For the first time in hyperbaric history, we now know that even mild hyperbaric pressures, without supplemental oxygen increase stem cells. Prior to this, we knew that this was the case at pressures of 2.0 ATA or greater with increased inspired oxygen and assumed that that this would the case at milder pressures but it was only conjecture.
+
+Now we know.
+
+In a [groundbreaking study](https://www.frontiersin.org/articles/10.3389/fneur.2023.1192793/full "Hyperbaric Air") published in Frontiers in Neurology, researchers have discovered the effects of hyperbaric air on stem cells in humans.
+
+## Summary of the Study
+
+Hyperbaric **oxygen** therapy involves breathing close to 100% oxygen in a pressurized chamber. We know from previous studies that at 2.0 ATA, this will increase oxygen levels by 1200%. We also know that at 1.3 ATA hyperbaric air lone (without added oxygen) will increase oxygen levels by about 47%.
+
+This study aimed to explore the effects of hyperbaric air alone and the researchers found that even without increased inspired oxygen, hyperbaric air mobilizes stem cells, leading to enhanced tissue repair and regeneration.
+
+From the study:
+
+"Ten 34–35-year-old healthy volunteers were exposed to 1.27ATA (4 psig/965 mmHg) room air for 90 min, M-F, for 10 exposures over 2-weeks. Venous blood samples were taken: (1) prior to the first exposure (served as the control for each subject), (2) directly after the first exposure (to measure the acute effect), (3) immediately prior to the ninth exposure (to measure the chronic effect), and (4) 3 days after the completion of tenth/final exposure (to assess durability). SPCs were gated by blinded scientists using Flow Cytometry."
+
+They observed a significant increase in the number of stem cells after the therapy nearly 200% or 2 fold, indicating the mobilization of stem cells from the bone marrow.
+
+## Implications of the Study
+
+Stem cells are cells that can mature into any type of cell in our body required. By mobilizing stem cells, hyperbaric air alone can potentially accelerate the healing process and improve tissue regeneration. This therapy could be particularly beneficial for individuals with chronic wounds, neurological disorders, and other conditions that require tissue repair.
+
+Furthermore, the study suggests that hyperbaric air may have a hormetic effect on stem cells. The hormetic dose curve describes the biphasic response of cells or organisms to low and high doses of a stressor. In the case of hyperbaric air, the mild stress caused by increased oxygen levels appears to stimulate the mobilization of stem cells.
+
+## Benefits of Hyperbaric Air Therapy
+
+Hyperbaric air therapy may offer several potential benefits for individuals seeking improved tissue repair and regeneration. Some of the key benefits include:
+
+1.  Enhanced wound healing: By mobilizing stem cells, hyperbaric air therapy can promote faster healing of wounds, including chronic wounds that are difficult to heal.
+2.  Neurological support: The therapy may have positive effects on neurological conditions such as stroke, traumatic brain injury, and neurodegenerative diseases.
+3.  Anti-inflammatory effects: Hyperbaric air therapy has been shown to reduce inflammation, which is beneficial for various inflammatory conditions.
+4.  Improved tissue oxygenation: By increasing oxygen levels in the body, hyperbaric air therapy improves tissue oxygenation, which is essential for cellular function and repair.
+
+It is important to note that further research is needed to fully understand the mechanisms behind the mobilization of stem cells and the optimal dosage and duration of hyperbaric air therapy.
+
+## Conclusion
+
+This is a very exciting study. For the first time, we know that even mild pressures without extra oxygen increase stem cell release by 200%. This is likely working due to pressure's direct effect on energy production and the bone marrow cells themselves, stimulating their release.
+
+By understanding the hormetic dose curve and the mobilization of stem cells, researchers and medical professionals can now explore new avenues for improving patient outcomes and advancing regenerative medicine.
+
+## Citations:
+
+Frontiers in Neurology. "Hyperbaric air mobilizes stem cells in humans; a new perspective on the hormetic dose curve." (2023). _Frontiers in Neurology_, vol. 14, article 1192793. doi: 10.3389/fneur.2023.1192793
