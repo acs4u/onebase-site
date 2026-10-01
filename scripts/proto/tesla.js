@@ -294,3 +294,12 @@ tsChapters = function(p){
   const used = new Set(['New build','Detail','Rebuild','Compare','After','Finished']);
   return [...steps, ...ch.filter(c => !used.has(c[0]))];
 };
+
+/* ---------- Software: the AirSuite tablet app in use (real screen recording) ---------- */
+const _softwareTab = pages.software;
+pages.software = function(){
+  const h = _softwareTab.apply(this, arguments);
+  if (!D.img['os-tablet']) return h;
+  const sec = `<section class="sec dark os-tab-sec"><div class="wrap grid g2" style="gap:56px;align-items:center"><div class="stack" style="gap:16px">${eyebrow('OneBase OS · On the tablet')}<h2>Run a session from the tablet in the room.</h2><p class="muted">Connect to the chamber, set duration, pressure and speed, and start. Pressure, time and session readings update live, and staff can stop the session at any point.</p><p class="small muted">Recorded on an AirSuite Duo.</p></div><div class="os-tab"><video class="tr-vid" muted playsinline loop preload="metadata" poster="${D.img['os-tablet']}" aria-label="The OneBase OS tablet app connecting to an AirSuite Duo and running a session"><source src="${OB_ROOT}video/os-tablet.mp4" type="video/mp4"></video></div></div></section>`;
+  return h.replace('</section>', '</section>' + sec);
+};

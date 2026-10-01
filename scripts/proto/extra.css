@@ -835,3 +835,4 @@ video.ts-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover
 .bk-meet iframe{display:block;width:100%;height:min(640px,62vh);border:0}
 
 .tr-design .tr-dv{position:relative;z-index:1;width:min(1000px,100%);margin:0 auto;padding:0 20px}.tr-design .tr-dv video{display:block;margin:0 auto;height:min(40vh,calc(100vh - 470px),calc((100vw - 40px)*.596));min-height:180px;width:auto;max-width:100%;aspect-ratio:1100/656;object-fit:contain;background:#fff;border-radius:14px}.tr-design .ts-lead{color:#1f1f1f;max-width:560px;margin:0 auto;text-align:center}
+.os-tab{background:#0b0b0b;border-radius:26px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.08)}.os-tab video{display:block;width:100%;aspect-ratio:1600/910;border-radius:14px;background:#1f2a33}
