@@ -43,7 +43,7 @@ const count = {
   blog: copyDir('public/images/blog', A + '/blog'),
   parts: copyDir('public/images/parts', A + '/parts'),
   posts: copyDir('prototype/posts', A + '/posts', f => f.endsWith('.html')),
-  models: copyDir('public/models', A + '/models', f => f.endsWith('.glb')),
+  models: copyDir('public/models', A + '/models', f => f.endsWith('.glb') || f === 'meshopt_decoder.js'),   // the decoder for the meshopt-compressed models
 };
 fs.mkdirSync(OUT + '/video', { recursive: true }); count.video = copyDir('public/video', OUT + '/video');
 /* the tab icon: the logo's mark on its own, square (the full wordmark was being squashed into the tab) */
@@ -51,7 +51,7 @@ const ICONS = ['favicon.svg', 'favicon-96.png', 'apple-touch-icon.png'];
 for (const f of ICONS) { if (!fs.existsSync('public/' + f)) throw new Error('missing icon: public/' + f); fs.copyFileSync('public/' + f, OUT + '/' + f); }
 
 // Fail the build, rather than ship a broken picture, if the page names a file that is not there.
-const missing = [...new Set([...page.matchAll(/\/assets\/(img|blog|parts|models)\/[A-Za-z0-9_.-]+\.(?:jpg|png|webp|glb)/g)].map(m => m[0]))].filter(u => !fs.existsSync(OUT + u));
+const missing = [...new Set([...page.matchAll(/\/assets\/(img|blog|parts|models)\/[A-Za-z0-9_.-]+\.(?:jpg|png|webp|glb|js)/g)].map(m => m[0]))].filter(u => !fs.existsSync(OUT + u));
 if (missing.length) throw new Error('files named in the page but missing from the repo:\n  ' + missing.join('\n  '));
 
 /* ---- 3. scripts and styles into shared files ---- */

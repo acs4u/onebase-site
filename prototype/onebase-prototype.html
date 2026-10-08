@@ -5377,6 +5377,61 @@ ${dk(`§ body .ms .ms-err{color:#ff9a8f}`)}
    Honestly think it sells it enough to just have the scrolling wheel, vs needing more"). The customers page is still in the footer. */
 { const _home = pages.home; pages.home = () => _home().replace(/(Trusted by leading operators worldwide[\s\S]{0,40}?<\/p>)<a href="#\/customers"[^>]*>See more<\/a>/, '$1'); }
 
+/* Home page, the Ice part of the four-modality section: three IceVault models, not two (Andrew, 8 Oct 2026: "There are three
+   models of icevault. On the homepage it says two models"). The three are the Small, Medium and Large Precor sells (4, 8 and
+   10 people), as in the contrast section, shown with their front-on pictures; the people figures beside them follow. */
+STORY_PRODUCTS.ice = [['icevault', 'front-icevault-small', 'IceVault Small'], ['icevault', 'front-icevault-medium', 'IceVault Medium'], ['icevault', 'front-icevault-large', 'IceVault Large']];
+{ const c = CHAPTERS.find(x => x.k === 'ice'); if (c) { c.lead = c.lead.replace('for two to eight people', 'for four to ten people'); c.stats = c.stats.map(s => s[1] === 'people per session' ? ['4–10', s[1]] : s); } }
+
+/* The angled Yakisugi picture, with the OneBase logo on the side glass, is not the sauna's best angle (Andrew, 8 Oct 2026:
+   "this is not our best angle of the sauna fyi. onebase logo to the side isnt great"). Everywhere it was used (the home page,
+   the "Where it fits" guide, the sauna door picture and the Quad size picture) now shows the front-on render of the Small,
+   the Quad's footprint, with the logo on the front glass. */
+D.img['cut-yakisugi'] = D.img['front-yakisugi-small'];
+
+/* ====================================================================================================================
+   8 Oct 2026 · 3D models from the designer's exchange files (IceVault S/M/L, Yakisugi S/M/L, LightZone, LightBed).
+   Geometry is meshopt-compressed, so model-viewer needs the meshopt decoder (assets/models/meshopt_decoder.js).
+   The decoder is only fetched when a page with a 3D chapter is shown.
+   ==================================================================================================================== */
+/* The site serves .glb. The Claude artifact preview cannot serve .glb files, so there the same models load as self-contained glTF JSON. */
+['icevault-small','icevault-medium','icevault-large','sauna-small','sauna-medium','sauna-large','lightzone','lightbed-2']
+  .forEach(n => { D.glb[n] = 'assets/models/' + n + (window.OB_SITE ? '.glb' : '.json'); });
+const MESHOPT_JS = 'assets/models/meshopt_decoder.js';
+let obMeshoptSet = false;
+function obMeshopt(){ if (obMeshoptSet) return; obMeshoptSet = true;
+  if (customElements.get('model-viewer')) customElements.get('model-viewer').meshoptDecoderLocation = MESHOPT_JS;
+  else customElements.whenDefined('model-viewer').then(C => { C.meshoptDecoderLocation = MESHOPT_JS; }); }
+/* sizes: [label, glb] · the first listed with def:true opens first */
+TS_3D.icevault = {glb:'icevault-medium', sizes:[['Small','icevault-small'],['Medium','icevault-medium'],['Large','icevault-large']], orbit:'-25deg 78deg auto'};
+TS_3D.yakisugi = {glb:'sauna-small', sizes:[['Small','sauna-small'],['Medium','sauna-medium'],['Large','sauna-large']], orbit:'-25deg 78deg auto'};
+TS_3D.lightzone = {glb:'lightzone', size:'', orbit:'-20deg 78deg auto'};
+TS_3D.lightbed = {glb:'lightbed-2', size:'', dims:'89.5" L × 51" D × 44" H', orbit:'-22deg 76deg auto', limit:[-80,80], still:true};
+const _ts3D_3d = ts3D;
+ts3D = function(p){ const t = TS_3D[p.id]; let h = _ts3D_3d(p); if (!h) return h; obMeshopt();
+  if (t.sizes) {
+    const cur = t.sizes.find(z => z[1] === t.glb) || t.sizes[0];
+    h = h.replace(/ alt="[^"]*"/, ` alt="${esc(p.name)} ${cur[0]} 3D model"`)
+         .replace('<div class="ts-bot">', `<div class="ts-bot"><div class="mv-sz" role="group" aria-label="Size">${t.sizes.map(([n,g]) => `<button type="button" data-glb="${g}" data-n="${n}" aria-pressed="${g===cur[1]}" class="${g===cur[1]?'on':''}">${n}</button>`).join('')}</div>`);
+  }
+  /* the designer's files are not manufacturer-certified, so the line under the model names the product without measurements */
+  if (!t.dims) h = h.replace(/<p class="mv-dims">[^<]*<\/p>/, `<p class="mv-dims">${esc(p.name)}${t.sizes ? ' <span class="mv-szn">' + esc((t.sizes.find(z => z[1] === t.glb) || t.sizes[0])[0]) + '</span>' : ''}</p>`);
+  if (!t.sizes) h = h.replace(/ alt="([^"]*?) +3D model"/, ' alt="$1 3D model"');
+  return h.replace('<p class="ts-eyebrow">3D · to scale</p>', '<p class="ts-eyebrow">3D</p>'); };
+document.addEventListener('click', e => { const b = e.target.closest('.mv-sz button'); if (!b) return; const sec = b.closest('.ts-3d'); const mv = sec && sec.querySelector('model-viewer'); if (!mv || b.classList.contains('on')) return;
+  const src = D.glb[b.dataset.glb]; if (!src) return;
+  mv.classList.add('swapping'); mv.setAttribute('alt', mv.getAttribute('alt').replace(/\b(Small|Medium|Large)\b/, b.dataset.n)); mv.src = src;
+  b.parentElement.querySelectorAll('button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+  const n = sec.querySelector('.mv-szn'); if (n) n.textContent = b.dataset.n; });
+document.addEventListener('load', e => { if (e.target && e.target.tagName === 'MODEL-VIEWER') e.target.classList.remove('swapping'); }, true);
+(() => { const st = document.createElement('style'); st.textContent = `
+.ts-mv.swapping{opacity:.35}
+.mv-sz{display:inline-flex;gap:6px;margin:0 8px 10px 0;padding:4px;border-radius:999px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(31,31,31,.1)}
+.mv-sz button{border:0;background:transparent;font:inherit;font-size:13px;padding:6px 14px;border-radius:999px;cursor:pointer;color:#4a4a4f}
+.mv-sz button.on{background:#1f1f1f;color:#fff}
+.mv-sz button:focus-visible{outline:2px solid #1f1f1f;outline-offset:2px}
+`; document.head.appendChild(st); })();
+
 obInit();
 </script>
 <script type="module">/**
