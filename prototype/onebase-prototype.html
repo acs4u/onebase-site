@@ -5348,6 +5348,35 @@ body .bk-q small{font-weight:300;color:var(--faint);margin-left:6px}
 ${dk(`§ body .ms .ms-err{color:#ff9a8f}`)}
 `; document.head.appendChild(s); })();
 
+/* ====================================================================================================================
+   Home page, the four-modality section: the Precor sign (Andrew, 8 Oct 2026, with a screenshot of the section: "on this
+   section of the website, we should show the 'sold to commercial facilities through precor' sign").
+   It sits under the product's name and shows for the products Precor sells (IceVault, Yakisugi, LightBed, LightZone).
+   It is hidden while a product OneBase sells itself is in view (the hyperbaric chambers, Hemlock, Custom Traditional,
+   LightPanel), the same rule as the range pages. It links to the Precor page.
+   ==================================================================================================================== */
+{ const _fig = storyFig; storyFig = function(c){ const h = _fig(c); if (!S.precor) return h; const list = spList(c.k);
+    if (!list.some(x => PRECOR_IDS.includes(x[0]))) return h;
+    return h.replace(/(<div class="sp-cap">[\s\S]*?<\/div>)/, `$1<div class="sp-pc${PRECOR_IDS.includes(list[0][0]) ? ' on' : ''}" data-pc>${pcSold()}</div>`); };
+  const _sync = spSync; spSync = function(sp){ _sync(sp); const pc = sp.querySelector('.sp-pc'); if (!pc) return;
+    const on = PRECOR_IDS.includes((spList(sp.dataset.k)[+sp.dataset.j] || [])[0]); pc.classList.toggle('on', on); const a = pc.querySelector('a'); if (a) a.tabIndex = on ? 0 : -1; };
+  /* with motion reduced the section is four plain blocks, one picture each: the sign goes under the link of the three whose picture is a Precor product */
+  const _story = storyHTML; storyHTML = function(){ let h = _story(); if (!S.precor || !RM()) return h;
+    CHAPTERS.forEach(c => { const first = (spList(c.k)[0] || [])[0]; if (!PRECOR_IDS.includes(first)) return;
+      h = h.replace(new RegExp(`(<a class="go" href="#/products/${c.cat}">[^<]*</a>)`), `$1<div class="sp-pc on sp-pc-flat" data-pc>${pcSold()}</div>`); });
+    return h; }; }
+(() => { const s = document.createElement('style'); s.textContent = `
+#app .sp-pc{visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s}
+#app .sp-pc.on{visibility:visible;opacity:1;transition:opacity .3s ease}
+#app .sp-pc .pc-sold{color:rgba(255,255,255,.82);margin-top:8px;width:auto;min-width:0}
+#app .sp-pc .pc-sold .w{display:block}#app .sp-pc .pc-sold .d{display:none}
+#app .sp-pc-flat .pc-sold{justify-content:flex-start;margin-top:16px}
+`; document.head.appendChild(s); })();
+
+/* Home page, "Trusted by leading operators worldwide": no "See more" link (Andrew, 8 Oct 2026: "can we remove the see more.
+   Honestly think it sells it enough to just have the scrolling wheel, vs needing more"). The customers page is still in the footer. */
+{ const _home = pages.home; pages.home = () => _home().replace(/(Trusted by leading operators worldwide[\s\S]{0,40}?<\/p>)<a href="#\/customers"[^>]*>See more<\/a>/, '$1'); }
+
 obInit();
 </script>
 <script type="module">/**
