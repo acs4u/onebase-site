@@ -46,6 +46,9 @@ const count = {
   models: copyDir('public/models', A + '/models', f => f.endsWith('.glb')),
 };
 fs.mkdirSync(OUT + '/video', { recursive: true }); count.video = copyDir('public/video', OUT + '/video');
+/* the tab icon: the logo's mark on its own, square (the full wordmark was being squashed into the tab) */
+const ICONS = ['favicon.svg', 'favicon-96.png', 'apple-touch-icon.png'];
+for (const f of ICONS) { if (!fs.existsSync('public/' + f)) throw new Error('missing icon: public/' + f); fs.copyFileSync('public/' + f, OUT + '/' + f); }
 
 // Fail the build, rather than ship a broken picture, if the page names a file that is not there.
 const missing = [...new Set([...page.matchAll(/\/assets\/(img|blog|parts|models)\/[A-Za-z0-9_.-]+\.(?:jpg|png|webp|glb)/g)].map(m => m[0]))].filter(u => !fs.existsSync(OUT + u));
@@ -77,7 +80,7 @@ function headFor(r) {
     : r.post ? { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: r.post.title, description: r.desc, datePublished: r.post.iso, dateModified: r.post.updated, author: { '@type': 'Person', name: r.post.author }, publisher: { '@type': 'Organization', name: 'OneBase Health' }, image: img, mainEntityOfPage: url } : null;
   return `<title>${escH(r.title)}</title><meta name="description" content="${escH(r.desc)}">` + (r.noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`)
     + `<meta property="og:type" content="${r.post ? 'article' : 'website'}"><meta property="og:site_name" content="OneBase Health"><meta property="og:title" content="${escH(r.title)}"><meta property="og:description" content="${escH(r.desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${img}"><meta name="twitter:card" content="summary_large_image">`
-    + `<link rel="icon" href="/assets/img/onebase-logo-black.png">` + (ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : '');
+    + `<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png">` + (ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : '');
 }
 // A post's page carries the article itself; the app reads it from #obPrerender instead of fetching it again.
 const preFor = (r) => r.post && posts[r.post.id] ? `<article><h1>${escH(r.post.title)}</h1><p>${escH(r.post.author)} · ${escH(r.post.date)}</p><div id="obPrerender">${posts[r.post.id]}</div></article>` : r.pre || '';
