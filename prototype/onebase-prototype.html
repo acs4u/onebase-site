@@ -5391,8 +5391,11 @@ D.img['cut-yakisugi'] = D.img['front-yakisugi-small'];
 
 /* ====================================================================================================================
    8 Oct 2026 · 3D models from the designer's exchange files (IceVault S/M/L, Yakisugi S/M/L, LightZone, LightBed).
-   Geometry is meshopt-compressed, so model-viewer needs the meshopt decoder (assets/models/meshopt_decoder.js).
-   The decoder is only fetched when a page with a 3D chapter is shown.
+   Version 78 (Andrew, 8 Oct, "How would Tesla do this" → "Do all of this"): the 3D section works like a configurator.
+   The product fills the section; size changes the model AND the three figures; set camera views (Front, Side, Inside)
+   in place of auto-rotate; studio lighting; one action tied to the choice ("Get pricing for the Medium").
+   Geometry is meshopt-compressed, so model-viewer needs the meshopt decoder (assets/models/meshopt_decoder.js),
+   fetched only when a page with a 3D section is shown.
    ==================================================================================================================== */
 /* The site serves .glb. The Claude artifact preview cannot serve .glb files, so there the same models load as self-contained glTF JSON. */
 ['icevault-small','icevault-medium','icevault-large','sauna-small','sauna-medium','sauna-large','lightzone','lightbed-2']
@@ -5402,34 +5405,115 @@ let obMeshoptSet = false;
 function obMeshopt(){ if (obMeshoptSet) return; obMeshoptSet = true;
   if (customElements.get('model-viewer')) customElements.get('model-viewer').meshoptDecoderLocation = MESHOPT_JS;
   else customElements.whenDefined('model-viewer').then(C => { C.meshoptDecoderLocation = MESHOPT_JS; }); }
-/* sizes: [label, glb] · the first listed with def:true opens first */
-TS_3D.icevault = {glb:'icevault-medium', sizes:[['Small','icevault-small'],['Medium','icevault-medium'],['Large','icevault-large']], orbit:'-25deg 78deg auto'};
-TS_3D.yakisugi = {glb:'sauna-small', sizes:[['Small','sauna-small'],['Medium','sauna-medium'],['Large','sauna-large']], orbit:'-25deg 78deg auto'};
-TS_3D.lightzone = {glb:'lightzone', size:'', orbit:'-20deg 78deg auto'};
-TS_3D.lightbed = {glb:'lightbed-2', size:'', dims:'89.5" L × 51" D × 44" H', orbit:'-22deg 76deg auto', limit:[-80,80], still:true};
-const _ts3D_3d = ts3D;
-ts3D = function(p){ const t = TS_3D[p.id]; let h = _ts3D_3d(p); if (!h) return h; obMeshopt();
-  if (t.sizes) {
-    const cur = t.sizes.find(z => z[1] === t.glb) || t.sizes[0];
-    h = h.replace(/ alt="[^"]*"/, ` alt="${esc(p.name)} ${cur[0]} 3D model"`)
-         .replace('<div class="ts-bot">', `<div class="ts-bot"><div class="mv-sz" role="group" aria-label="Size">${t.sizes.map(([n,g]) => `<button type="button" data-glb="${g}" data-n="${n}" aria-pressed="${g===cur[1]}" class="${g===cur[1]?'on':''}">${n}</button>`).join('')}</div>`);
+
+/* Figures per size. People: Precor price list (Small 4, Medium 8 ADA, Large 10 ADA). Widths: the dimensional schedule for
+   Small and Large; Medium sauna from its 3D model's size file; Medium IceVault measured on the render (to confirm, as in the
+   contrast section). Heights: the room heights the site states (IceVault 95 in without its roof units; sauna 82.7 in). */
+const M3_VIEWS_ROOM = [['Front','25deg 80deg auto'],['Side','-90deg 82deg auto'],['Inside','inside']];
+const M3 = {
+  icevault: { glb:'icevault-medium', views:M3_VIEWS_ROOM, inside:{ y:1.15, back:0.55, r:1.15 }, sizes:[
+    ['Small','icevault-small',[['4','people'],['70.9″','wide'],['95″','tall']]],
+    ['Medium','icevault-medium',[['8','people · ADA'],['95″','wide'],['95″','tall']]],
+    ['Large','icevault-large',[['10','people · ADA'],['106.3″','wide'],['95″','tall']]] ] },
+  yakisugi: { glb:'sauna-small', views:M3_VIEWS_ROOM, inside:{ y:1.05, back:0.5, r:1.25 }, sizes:[
+    ['Small','sauna-small',[['4','people'],['79″','wide'],['82.7″','tall']]],
+    ['Medium','sauna-medium',[['8','people · ADA'],['90″','wide'],['82.7″','tall']]],
+    ['Large','sauna-large',[['10','people · ADA'],['108.5″','wide'],['82.7″','tall']]] ] },
+  lightzone: { glb:'lightzone', views:[['Front','20deg 82deg auto'],['Side','-90deg 84deg auto']] },
+  lightbed:  { glb:'lightbed-2', views:[['Front','20deg 78deg auto'],['End','90deg 82deg auto'],['Above','15deg 32deg auto']] },
+};
+const m3Size = (c, glb) => c.sizes ? (c.sizes.find(z => z[1] === glb) || c.sizes[0]) : null;
+const m3Facts = (p, c, glb) => (m3Size(c, glb) ? m3Size(c, glb)[2] : (FACTS[p.id] || []));
+const m3FactsHTML = (f) => f.map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join('');
+const m3Quote = (s) => s ? `Get pricing for the ${s[0]}` : 'Get pricing';
+
+ts3D = function(p){ const c = M3[p.id]; if (!c || !D.glb[c.glb]) return null; obMeshopt();
+  const s = m3Size(c, c.glb); const room = !!c.inside;
+  return `<section class="ts ts-ch ts-light-ch ts-3d m3" data-dark="0" data-m3="${p.id}" style="${tsStyle(p,null)}"><div class="ts-bg"></div>
+    <div class="m3-head"><h2 class="m3-name">${esc(p.name)}${s ? ` <span class="m3-szn">${s[0]}</span>` : ''}</h2>
+      <p class="m3-sub">${room ? 'Turn it. Look inside. Then put it in your room.' : 'Turn it. Then put it in your room.'}</p></div>
+    <div class="m3-stage">
+      <model-viewer class="ts-mv m3-mv" src="${D.glb[c.glb]}" alt="${esc(p.name)}${s ? ' ' + s[0] : ''} 3D model" camera-controls touch-action="pan-y" interaction-prompt="none"
+        camera-orbit="${c.views[0][1]}" min-camera-orbit="${c.limit ? c.limit[0] + 'deg' : 'auto'} 25deg 40%" max-camera-orbit="${c.limit ? c.limit[1] + 'deg' : 'auto'} 92deg auto"
+        interpolation-decay="80" shadow-intensity="0.9" shadow-softness="1" field-of-view="27deg" max-field-of-view="80deg" exposure="1.35" tone-mapping="neutral" environment-image="neutral"
+        ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" ar-placement="floor" loading="lazy" reveal="auto">
+        <button slot="ar-button" class="m3-ar">View in your room</button>
+        <div slot="progress-bar"></div></model-viewer>
+      <div class="m3-views" role="group" aria-label="View">${c.views.map(([n], i) => `<button type="button" data-m3v="${i}" aria-pressed="${!i}" class="${i ? '' : 'on'}">${n}</button>`).join('')}</div>
+    </div>
+    <div class="m3-foot">
+      ${c.sizes ? `<div class="m3-sz" role="group" aria-label="Size">${c.sizes.map(([n, g]) => `<button type="button" data-glb="${g}" data-n="${n}" aria-pressed="${g === c.glb}" class="${g === c.glb ? 'on' : ''}">${n}</button>`).join('')}</div>` : ''}
+      <dl class="m3-facts">${m3FactsHTML(m3Facts(p, c, c.glb))}</dl>
+      <a class="ts-b1 m3-quote" href="#enquiry" data-n="${s ? s[0] : ''}">${m3Quote(s)}</a>
+    </div></section>`; };
+
+/* camera views; "Inside" puts the camera in the room, looking at the bench, worked out from the model's own size */
+function m3View(sec, i){ const mv = sec.querySelector('model-viewer'); const c = M3[sec.dataset.m3]; if (!mv || !c) return; const v = c.views[i]; if (!v) return;
+  sec.dataset.view = v[0];
+  sec.querySelectorAll('.m3-views button').forEach((b, k) => { b.classList.toggle('on', k === i); b.setAttribute('aria-pressed', k === i); });
+  if (v[1] === 'inside' && mv.loaded) {
+    const ctr = mv.getBoundingBoxCenter(), dim = mv.getDimensions(), floor = ctr.y - dim.y / 2, a = c.inside;
+    clearTimeout(mv._m3t); mv.minCameraOrbit = '-50deg 70deg 0.2m'; mv.maxCameraOrbit = '50deg 105deg 2m'; mv.disableZoom = true;
+    mv.fieldOfView = '72deg'; mv.cameraTarget = `${ctr.x}m ${floor + a.y}m ${ctr.z - dim.z / 2 + a.back}m`; mv.cameraOrbit = `0deg 84deg ${a.r}m`;
+  } else {
+    /* the outside framing depends on the field of view, so that is reset first and the camera moves a frame later */
+    clearTimeout(mv._m3t); mv.disableZoom = false; mv.fieldOfView = '27deg';
+    mv._m3t = setTimeout(() => { mv.minCameraOrbit = `${c.limit ? c.limit[0] + 'deg' : 'auto'} 25deg 40%`; mv.maxCameraOrbit = `${c.limit ? c.limit[1] + 'deg' : 'auto'} 92deg auto`;
+      mv.cameraTarget = 'auto auto auto'; mv.cameraOrbit = v[1] === 'inside' ? c.views[0][1] : v[1]; }, 60);
   }
-  /* the designer's files are not manufacturer-certified, so the line under the model names the product without measurements */
-  if (!t.dims) h = h.replace(/<p class="mv-dims">[^<]*<\/p>/, `<p class="mv-dims">${esc(p.name)}${t.sizes ? ' <span class="mv-szn">' + esc((t.sizes.find(z => z[1] === t.glb) || t.sizes[0])[0]) + '</span>' : ''}</p>`);
-  if (!t.sizes) h = h.replace(/ alt="([^"]*?) +3D model"/, ' alt="$1 3D model"');
-  return h.replace('<p class="ts-eyebrow">3D · to scale</p>', '<p class="ts-eyebrow">3D</p>'); };
-document.addEventListener('click', e => { const b = e.target.closest('.mv-sz button'); if (!b) return; const sec = b.closest('.ts-3d'); const mv = sec && sec.querySelector('model-viewer'); if (!mv || b.classList.contains('on')) return;
-  const src = D.glb[b.dataset.glb]; if (!src) return;
-  mv.classList.add('swapping'); mv.setAttribute('alt', mv.getAttribute('alt').replace(/\b(Small|Medium|Large)\b/, b.dataset.n)); mv.src = src;
-  b.parentElement.querySelectorAll('button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
-  const n = sec.querySelector('.mv-szn'); if (n) n.textContent = b.dataset.n; });
-document.addEventListener('load', e => { if (e.target && e.target.tagName === 'MODEL-VIEWER') e.target.classList.remove('swapping'); }, true);
+}
+document.addEventListener('click', e => { const b = e.target.closest('.m3-views button'); if (!b) return; m3View(b.closest('.m3'), +b.dataset.m3v); });
+/* size: new model, new name, new figures, new button */
+document.addEventListener('click', e => { const b = e.target.closest('.m3-sz button'); if (!b || b.classList.contains('on')) return; const sec = b.closest('.m3'); const mv = sec.querySelector('model-viewer');
+  const p = D.products.find(x => x.id === sec.dataset.m3); const c = M3[sec.dataset.m3]; const src = D.glb[b.dataset.glb]; if (!mv || !p || !src) return;
+  mv.classList.add('swapping'); mv.setAttribute('alt', `${p.name} ${b.dataset.n} 3D model`); mv.src = src;
+  sec.querySelectorAll('.m3-sz button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+  sec.querySelector('.m3-szn').textContent = b.dataset.n;
+  sec.querySelector('.m3-facts').innerHTML = m3FactsHTML(m3Facts(p, c, b.dataset.glb));
+  const q = sec.querySelector('.m3-quote'); q.textContent = m3Quote([b.dataset.n]); q.dataset.n = b.dataset.n; });
+document.addEventListener('load', e => { const mv = e.target; if (!mv || mv.tagName !== 'MODEL-VIEWER') return; mv.classList.remove('swapping');
+  const sec = mv.closest('.m3'); if (sec && sec.dataset.view === 'Inside') { const c = M3[sec.dataset.m3]; m3View(sec, c.views.findIndex(v => v[0] === 'Inside')); } }, true);
+/* one action, tied to the choice: the product and size go into the enquiry form's message, and the form ticks the product's line */
+document.addEventListener('click', e => { const a = e.target.closest('.m3-quote'); if (!a) return; e.preventDefault();
+  const p = D.products.find(x => x.id === a.closest('.m3').dataset.m3); const what = p.name + (a.dataset.n ? ' ' + a.dataset.n : '');
+  window.OB_CFG = what; const m = document.getElementById('msg'); if (m) m.value = 'I’d like pricing for: ' + what;
+  const q = document.getElementById('enquiry'); if (q) { msSet(q, [obLineForProduct(p)]); q.scrollIntoView({ behavior: RM() ? 'auto' : 'smooth' }); }
+  if (typeof obTrack === 'function') obTrack('configurator_complete', { product_id: p.id, modality: p.modality, configuration: what }); });
+
 (() => { const st = document.createElement('style'); st.textContent = `
-.ts-mv.swapping{opacity:.35}
-.mv-sz{display:inline-flex;gap:6px;margin:0 8px 10px 0;padding:4px;border-radius:999px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(31,31,31,.1)}
-.mv-sz button{border:0;background:transparent;font:inherit;font-size:13px;padding:6px 14px;border-radius:999px;cursor:pointer;color:#4a4a4f}
-.mv-sz button.on{background:#1f1f1f;color:#fff}
-.mv-sz button:focus-visible{outline:2px solid #1f1f1f;outline-offset:2px}
+.ts-3d.m3{justify-content:flex-start;padding:104px 20px 28px;gap:0}
+.m3 .m3-head{position:relative;z-index:2;flex:0 0 auto}
+.m3 .m3-name{font-size:clamp(30px,4.4vw,48px);line-height:1.1;margin:0;font-weight:500;letter-spacing:-.01em}
+.m3 .m3-szn{color:#6b6873}
+.m3 .m3-sub{margin:8px 0 0;color:#5d5a63;font-size:15px}
+.m3 .m3-stage{position:relative;flex:1 1 auto;width:100%;max-width:1400px;min-height:240px}
+.ts-3d.m3 .m3-mv{position:absolute;left:0;right:0;top:44px;bottom:0;width:100%;height:auto}
+.m3 .ts-mv.swapping{opacity:.35}
+.m3 .m3-views{position:absolute;left:50%;top:4px;transform:translateX(-50%);z-index:2;display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px rgba(31,31,31,.08);backdrop-filter:blur(8px)}
+.m3 .m3-views button,.m3 .m3-sz button{border:0;background:transparent;font:inherit;font-size:13px;padding:6px 14px;border-radius:999px;cursor:pointer;color:#4a4a4f}
+.m3 .m3-views button.on,.m3 .m3-sz button.on{background:#1f1f1f;color:#fff}
+.m3 .m3-views button:focus-visible,.m3 .m3-sz button:focus-visible{outline:2px solid #1f1f1f;outline-offset:2px}
+.m3 .m3-foot{position:relative;z-index:2;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;width:min(760px,100%);padding-top:12px}
+.m3 .m3-sz{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px rgba(31,31,31,.1)}
+.m3 .m3-sz button{padding:8px 20px;font-size:14px}
+.m3 .m3-facts{display:grid;grid-template-columns:repeat(3,1fr);width:100%;margin:0;gap:8px}
+.m3 .m3-facts div{display:flex;flex-direction:column;align-items:center}
+.m3 .m3-facts dt{font-size:clamp(22px,2.6vw,30px);font-weight:500;line-height:1.1}
+.m3 .m3-facts dd{margin:4px 0 0;font-size:13px;color:#5d5a63}
+.m3 .m3-quote{display:inline-flex;align-items:center;justify-content:center;min-width:260px;padding:13px 28px;border-radius:6px;background:#1f1f1f;color:#fff;font-size:15px;text-decoration:none}
+.m3 .m3-ar{position:absolute;right:16px;bottom:8px;border:0;font:inherit;font-size:13px;padding:8px 14px;border-radius:999px;background:#fff;color:#1f1f1f;box-shadow:0 1px 6px rgba(0,0,0,.15);cursor:pointer}
+@media(max-width:760px){
+ .ts-3d.m3{padding:84px 16px 20px}
+ .m3 .m3-name{font-size:28px}
+ .m3 .m3-sub{font-size:14px;margin-top:4px}
+ .m3 .m3-foot{gap:10px;padding-top:8px}
+ .m3 .m3-sz button{padding:7px 16px;font-size:13px}
+ .m3 .m3-facts dt{font-size:20px}
+ .m3 .m3-facts dd{font-size:12px}
+ .m3 .m3-quote{width:100%;min-width:0;padding:12px 16px}
+ .m3 .m3-ar{right:50%;transform:translateX(50%);bottom:4px}
+}
+@media(max-height:700px) and (max-width:760px){ .m3 .m3-sub{display:none} .ts-3d.m3{padding-top:76px} }
 `; document.head.appendChild(st); })();
 
 obInit();
