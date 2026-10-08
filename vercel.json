@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "echo skip",
-  "buildCommand": "SITE=1 node scripts/build-prototype.mjs",
+  "buildCommand": "node scripts/build-site.mjs",
   "outputDirectory": "proto-dist",
   "redirects": [
     {
@@ -81,12 +81,12 @@
     },
     {
       "source": "/pages/our-story",
-      "destination": "/",
+      "destination": "/about",
       "permanent": true
     },
     {
       "source": "/pages/onebase-team",
-      "destination": "/",
+      "destination": "/about",
       "permanent": true
     },
     {
@@ -146,6 +146,66 @@
     },
     {
       "source": "/pages/terms-of-use",
+      "destination": "/policies/terms",
+      "permanent": true
+    },
+    {
+      "source": "/pages/dr-scott-sherr-integrative-hbot",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/pages/community",
+      "destination": "/community",
+      "permanent": true
+    },
+    {
+      "source": "/pages/hbot-protocol-optimal-focus",
+      "destination": "/protocols/optimal-focus",
+      "permanent": true
+    },
+    {
+      "source": "/pages/hbot-protocol-fatigue",
+      "destination": "/protocols/dont-burn-out",
+      "permanent": true
+    },
+    {
+      "source": "/pages/athletic-performance",
+      "destination": "/protocols/athletic-performance",
+      "permanent": true
+    },
+    {
+      "source": "/pages/sport-recovery",
+      "destination": "/protocols/athletic-recovery",
+      "permanent": true
+    },
+    {
+      "source": "/pages/jet-lag",
+      "destination": "/protocols/jet-lag",
+      "permanent": true
+    },
+    {
+      "source": "/pages/long-covid-recovery",
+      "destination": "/protocols/viral-bounce-back",
+      "permanent": true
+    },
+    {
+      "source": "/pages/healthfit-pasadena",
+      "destination": "/customers/healthfit",
+      "permanent": true
+    },
+    {
+      "source": "/pages/kaylabarnes",
+      "destination": "/kayla",
+      "permanent": true
+    },
+    {
+      "source": "/partners",
+      "destination": "/precor",
+      "permanent": true
+    },
+    {
+      "source": "/terms-of-service",
       "destination": "/policies/terms",
       "permanent": true
     },

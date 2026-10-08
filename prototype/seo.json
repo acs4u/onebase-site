@@ -1,0 +1,38 @@
+{
+ "_about": "Titles and descriptions here replace the ones scripts/snapshot-routes.mjs records from the page. _noindex: pages kept out of search engines and the sitemap. _unlinked: pages no link leads to that should still be built.",
+ "_noindex": [
+  "/login"
+ ],
+ "_unlinked": [],
+ "/": {
+  "desc": "Commercial hyperbaric chambers, cold rooms, infrared saunas and red light therapy for gyms, studios, clinics, teams and hotels. Planned, installed and supported by OneBase."
+ },
+ "/products": {
+  "desc": "Hyperbaric chambers, dry cold rooms, infrared saunas and red light therapy for commercial facilities. Compare every OneBase product."
+ },
+ "/products/red-light/lightpanel": {
+  "desc": "High-density 660/850 nm red and near-infrared panels. Solo, Duo and Quad configurations with touch control."
+ },
+ "/contact": {
+  "desc": "Talk to OneBase about equipment, facility planning, pricing and delivery. Sales: (208) 408-1801."
+ },
+ "/guide": {
+  "desc": "See which recovery modalities fit your venue: gyms, studios, clinics, hotels and teams."
+ },
+ "/roi": {
+  "desc": "Estimate sessions a day, monthly revenue and payback for OneBase recovery equipment in your facility."
+ },
+ "/software": {
+  "title": "OneBase OS · OneBase Health"
+ },
+ "/parts": {
+  "title": "Parts & consumables · OneBase Health",
+  "desc": "Genuine parts and consumables for OneBase hyperbaric chambers. Add what you need and check out online."
+ },
+ "/kayla": {
+  "desc": "Why longevity expert Kayla Barnes-Lentz chooses OneBase hyperbaric chambers."
+ },
+ "/login": {
+  "title": "Log in · OneBase OS"
+ }
+}
